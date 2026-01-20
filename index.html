@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>MÁY BƠM NHÔM MINI - Xưởng Chế Tạo</title>  <!-- NOTE: Thay tiêu đề phù hợp với sản phẩm máy bơm -->
+  <title>MÁY BƠM NHÔM MINI - Xưởng Chế Tạo</title>
   <style>
     * { margin:0; padding:0; box-sizing:border-box; }
     body {
@@ -77,7 +77,7 @@
       text-align: center; 
       color: #c62828; 
       font-size: 2.4rem; 
-      margin-bottom: 30px;
+      margin-bottom: 30px; 
     }
 
     /* Giá & Gói */
@@ -177,14 +177,25 @@
       padding: 50px 20px;
       text-align: center;
     }
-    .order-form input {
+    .order-form label {
+      display: block;
+      font-size: 1.2rem;
+      margin: 15px 0 5px;
+      text-align: left;
+      max-width: 420px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .order-form input,
+    .order-form select {
       width: 100%;
       max-width: 420px;
-      padding: 18px;
-      font-size: 1.3rem;
+      padding: 12px;
+      font-size: 1.2rem;
       border: 2px solid #ef9a9a;
-      border-radius: 10px;
-      margin: 20px 0;
+      border-radius: 8px;
+      margin: 0 auto 10px;
+      display: block;
     }
 
     /* Footer */
@@ -207,7 +218,7 @@
 
 <header>
   <div class="container">
-    <h1>MÁY BƠM NHÔM MINI ĐÚC</h1>  <!-- NOTE: Thay từ miếng dán sang máy bơm -->
+    <h1>MÁY BƠM NHÔM MINI ĐÚC</h1>
     <div class="hot">BƠM NƯỚC NHANH – NHỎ GỌN – BỀN BỈ 100%</div>
     
     <div class="countdown">
@@ -283,19 +294,59 @@
   </div>
 </section>
 
+<!-- PHẦN FORM ĐẶT HÀNG - ĐÃ KẾT NỐI VỚI GOOGLE SHEET CỦA BẠN -->
 <section class="order-form">
   <div class="container">
     <h2>Đặt hàng ngay chỉ với 1 bước</h2>
-    <p style="font-size:1.3rem; margin:20px 0;">Nhập số điện thoại → Nhân viên gọi xác nhận → Giao hàng tận nơi</p>
+    <p style="font-size:1.3rem; margin:20px 0;">Nhập thông tin → Submit → Dữ liệu tự động lưu vào Google Sheet</p>
     
-    <form action="LINK_FORM_CỦA_BẠN" method="POST">
-      <input type="tel" name="phone" placeholder="Nhập số điện thoại của bạn..." required/>
-      <button type="submit" class="cta-btn" style="margin:0;">MUA NGAY – GIẢM 50%</button>
+    <form id="orderForm" method="POST">
+      <label for="quantity">Số lượng:</label>
+      <input type="number" id="quantity" name="so-luong" min="1" value="1" required placeholder="Ví dụ: 2">
+
+      <label for="fullname">Họ và tên:</label>
+      <input type="text" id="fullname" name="ho-ten" required placeholder="Ví dụ: Phạm Chí Cường">
+
+      <label for="phone">Số điện thoại:</label>
+      <input type="tel" id="phone" name="so-dien-thoai" required pattern="[0-9]{9,11}" placeholder="Ví dụ: 0987656667">
+
+      <label for="address">Địa chỉ nhận hàng:</label>
+      <input type="text" id="address" name="dia-chi" required placeholder="Ví dụ: 13 Linh Nam, Hoàng Mai, Hà Nội">
+
+      <button type="submit" class="cta-btn" style="margin:30px auto 0; display:block; background:#4caf50; color:white; box-shadow:0 6px 0 #388e3c;">ĐẶT HÀNG NGAY</button>
     </form>
+
+    <!-- JavaScript xử lý submit form -->
+    <script>
+      const form = document.getElementById('orderForm');
+      form.addEventListener('submit', async function(e) {
+        e.preventDefault(); // Ngăn reload trang
+
+        const formData = new FormData(form);
+        const data = {};
+        formData.forEach((value, key) => { data[key] = value; });
+
+        try {
+          const response = await fetch('https://script.google.com/macros/s/AKfycbx8oIos7Sbj-cgnHQXBioEMmutfmjHZ1JGYpfAJs9I5IzocinGRqKFoziRS72XftDphBw/exec', {
+            method: 'POST',
+            mode: 'no-cors',  // Quan trọng để tránh CORS block trên GitHub Pages
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: new URLSearchParams(data)
+          });
+
+          // Vì no-cors, không đọc được response → giả định thành công nếu không lỗi
+          alert('Đặt hàng thành công! Dữ liệu đã được gửi về Google Sheet. Chúng tôi sẽ liên hệ sớm.');
+          form.reset(); // Xóa form
+        } catch (error) {
+          console.error('Lỗi:', error);
+          alert('Có lỗi khi gửi đơn hàng: ' + error.message + '\nKiểm tra console (F12) hoặc liên hệ admin.');
+        }
+      });
+    </script>
   </div>
 </section>
 
-<!-- SECTION: HÌNH ẢNH SẢN PHẨM MÁY BƠM (kết hợp ảnh máy bơm) -->
+<!-- SECTION: HÌNH ẢNH SẢN PHẨM MÁY BƠM -->
 <section id="hinh-anh-san-pham" style="padding: 50px 15px; background: #f9f9f9; text-align: center;">
   <div class="container" style="max-width: 980px; margin: 0 auto;">
     <h2 style="color: #c62828; font-size: 2.2rem; margin-bottom: 30px;">Hình Ảnh Thực Tế Máy Bơm Nhôm Đúc</h2>
@@ -303,54 +354,28 @@
       Dưới đây là 3 góc chụp thực tế của sản phẩm. Máy bơm mini bằng nhôm, thiết kế chắc chắn, phù hợp cho ứng dụng DIY, tưới nhỏ hoặc mô hình.
     </p>
 
-    <!-- Gallery 3 ảnh responsive -->
     <div class="gallery" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 25px; justify-items: center;">
-      
-      <!-- Ảnh 1 -->
       <figure style="margin: 0; width: 100%; max-width: 450px;">
-        <img src="https://raw.githubusercontent.com/Phamcuong1405/xuongchetao/main/may-1.jpg" 
-             alt="Máy bơm nhôm đúc góc chính diện" 
-             loading="lazy"
-             style="width: 100%; height: auto; border-radius: 12px; box-shadow: 0 6px 18px rgba(0,0,0,0.12); transition: transform 0.3s;">
-        <figcaption style="margin-top: 12px; font-style: italic; color: #555; font-size: 1rem;">
-          Góc chính diện – Thân máy và ống nối
-        </figcaption>
+        <img src="https://raw.githubusercontent.com/Phamcuong1405/xuongchetao/main/may-1.jpg" alt="Máy bơm nhôm đúc góc chính diện" loading="lazy" style="width: 100%; height: auto; border-radius: 12px; box-shadow: 0 6px 18px rgba(0,0,0,0.12); transition: transform 0.3s;">
+        <figcaption style="margin-top: 12px; font-style: italic; color: #555; font-size: 1rem;">Góc chính diện – Thân máy và ống nối</figcaption>
       </figure>
 
-      <!-- Ảnh 2 -->
       <figure style="margin: 0; width: 100%; max-width: 450px;">
-        <img src="https://raw.githubusercontent.com/Phamcuong1405/xuongchetao/main/may-2.jpg" 
-             alt="Máy bơm nhôm góc nghiêng" 
-             loading="lazy"
-             style="width: 100%; height: auto; border-radius: 12px; box-shadow: 0 6px 18px rgba(0,0,0,0.12); transition: transform 0.3s;">
-        <figcaption style="margin-top: 12px; font-style: italic; color: #555; font-size: 1rem;">
-          Góc nghiêng – Chi tiết phần đầu ra và thân
-        </figcaption>
+        <img src="https://raw.githubusercontent.com/Phamcuong1405/xuongchetao/main/may-2.jpg" alt="Máy bơm nhôm góc nghiêng" loading="lazy" style="width: 100%; height: auto; border-radius: 12px; box-shadow: 0 6px 18px rgba(0,0,0,0.12); transition: transform 0.3s;">
+        <figcaption style="margin-top: 12px; font-style: italic; color: #555; font-size: 1rem;">Góc nghiêng – Chi tiết phần đầu ra và thân</figcaption>
       </figure>
 
-      <!-- Ảnh 3 -->
       <figure style="margin: 0; width: 100%; max-width: 450px;">
-        <img src="https://raw.githubusercontent.com/Phamcuong1405/xuongchetao/main/may3.jpg" 
-             alt="Máy bơm nhôm chi tiết impeller" 
-             loading="lazy"
-             style="width: 100%; height: auto; border-radius: 12px; box-shadow: 0 6px 18px rgba(0,0,0,0.12); transition: transform 0.3s;">
-        <figcaption style="margin-top: 12px; font-style: italic; color: #555; font-size: 1rem;">
-          Chi tiết impeller và phần lắp ráp bên trong
-        </figcaption>
+        <img src="https://raw.githubusercontent.com/Phamcuong1405/xuongchetao/main/may3.jpg" alt="Máy bơm nhôm chi tiết impeller" loading="lazy" style="width: 100%; height: auto; border-radius: 12px; box-shadow: 0 6px 18px rgba(0,0,0,0.12); transition: transform 0.3s;">
+        <figcaption style="margin-top: 12px; font-style: italic; color: #555; font-size: 1rem;">Chi tiết impeller và phần lắp ráp bên trong</figcaption>
       </figure>
-
     </div>
 
-    <!-- Hover effect nhẹ (tùy chọn) -->
     <style>
-      .gallery figure img:hover {
-        transform: scale(1.04);
-      }
+      .gallery figure img:hover { transform: scale(1.04); }
     </style>
 
-    <!-- Nút CTA nếu muốn -->
-    <a href="LINK_DAT_HANG_HOAC_ZALO_CUA_BAN" 
-       style="display: inline-block; background: #4caf50; color: white; font-size: 1.3rem; font-weight: bold; padding: 16px 50px; border-radius: 50px; text-decoration: none; margin: 40px 0 0; box-shadow: 0 6px 0 #388e3c; transition: all 0.2s;">
+    <a href="LINK_DAT_HANG_HOAC_ZALO_CUA_BAN" style="display: inline-block; background: #4caf50; color: white; font-size: 1.3rem; font-weight: bold; padding: 16px 50px; border-radius: 50px; text-decoration: none; margin: 40px 0 0; box-shadow: 0 6px 0 #388e3c; transition: all 0.2s;">
       Liên Hệ Đặt Hàng / Tư Vấn
     </a>
   </div>
