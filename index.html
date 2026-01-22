@@ -201,9 +201,62 @@
     }
     footer a { color: #ffca28; text-decoration: none; }
 
+    /* CAROUSEL CHO PHẦN HÌNH ẢNH */
+    .carousel-container {
+      position: relative;
+      max-width: 800px;
+      margin: 0 auto;
+      overflow: hidden;
+      border-radius: 12px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    }
+    .carousel {
+      display: flex;
+      transition: transform 0.5s ease-in-out;
+    }
+    .carousel-item {
+      min-width: 100%;
+      position: relative;
+    }
+    .carousel-item img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 12px;
+    }
+    .carousel-caption {
+      position: absolute;
+      bottom: 15px;
+      left: 0;
+      right: 0;
+      background: rgba(0,0,0,0.6);
+      color: white;
+      padding: 10px;
+      text-align: center;
+      font-size: 1rem;
+      border-radius: 0 0 12px 12px;
+    }
+    .carousel-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(0,0,0,0.5);
+      color: white;
+      border: none;
+      padding: 12px 18px;
+      font-size: 1.8rem;
+      cursor: pointer;
+      border-radius: 50%;
+      user-select: none;
+    }
+    .carousel-arrow.left { left: 15px; }
+    .carousel-arrow.right { right: 15px; }
+    .carousel-arrow:hover { background: rgba(0,0,0,0.8); }
+
     @media (max-width: 600px) {
       header h1 { font-size: 2.2rem; }
       .cta-btn { font-size: 1.3rem; padding: 15px 40px; }
+      .carousel-arrow { padding: 10px 14px; font-size: 1.5rem; }
     }
   </style>
 </head>
@@ -228,34 +281,33 @@
   </div>
 </header>
 
-<!-- PHẦN HÌNH ẢNH SẢN PHẨM ĐƯỢC ĐẶT LÊN TRÊN -->
+<!-- PHẦN HÌNH ẢNH SẢN PHẨM (CAROUSEL) -->
 <section id="hinh-anh-san-pham" style="padding: 50px 15px; background: #f9f9f9; text-align: center;">
   <div class="container" style="max-width: 980px; margin: 0 auto;">
     <h2 style="color: #c62828; font-size: 2.2rem; margin-bottom: 30px;">Hình Ảnh Thực Tế Máy Bơm Nhôm Đúc</h2>
     <p style="font-size: 1.15rem; margin-bottom: 40px; color: #444; max-width: 800px; margin-left: auto; margin-right: auto;">
-      Dưới đây là 3 góc chụp thực tế của sản phẩm. Máy bơm mini bằng nhôm, thiết kế chắc chắn, phù hợp cho ứng dụng DIY, tưới nhỏ hoặc mô hình.
+      Vuốt sang trái/phải hoặc click mũi tên để xem chi tiết. Máy bơm mini bằng nhôm, thiết kế chắc chắn, phù hợp cho ứng dụng DIY, tưới nhỏ hoặc mô hình.
     </p>
 
-    <div class="gallery" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 25px; justify-items: center;">
-      <figure style="margin: 0; width: 100%; max-width: 450px;">
-        <img src="https://raw.githubusercontent.com/Phamcuong1405/xuongchetao/main/may-1.jpg" alt="Máy bơm nhôm đúc góc chính diện" loading="lazy" style="width: 100%; height: auto; border-radius: 12px; box-shadow: 0 6px 18px rgba(0,0,0,0.12); transition: transform 0.3s;">
-        <figcaption style="margin-top: 12px; font-style: italic; color: #555; font-size: 1rem;">Góc chính diện – Thân máy và ống nối</figcaption>
-      </figure>
+    <div class="carousel-container">
+      <div class="carousel" id="carousel">
+        <div class="carousel-item">
+          <img src="https://raw.githubusercontent.com/Phamcuong1405/xuongchetao/main/may-1.jpg" alt="Máy bơm nhôm đúc góc chính diện" loading="lazy">
+          <div class="carousel-caption">Góc chính diện – Thân máy và ống nối</div>
+        </div>
+        <div class="carousel-item">
+          <img src="https://raw.githubusercontent.com/Phamcuong1405/xuongchetao/main/may-2.jpg" alt="Máy bơm nhôm góc nghiêng" loading="lazy">
+          <div class="carousel-caption">Góc nghiêng – Chi tiết phần đầu ra và thân</div>
+        </div>
+        <div class="carousel-item">
+          <img src="https://raw.githubusercontent.com/Phamcuong1405/xuongchetao/main/may3.jpg" alt="Máy bơm nhôm chi tiết impeller" loading="lazy">
+          <div class="carousel-caption">Chi tiết impeller và phần lắp ráp bên trong</div>
+        </div>
+      </div>
 
-      <figure style="margin: 0; width: 100%; max-width: 450px;">
-        <img src="https://raw.githubusercontent.com/Phamcuong1405/xuongchetao/main/may-2.jpg" alt="Máy bơm nhôm góc nghiêng" loading="lazy" style="width: 100%; height: auto; border-radius: 12px; box-shadow: 0 6px 18px rgba(0,0,0,0.12); transition: transform 0.3s;">
-        <figcaption style="margin-top: 12px; font-style: italic; color: #555; font-size: 1rem;">Góc nghiêng – Chi tiết phần đầu ra và thân</figcaption>
-      </figure>
-
-      <figure style="margin: 0; width: 100%; max-width: 450px;">
-        <img src="https://raw.githubusercontent.com/Phamcuong1405/xuongchetao/main/may3.jpg" alt="Máy bơm nhôm chi tiết impeller" loading="lazy" style="width: 100%; height: auto; border-radius: 12px; box-shadow: 0 6px 18px rgba(0,0,0,0.12); transition: transform 0.3s;">
-        <figcaption style="margin-top: 12px; font-style: italic; color: #555; font-size: 1rem;">Chi tiết impeller và phần lắp ráp bên trong</figcaption>
-      </figure>
+      <button class="carousel-arrow left" onclick="moveSlide(-1)">&#10094;</button>
+      <button class="carousel-arrow right" onclick="moveSlide(1)">&#10095;</button>
     </div>
-
-    <style>
-      .gallery figure img:hover { transform: scale(1.04); }
-    </style>
   </div>
 </section>
 
@@ -304,7 +356,7 @@
   </div>
 </section>
 
-<!-- PHẦN ĐẶT HÀNG (đặt ngay sau phần chọn gói) -->
+<!-- PHẦN ĐẶT HÀNG -->
 <section class="order-form">
   <div class="container">
     <h2>Đặt hàng ngay chỉ với 1 bước</h2>
@@ -361,7 +413,7 @@
   </div>
 </section>
 
-<!-- PHẦN LỢI ÍCH (đặt sau cùng) -->
+<!-- PHẦN LỢI ÍCH -->
 <section class="benefits">
   <div class="container">
     <h2>Tại sao nên chọn ngay hôm nay?</h2>
@@ -388,6 +440,25 @@
     <p style="margin-top:15px;">SHIP TOÀN QUỐC – UY TÍN TẠO NÊN THƯƠNG HIỆU</p>
   </div>
 </footer>
+
+<!-- JS CHO CAROUSEL HÌNH ẢNH -->
+<script>
+  let currentSlide = 0;
+  const slides = document.querySelectorAll('.carousel-item');
+  const totalSlides = slides.length;
+
+  function moveSlide(direction) {
+    currentSlide = (currentSlide + direction + totalSlides) % totalSlides;
+    document.getElementById('carousel').style.transform = `translateX(-${currentSlide * 100}%)`;
+  }
+
+  // Tự động chuyển slide mỗi 5 giây
+  setInterval(() => moveSlide(1), 5000);
+
+  // Dừng khi hover
+  document.querySelector('.carousel-container').addEventListener('mouseenter', () => clearInterval(autoSlide));
+  document.querySelector('.carousel-container').addEventListener('mouseleave', () => autoSlide = setInterval(() => moveSlide(1), 5000));
+</script>
 
 </body>
 </html>
