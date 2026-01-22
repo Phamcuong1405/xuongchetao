@@ -286,13 +286,13 @@
   </div>
 </section>
 
-<!-- PHẦN FORM ĐẶT HÀNG – ĐÃ KẾT NỐI GOOGLE SHEET -->
+<!-- FORM ĐẶT HÀNG – ĐÃ CẬP NHẬT URL MỚI -->
 <section class="order-form">
   <div class="container">
     <h2>Đặt hàng ngay chỉ với 1 bước</h2>
     <p style="font-size:1.3rem; margin:20px 0;">Nhập thông tin → Chúng tôi sẽ liên hệ xác nhận → Giao hàng tận nơi</p>
     
-    <form id="order-form" action="https://script.google.com/macros/s/AKfycbwLvND7cGfixpzOjARfzDgTQcyrnOvBljIt0U7GE8rSgyrKEFoBz8JdkBecYD_hddJ50g/exec" method="POST">
+    <form id="order-form" action="https://script.google.com/macros/s/AKfycbyKENrUcGSnV-F3ML4CeUJHdMoDBlPHoqpkc5CFfwGc3MIKy0Ry3FKwoeVduhgQ_jwY/exec" method="POST" target="_blank">
       <label for="quantity">Số lượng:</label>
       <input type="number" id="quantity" name="Số lượng" min="1" value="1" required>
 
@@ -300,39 +300,48 @@
       <input type="text" id="name" name="Họ tên" placeholder="Ví dụ: Phạm Chí Cường" required>
 
       <label for="phone">Số điện thoại:</label>
-      <input type="tel" id="phone" name="Số điện thoại" placeholder="Ví dụ: 0987656667" required pattern="[0-9]{9,11}">
+      <input type="tel" id="phone" name="Số điện thoại" placeholder="Ví dụ: 0987777788" required pattern="[0-9]{9,11}">
 
       <label for="address">Địa chỉ nhận hàng:</label>
-      <input type="text" id="address" name="Địa chỉ" placeholder="Ví dụ: 13 Linh Nam, Hoàng Mai, Hà Nội" required>
+      <input type="text" id="address" name="Địa chỉ" placeholder="Ví dụ: Ngõ 13 Linh Nam, Hà Nội" required>
 
       <button type="submit" class="cta-btn" style="margin:30px auto 0; display:block; width:100%; max-width:420px;">ĐẶT HÀNG NGAY</button>
     </form>
 
-    <!-- JavaScript xử lý gửi form và thông báo -->
+    <!-- JS xử lý submit (báo lỗi rõ ràng hơn) -->
     <script>
       document.getElementById('order-form').addEventListener('submit', function(e) {
         e.preventDefault(); // Ngăn reload trang
-
         const formData = new FormData(this);
 
         fetch(this.action, {
           method: 'POST',
           body: formData
         })
-        .then(response => response.json())
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Lỗi server: ' + response.status + ' - ' + response.statusText);
+          }
+          return response.json();
+        })
         .then(data => {
           if (data.result === 'success') {
             alert('Đặt hàng thành công! Chúng tôi sẽ liên hệ sớm.');
-            this.reset(); // Xóa form sau khi gửi
+            this.reset();
           } else {
-            alert('Có lỗi xảy ra: ' + (data.message || 'Vui lòng thử lại'));
+            alert('Lỗi từ server: ' + (data.message || 'Không rõ'));
           }
         })
         .catch(error => {
-          alert('Lỗi kết nối: ' + error.message + '\nKiểm tra lại URL script hoặc quyền truy cập "Anyone"');
+          alert('Lỗi gửi đơn: ' + error.message + '\nThử mở link web trực tiếp trên Chrome/Safari thay vì trong Messenger nhé!');
         });
       });
     </script>
+
+    <!-- Gợi ý cho khách mở ngoài Messenger -->
+    <p style="font-size: 0.9rem; color: #666; margin-top: 15px;">
+      Nếu đặt hàng từ Messenger/Facebook, hãy mở link web trực tiếp trên Chrome hoặc Safari để gửi nhanh hơn.
+    </p>
   </div>
 </section>
 
