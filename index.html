@@ -181,8 +181,7 @@
       margin-left: auto;
       margin-right: auto;
     }
-    .order-form input,
-    .order-form select {
+    .order-form input {
       width: 100%;
       max-width: 420px;
       padding: 12px;
@@ -229,6 +228,38 @@
   </div>
 </header>
 
+<!-- PHẦN HÌNH ẢNH SẢN PHẨM ĐƯỢC ĐẶT LÊN TRÊN -->
+<section id="hinh-anh-san-pham" style="padding: 50px 15px; background: #f9f9f9; text-align: center;">
+  <div class="container" style="max-width: 980px; margin: 0 auto;">
+    <h2 style="color: #c62828; font-size: 2.2rem; margin-bottom: 30px;">Hình Ảnh Thực Tế Máy Bơm Nhôm Đúc</h2>
+    <p style="font-size: 1.15rem; margin-bottom: 40px; color: #444; max-width: 800px; margin-left: auto; margin-right: auto;">
+      Dưới đây là 3 góc chụp thực tế của sản phẩm. Máy bơm mini bằng nhôm, thiết kế chắc chắn, phù hợp cho ứng dụng DIY, tưới nhỏ hoặc mô hình.
+    </p>
+
+    <div class="gallery" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 25px; justify-items: center;">
+      <figure style="margin: 0; width: 100%; max-width: 450px;">
+        <img src="https://raw.githubusercontent.com/Phamcuong1405/xuongchetao/main/may-1.jpg" alt="Máy bơm nhôm đúc góc chính diện" loading="lazy" style="width: 100%; height: auto; border-radius: 12px; box-shadow: 0 6px 18px rgba(0,0,0,0.12); transition: transform 0.3s;">
+        <figcaption style="margin-top: 12px; font-style: italic; color: #555; font-size: 1rem;">Góc chính diện – Thân máy và ống nối</figcaption>
+      </figure>
+
+      <figure style="margin: 0; width: 100%; max-width: 450px;">
+        <img src="https://raw.githubusercontent.com/Phamcuong1405/xuongchetao/main/may-2.jpg" alt="Máy bơm nhôm góc nghiêng" loading="lazy" style="width: 100%; height: auto; border-radius: 12px; box-shadow: 0 6px 18px rgba(0,0,0,0.12); transition: transform 0.3s;">
+        <figcaption style="margin-top: 12px; font-style: italic; color: #555; font-size: 1rem;">Góc nghiêng – Chi tiết phần đầu ra và thân</figcaption>
+      </figure>
+
+      <figure style="margin: 0; width: 100%; max-width: 450px;">
+        <img src="https://raw.githubusercontent.com/Phamcuong1405/xuongchetao/main/may3.jpg" alt="Máy bơm nhôm chi tiết impeller" loading="lazy" style="width: 100%; height: auto; border-radius: 12px; box-shadow: 0 6px 18px rgba(0,0,0,0.12); transition: transform 0.3s;">
+        <figcaption style="margin-top: 12px; font-style: italic; color: #555; font-size: 1rem;">Chi tiết impeller và phần lắp ráp bên trong</figcaption>
+      </figure>
+    </div>
+
+    <style>
+      .gallery figure img:hover { transform: scale(1.04); }
+    </style>
+  </div>
+</section>
+
+<!-- PHẦN CHỌN GÓI -->
 <section>
   <div class="container">
     <h2>Chọn gói phù hợp ngay hôm nay</h2>
@@ -273,20 +304,7 @@
   </div>
 </section>
 
-<section class="benefits">
-  <div class="container">
-    <h2>Tại sao nên chọn ngay hôm nay?</h2>
-    <ul>
-      <li>Chất liệu nhôm đúc bền bỉ, chống gỉ sét</li>
-      <li>Kích thước nhỏ gọn, dễ lắp đặt DIY</li>
-      <li>Bơm nước nhanh, hiệu suất cao</li>
-      <li>HOÀN TIỀN 200% nếu không như quảng cáo</li>
-      <li>Ship COD toàn quốc – kiểm tra hàng trước khi thanh toán</li>
-    </ul>
-  </div>
-</section>
-
-<!-- FORM ĐẶT HÀNG – ĐÃ CẬP NHẬT URL MỚI -->
+<!-- PHẦN ĐẶT HÀNG (đặt ngay sau phần chọn gói) -->
 <section class="order-form">
   <div class="container">
     <h2>Đặt hàng ngay chỉ với 1 bước</h2>
@@ -308,10 +326,9 @@
       <button type="submit" class="cta-btn" style="margin:30px auto 0; display:block; width:100%; max-width:420px;">ĐẶT HÀNG NGAY</button>
     </form>
 
-    <!-- JS xử lý submit (báo lỗi rõ ràng hơn) -->
     <script>
       document.getElementById('order-form').addEventListener('submit', function(e) {
-        e.preventDefault(); // Ngăn reload trang
+        e.preventDefault();
         const formData = new FormData(this);
 
         fetch(this.action, {
@@ -320,7 +337,7 @@
         })
         .then(response => {
           if (!response.ok) {
-            throw new Error('Lỗi server: ' + response.status + ' - ' + response.statusText);
+            throw new Error('Lỗi server: ' + response.status);
           }
           return response.json();
         })
@@ -338,45 +355,23 @@
       });
     </script>
 
-    <!-- Gợi ý cho khách mở ngoài Messenger -->
     <p style="font-size: 0.9rem; color: #666; margin-top: 15px;">
       Nếu đặt hàng từ Messenger/Facebook, hãy mở link web trực tiếp trên Chrome hoặc Safari để gửi nhanh hơn.
     </p>
   </div>
 </section>
 
-<!-- SECTION: HÌNH ẢNH SẢN PHẨM MÁY BƠM -->
-<section id="hinh-anh-san-pham" style="padding: 50px 15px; background: #f9f9f9; text-align: center;">
-  <div class="container" style="max-width: 980px; margin: 0 auto;">
-    <h2 style="color: #c62828; font-size: 2.2rem; margin-bottom: 30px;">Hình Ảnh Thực Tế Máy Bơm Nhôm Đúc</h2>
-    <p style="font-size: 1.15rem; margin-bottom: 40px; color: #444; max-width: 800px; margin-left: auto; margin-right: auto;">
-      Dưới đây là 3 góc chụp thực tế của sản phẩm. Máy bơm mini bằng nhôm, thiết kế chắc chắn, phù hợp cho ứng dụng DIY, tưới nhỏ hoặc mô hình.
-    </p>
-
-    <div class="gallery" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 25px; justify-items: center;">
-      <figure style="margin: 0; width: 100%; max-width: 450px;">
-        <img src="https://raw.githubusercontent.com/Phamcuong1405/xuongchetao/main/may-1.jpg" alt="Máy bơm nhôm đúc góc chính diện" loading="lazy" style="width: 100%; height: auto; border-radius: 12px; box-shadow: 0 6px 18px rgba(0,0,0,0.12); transition: transform 0.3s;">
-        <figcaption style="margin-top: 12px; font-style: italic; color: #555; font-size: 1rem;">Góc chính diện – Thân máy và ống nối</figcaption>
-      </figure>
-
-      <figure style="margin: 0; width: 100%; max-width: 450px;">
-        <img src="https://raw.githubusercontent.com/Phamcuong1405/xuongchetao/main/may-2.jpg" alt="Máy bơm nhôm góc nghiêng" loading="lazy" style="width: 100%; height: auto; border-radius: 12px; box-shadow: 0 6px 18px rgba(0,0,0,0.12); transition: transform 0.3s;">
-        <figcaption style="margin-top: 12px; font-style: italic; color: #555; font-size: 1rem;">Góc nghiêng – Chi tiết phần đầu ra và thân</figcaption>
-      </figure>
-
-      <figure style="margin: 0; width: 100%; max-width: 450px;">
-        <img src="https://raw.githubusercontent.com/Phamcuong1405/xuongchetao/main/may3.jpg" alt="Máy bơm nhôm chi tiết impeller" loading="lazy" style="width: 100%; height: auto; border-radius: 12px; box-shadow: 0 6px 18px rgba(0,0,0,0.12); transition: transform 0.3s;">
-        <figcaption style="margin-top: 12px; font-style: italic; color: #555; font-size: 1rem;">Chi tiết impeller và phần lắp ráp bên trong</figcaption>
-      </figure>
-    </div>
-
-    <style>
-      .gallery figure img:hover { transform: scale(1.04); }
-    </style>
-
-    <a href="LINK_DAT_HANG_HOAC_ZALO_CUA_BAN" style="display: inline-block; background: #4caf50; color: white; font-size: 1.3rem; font-weight: bold; padding: 16px 50px; border-radius: 50px; text-decoration: none; margin: 40px 0 0; box-shadow: 0 6px 0 #388e3c; transition: all 0.2s;">
-      Liên Hệ Đặt Hàng / Tư Vấn
-    </a>
+<!-- PHẦN LỢI ÍCH (đặt sau cùng) -->
+<section class="benefits">
+  <div class="container">
+    <h2>Tại sao nên chọn ngay hôm nay?</h2>
+    <ul>
+      <li>Chất liệu nhôm đúc bền bỉ, chống gỉ sét</li>
+      <li>Kích thước nhỏ gọn, dễ lắp đặt DIY</li>
+      <li>Bơm nước nhanh, hiệu suất cao</li>
+      <li>HOÀN TIỀN 200% nếu không như quảng cáo</li>
+      <li>Ship COD toàn quốc – kiểm tra hàng trước khi thanh toán</li>
+    </ul>
   </div>
 </section>
 
