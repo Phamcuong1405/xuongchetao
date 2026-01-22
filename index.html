@@ -44,7 +44,11 @@ footer{background:#333;color:#fff;text-align:center;padding:30px;font-size:.95re
     <h2>Đặt hàng ngay</h2>
     <p>Điền thông tin – chúng tôi gọi xác nhận – giao tận nơi</p>
 
-    <form id="orderForm">
+    <!-- FORM POST TRỰC TIẾP -->
+    <form 
+      action="https://script.google.com/macros/s/AKfycbye5WTZfg-rAY0fSHSh9ZSRs5jWEhBkrPhLCuwiAgv-cRZBg44AVNwEK944AWRs6sAPtg/exec"
+      method="POST"
+    >
       <label>Số lượng</label>
       <input type="number" name="quantity" value="1" min="1" required>
 
@@ -52,12 +56,14 @@ footer{background:#333;color:#fff;text-align:center;padding:30px;font-size:.95re
       <input type="text" name="name" required>
 
       <label>Số điện thoại</label>
-      <input type="tel" name="phone" required pattern="[0-9]{9,11}">
+      <input type="tel" name="phone" required>
 
       <label>Địa chỉ nhận hàng</label>
       <input type="text" name="address" required>
 
-      <button type="submit" class="cta-btn" style="margin-top:30px;width:100%">ĐẶT HÀNG NGAY</button>
+      <button type="submit" class="cta-btn" style="margin-top:30px;width:100%">
+        ĐẶT HÀNG NGAY
+      </button>
     </form>
 
     <p style="font-size:.9rem;color:#555;margin-top:15px">
@@ -71,33 +77,6 @@ footer{background:#333;color:#fff;text-align:center;padding:30px;font-size:.95re
   <p>Hotline: 0888 526 832</p>
   <p>Ship COD toàn quốc</p>
 </footer>
-
-<!-- SCRIPT GỬI GOOGLE SHEET (KHÔNG CORS) -->
-<script>
-const scriptURL = "https://script.google.com/macros/s/AKfycbye5WTZfg-rAY0fSHSh9ZSRs5jWEhBkrPhLCuwiAgv-cRZBg44AVNwEK944AWRs6sAPtg/exec";
-
-document.getElementById("orderForm").addEventListener("submit", function(e){
-  e.preventDefault();
-  const formData = new FormData(this);
-
-  fetch(scriptURL,{
-    method:"POST",
-    body:formData
-  })
-  .then(r=>r.text())
-  .then(t=>{
-    if(t==="OK"){
-      alert("✅ Đặt hàng thành công! Chúng tôi sẽ liên hệ sớm.");
-      this.reset();
-    }else{
-      alert("❌ Lỗi: "+t);
-    }
-  })
-  .catch(()=>{
-    alert("❌ Không gửi được đơn. Vui lòng mở link bằng Chrome/Safari.");
-  });
-});
-</script>
 
 </body>
 </html>
