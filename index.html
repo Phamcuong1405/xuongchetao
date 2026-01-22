@@ -253,7 +253,7 @@
     .carousel-arrow.right { right: 15px; }
     .carousel-arrow:hover { background: rgba(0,0,0,0.8); }
 
-    /* POPUP LOADING & SUCCESS */
+    /* POPUP */
     .popup-overlay {
       position: fixed;
       top: 0;
@@ -334,8 +334,8 @@
         </div>
       </div>
 
-      <button class="carousel-arrow left" onclick="moveSlide(-1)">‹</button>
-      <button class="carousel-arrow right" onclick="moveSlide(1)">›</button>
+      <button class="carousel-arrow left" onclick="moveSlide(-1)">&#10094;</button>
+      <button class="carousel-arrow right" onclick="moveSlide(1)">&#10095;</button>
     </div>
   </div>
 </section>
@@ -413,7 +413,7 @@
   </div>
 </section>
 
-<!-- POPUP LOADING & SUCCESS -->
+<!-- POPUP -->
 <div class="popup-overlay" id="popupOverlay">
   <div class="popup-content" id="popupContent">
     <div class="popup-icon" id="popupIcon">⏳</div>
@@ -450,7 +450,7 @@
   </div>
 </footer>
 
-<!-- JS CHO CAROUSEL HÌNH ẢNH -->
+<!-- JS CAROUSEL -->
 <script>
   let currentSlide = 0;
   const slides = document.querySelectorAll('.carousel-item');
@@ -467,7 +467,7 @@
   document.querySelector('.carousel-container').addEventListener('mouseleave', () => autoSlide = setInterval(() => moveSlide(1), 5000));
 </script>
 
-<!-- JS CHO POPUP & SUBMIT FORM (SỬA LẠI ĐỂ BÁO LỖI RÕ HƠN) -->
+<!-- JS SUBMIT & POPUP (SỬA LẠI ĐỂ BÁO LỖI RÕ RÀNG) -->
 <script>
   const form = document.getElementById('order-form');
   const overlay = document.getElementById('popupOverlay');
@@ -489,7 +489,7 @@
 
     try {
       const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 10000); // Timeout 10 giây
+      const timeoutId = setTimeout(() => controller.abort(), 10000);
 
       const response = await fetch(this.action, {
         method: 'POST',
@@ -499,16 +499,9 @@
 
       clearTimeout(timeoutId);
 
-      const contentType = response.headers.get("content-type");
-
       if (!response.ok) {
         const errorText = await response.text();
         throw new Error(`Lỗi server: ${response.status} - ${errorText.substring(0, 100)}...`);
-      }
-
-      if (!contentType || !contentType.includes("application/json")) {
-        const text = await response.text();
-        throw new Error(`Server trả về không phải JSON: ${text.substring(0, 100)}...`);
       }
 
       const data = await response.json();
@@ -528,7 +521,7 @@
       content.className = 'popup-content error';
       icon.innerHTML = '❌';
       text.innerHTML = 'Gửi đơn thất bại!';
-      subtext.innerHTML = error.message + '<br>Thử lại hoặc liên hệ hotline 0888 526 832.';
+      subtext.innerHTML = error.message + '<br>Thử mở link web trực tiếp trên Chrome/Safari thay vì trong Messenger nhé!';
       setTimeout(() => overlay.style.display = 'none', 6000);
       console.error('Fetch error:', error);
     }
