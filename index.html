@@ -201,7 +201,7 @@
     }
     footer a { color: #ffca28; text-decoration: none; }
 
-    /* CAROUSEL CHO PHẦN HÌNH ẢNH */
+    /* CAROUSEL HÌNH ẢNH */
     .carousel-container {
       position: relative;
       max-width: 800px;
@@ -253,10 +253,56 @@
     .carousel-arrow.right { right: 15px; }
     .carousel-arrow:hover { background: rgba(0,0,0,0.8); }
 
+    /* POPUP LOADING & SUCCESS */
+    .popup-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.6);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+    .popup-content {
+      background: white;
+      padding: 30px 40px;
+      border-radius: 12px;
+      text-align: center;
+      max-width: 400px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    }
+    .popup-content.loading {
+      background: #fff;
+    }
+    .popup-content.success {
+      background: #4caf50;
+      color: white;
+    }
+    .popup-content.error {
+      background: #f44336;
+      color: white;
+    }
+    .popup-icon {
+      font-size: 3rem;
+      margin-bottom: 15px;
+    }
+    .popup-text {
+      font-size: 1.3rem;
+      margin-bottom: 10px;
+    }
+    .popup-subtext {
+      font-size: 1rem;
+      opacity: 0.9;
+    }
+
     @media (max-width: 600px) {
       header h1 { font-size: 2.2rem; }
       .cta-btn { font-size: 1.3rem; padding: 15px 40px; }
       .carousel-arrow { padding: 10px 14px; font-size: 1.5rem; }
+      .popup-content { padding: 20px 30px; max-width: 90%; }
     }
   </style>
 </head>
@@ -322,9 +368,9 @@
         <div class="price">250.000đ</div>
         <div class="old-price">290.000đ</div>
         <ul>
+          <li>Chưa bao gồm phí vận chuyển</li>
           <li>1 máy bơm mini</li>
           <li>Phù hợp thử nghiệm DIY</li>
-          <li>Phí ship: 20k–30k</li>
         </ul>
         <a href="LINK_MUA_1" class="btn">MUA NGAY</a>
       </div>
@@ -334,23 +380,23 @@
         <div class="price">500.000đ</div>
         <div class="old-price">580.000đ</div>
         <ul>
-          <li>MIỄN PHÍ SHIP TOÀN QUỐC</li>
-          <li>Bào hành 01 tháng cho đầu bơm </li>
-          <li>Tiết kiệm hơn 60%</li>
+          <li>MIỄN PHÍ VẬN CHUYỂN</li>
+          <li>Bào hành 01 tháng cho đầu bơm</li>
+          <li>Tiết kiệm hơn</li>
         </ul>
-        <a href="LINK_MUA_3" class="btn">CHỌN GÓI NÀY</a>
+        <a href="LINK_MUA_2" class="btn">CHỌN GÓI NÀY</a>
       </div>
 
-      <div class="card">
-        <h3>GÓI 3 CÁI </h3>
-        <div class="price">750.000đ</div>
+      <div class="card hot-deal">
+        <h3>GÓI 3 CÁI</h3>
+        <div class="price">720.000đ</div>
         <div class="old-price">870.000đ</div>
         <ul>
-          <li>MIỄN PHÍ SHIP</li>
-          <li>Bảo hành 03 tháng chocho đầu bơm </li>
+          <li>MIỄN PHÍ VẬN CHUYỂN</li>
+          <li>Bảo hành 03 tháng cho đầu bơm</li>
           <li>Phù hợp xưởng nhỏ</li>
         </ul>
-        <a href="LINK_MUA_5" class="btn">MUA GÓI SIÊU TIẾT KIỆM</a>
+        <a href="LINK_MUA_3" class="btn">MUA GÓI SIÊU TIẾT KIỆM</a>
       </div>
     </div>
   </div>
@@ -378,40 +424,20 @@
       <button type="submit" class="cta-btn" style="margin:30px auto 0; display:block; width:100%; max-width:420px;">ĐẶT HÀNG NGAY</button>
     </form>
 
-    <script>
-      document.getElementById('order-form').addEventListener('submit', function(e) {
-        e.preventDefault();
-        const formData = new FormData(this);
-
-        fetch(this.action, {
-          method: 'POST',
-          body: formData
-        })
-        .then(response => {
-          if (!response.ok) {
-            throw new Error('Lỗi server: ' + response.status);
-          }
-          return response.json();
-        })
-        .then(data => {
-          if (data.result === 'success') {
-            alert('Đặt hàng thành công! Chúng tôi sẽ liên hệ sớm.');
-            this.reset();
-          } else {
-            alert('Lỗi từ server: ' + (data.message || 'Không rõ'));
-          }
-        })
-        .catch(error => {
-          alert('Lỗi gửi đơn: ' + error.message + '\nThử mở link web trực tiếp trên Chrome/Safari thay vì trong Messenger nhé!');
-        });
-      });
-    </script>
-
     <p style="font-size: 0.9rem; color: #666; margin-top: 15px;">
       Nếu đặt hàng từ Messenger/Facebook, hãy mở link web trực tiếp trên Chrome hoặc Safari để gửi nhanh hơn.
     </p>
   </div>
 </section>
+
+<!-- POPUP LOADING & SUCCESS -->
+<div class="popup-overlay" id="popupOverlay">
+  <div class="popup-content" id="popupContent">
+    <div class="popup-icon" id="popupIcon">⏳</div>
+    <div class="popup-text" id="popupText">Đang gửi đơn đặt hàng...</div>
+    <div class="popup-subtext" id="popupSubtext">Vui lòng chờ trong giây lát</div>
+  </div>
+</div>
 
 <!-- PHẦN LỢI ÍCH -->
 <section class="benefits">
@@ -453,11 +479,72 @@
   }
 
   // Tự động chuyển slide mỗi 5 giây
-  setInterval(() => moveSlide(1), 5000);
+  let autoSlide = setInterval(() => moveSlide(1), 5000);
 
   // Dừng khi hover
   document.querySelector('.carousel-container').addEventListener('mouseenter', () => clearInterval(autoSlide));
   document.querySelector('.carousel-container').addEventListener('mouseleave', () => autoSlide = setInterval(() => moveSlide(1), 5000));
+</script>
+
+<!-- JS CHO POPUP & SUBMIT FORM -->
+<script>
+  const form = document.getElementById('order-form');
+  const overlay = document.getElementById('popupOverlay');
+  const content = document.getElementById('popupContent');
+  const icon = document.getElementById('popupIcon');
+  const text = document.getElementById('popupText');
+  const subtext = document.getElementById('popupSubtext');
+
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    // Hiện popup loading
+    overlay.style.display = 'flex';
+    content.className = 'popup-content loading';
+    icon.innerHTML = '⏳';
+    text.innerHTML = 'Đang gửi đơn đặt hàng...';
+    subtext.innerHTML = 'Vui lòng chờ trong giây lát';
+
+    const formData = new FormData(this);
+
+    fetch(this.action, {
+      method: 'POST',
+      body: formData
+    })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Lỗi server: ' + response.status);
+      }
+      return response.json();
+    })
+    .then(data => {
+      if (data.result === 'success') {
+        // Thành công
+        content.className = 'popup-content success';
+        icon.innerHTML = '✅';
+        text.innerHTML = 'Đặt hàng thành công!';
+        subtext.innerHTML = 'Chúng tôi sẽ liên hệ sớm. Cảm ơn bạn!';
+        form.reset();
+
+        // Tự đóng popup sau 3 giây
+        setTimeout(() => {
+          overlay.style.display = 'none';
+        }, 3000);
+      } else {
+        throw new Error(data.message || 'Không rõ');
+      }
+    })
+    .catch(error => {
+      // Lỗi
+      content.className = 'popup-content error';
+      icon.innerHTML = '❌';
+      text.innerHTML = 'Gửi đơn thất bại!';
+      subtext.innerHTML = error.message + '<br>Thử lại hoặc liên hệ hotline 0888 526 832.';
+      setTimeout(() => {
+        overlay.style.display = 'none';
+      }, 5000);
+    });
+  });
 </script>
 
 </body>
