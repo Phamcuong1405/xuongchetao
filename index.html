@@ -274,29 +274,12 @@
       max-width: 400px;
       box-shadow: 0 10px 30px rgba(0,0,0,0.3);
     }
-    .popup-content.loading {
-      background: #fff;
-    }
-    .popup-content.success {
-      background: #4caf50;
-      color: white;
-    }
-    .popup-content.error {
-      background: #f44336;
-      color: white;
-    }
-    .popup-icon {
-      font-size: 3rem;
-      margin-bottom: 15px;
-    }
-    .popup-text {
-      font-size: 1.3rem;
-      margin-bottom: 10px;
-    }
-    .popup-subtext {
-      font-size: 1rem;
-      opacity: 0.9;
-    }
+    .popup-content.loading { background: #fff; }
+    .popup-content.success { background: #4caf50; color: white; }
+    .popup-content.error { background: #f44336; color: white; }
+    .popup-icon { font-size: 3rem; margin-bottom: 15px; }
+    .popup-text { font-size: 1.3rem; margin-bottom: 10px; }
+    .popup-subtext { font-size: 1rem; opacity: 0.9; }
 
     @media (max-width: 600px) {
       header h1 { font-size: 2.2rem; }
@@ -351,8 +334,8 @@
         </div>
       </div>
 
-      <button class="carousel-arrow left" onclick="moveSlide(-1)">&#10094;</button>
-      <button class="carousel-arrow right" onclick="moveSlide(1)">&#10095;</button>
+      <button class="carousel-arrow left" onclick="moveSlide(-1)">‹</button>
+      <button class="carousel-arrow right" onclick="moveSlide(1)">›</button>
     </div>
   </div>
 </section>
@@ -478,15 +461,13 @@
     document.getElementById('carousel').style.transform = `translateX(-${currentSlide * 100}%)`;
   }
 
-  // Tự động chuyển slide mỗi 5 giây
   let autoSlide = setInterval(() => moveSlide(1), 5000);
 
-  // Dừng khi hover
   document.querySelector('.carousel-container').addEventListener('mouseenter', () => clearInterval(autoSlide));
   document.querySelector('.carousel-container').addEventListener('mouseleave', () => autoSlide = setInterval(() => moveSlide(1), 5000));
 </script>
 
-<!-- JS CHO POPUP & SUBMIT FORM -->
+<!-- JS CHO POPUP & SUBMIT FORM (SỬA LẠI ĐỂ BÁO LỖI RÕ HƠN) -->
 <script>
   const form = document.getElementById('order-form');
   const overlay = document.getElementById('popupOverlay');
@@ -495,10 +476,9 @@
   const text = document.getElementById('popupText');
   const subtext = document.getElementById('popupSubtext');
 
-  form.addEventListener('submit', function(e) {
+  form.addEventListener('submit', async function(e) {
     e.preventDefault();
 
-    // Hiện popup loading
     overlay.style.display = 'flex';
     content.className = 'popup-content loading';
     icon.innerHTML = '⏳';
@@ -507,43 +487,51 @@
 
     const formData = new FormData(this);
 
-    fetch(this.action, {
-      method: 'POST',
-      body: formData
-    })
-    .then(response => {
+    try {
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 10000); // Timeout 10 giây
+
+      const response = await fetch(this.action, {
+        method: 'POST',
+        body: formData,
+        signal: controller.signal
+      });
+
+      clearTimeout(timeoutId);
+
+      const contentType = response.headers.get("content-type");
+
       if (!response.ok) {
-        throw new Error('Lỗi server: ' + response.status);
+        const errorText = await response.text();
+        throw new Error(`Lỗi server: ${response.status} - ${errorText.substring(0, 100)}...`);
       }
-      return response.json();
-    })
-    .then(data => {
+
+      if (!contentType || !contentType.includes("application/json")) {
+        const text = await response.text();
+        throw new Error(`Server trả về không phải JSON: ${text.substring(0, 100)}...`);
+      }
+
+      const data = await response.json();
+
       if (data.result === 'success') {
-        // Thành công
         content.className = 'popup-content success';
         icon.innerHTML = '✅';
         text.innerHTML = 'Đặt hàng thành công!';
         subtext.innerHTML = 'Chúng tôi sẽ liên hệ sớm. Cảm ơn bạn!';
         form.reset();
 
-        // Tự đóng popup sau 3 giây
-        setTimeout(() => {
-          overlay.style.display = 'none';
-        }, 3000);
+        setTimeout(() => overlay.style.display = 'none', 3000);
       } else {
         throw new Error(data.message || 'Không rõ');
       }
-    })
-    .catch(error => {
-      // Lỗi
+    } catch (error) {
       content.className = 'popup-content error';
       icon.innerHTML = '❌';
       text.innerHTML = 'Gửi đơn thất bại!';
       subtext.innerHTML = error.message + '<br>Thử lại hoặc liên hệ hotline 0888 526 832.';
-      setTimeout(() => {
-        overlay.style.display = 'none';
-      }, 5000);
-    });
+      setTimeout(() => overlay.style.display = 'none', 6000);
+      console.error('Fetch error:', error);
+    }
   });
 </script>
 
