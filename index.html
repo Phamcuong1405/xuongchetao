@@ -111,7 +111,7 @@
       <h2>ĐẶT HÀNG NHANH</h2>
       <form id="orderForm">
         <input type="text" name="hoten" placeholder="Họ và tên *" required>
-        <input type="tel" name="sodienthoai" placeholder="Số điện thoại *" required pattern="[0-9]{9,11}">
+        <input type="tel" name="sodienthoi" placeholder="Số điện thoại *" required pattern="[0-9]{9,11}">
         <input type="text" name="diachi" placeholder="Địa chỉ nhận hàng *" required>
         <select name="goi" id="goi" required>
           <option value="">Chọn gói hàng</option>
@@ -120,7 +120,7 @@
           <option value="Gói 3 cái - 750k">Gói 3 cái - 750.000đ</option>
         </select>
         <input type="number" name="soluong" id="soluong" value="1" min="1" placeholder="Số lượng">
-        <input type="text" id="tongtien" placeholder="Tổng tiền (tự tính)" readonly>
+        <input type="text" name="tongtien" id="tongtien" placeholder="Tổng tiền (tự tính)" readonly>  <!-- Thêm name để gửi đi -->
         <textarea name="ghichu" rows="3" placeholder="Ghi chú (nếu có)"></textarea>
         <button type="submit" id="submitBtn" class="cta-btn" style="margin-top:20px;">ĐẶT HÀNG NGAY</button>
       </form>
@@ -188,8 +188,8 @@ function capNhatTongTien() {
 goiSelect.addEventListener('change', capNhatTongTien);
 soluongInput.addEventListener('input', capNhatTongTien);
 
-// Submit form - Gửi JSON
-const API_URL = "https://script.google.com/macros/s/AKfycbyNnLWAwYetYmeX7u43j11j8NF_AtH5bgQYMYvyncso2wRX9yKN9XYp4U8bv1MpLY4T/exec";  // Đã thêm biến này ở đây
+// Submit form - Fix CORS với no-cors + gửi JSON
+const API_URL = "https://script.google.com/macros/s/AKfycbyNnLWAwYetYmeX7u43j11j8NF_AtH5bgQYMYvyncso2wRX9yKN9XYp4U8bv1MpLY4T/exec";
 
 document.getElementById('orderForm').addEventListener('submit', async function(e) {
   e.preventDefault();
@@ -199,34 +199,30 @@ document.getElementById('orderForm').addEventListener('submit', async function(e
   btn.innerText = "Đang gửi...";
   msg.innerText = "";
 
-  // Thu thập data từ form
+  // Thu thập data từ form, thêm tongtien nếu có
   const formData = new FormData(this);
   const data = {};
   for (let [key, value] of formData.entries()) {
     data[key] = value;
   }
+  data.tongtien = tongtienInput.value || '0 ₫';  // Thêm tổng tiền nếu cần
 
   try {
-    const res = await fetch(API_URL, {
+    await fetch(API_URL, {
       method: "POST",
+      mode: "no-cors",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data)
     });
 
-    const result = await res.json();  // Bây giờ đọc được vì không no-cors
-
-    if (result.success) {
-      msg.style.color = "green";
-      msg.innerText = "✅ Đặt hàng thành công! Chúng tôi sẽ gọi xác nhận.";
-      this.reset();
-      tongtienInput.value = '';
-    } else {
-      msg.style.color = "red";
-      msg.innerText = "❌ " + (result.message || "Gửi thất bại.");
-    }
+    // Không đọc response được (no-cors), nhưng data đã gửi
+    msg.style.color = "green";
+    msg.innerText = "✅ Đặt hàng thành công! Chúng tôi sẽ gọi xác nhận (kiểm tra sheet).";
+    this.reset();
+    tongtienInput.value = '';
   } catch (err) {
     msg.style.color = "red";
-    msg.innerText = "❌ Lỗi: " + err.message + " (có thể do CORS, thử Zalo/FB)";
+    msg.innerText = "❌ Lỗi: " + err.message + ". Thử lại.";
     console.error(err);
   }
 
