@@ -379,28 +379,39 @@
 </section>
 
 <!-- PHẦN ĐẶT HÀNG -->
+<!-- ================= FORM ĐẶT HÀNG ================= -->
 <section class="order-form">
   <div class="container">
     <h2>Đặt hàng ngay chỉ với 1 bước</h2>
-    <p style="font-size:1.3rem; margin:20px 0;">Nhập thông tin → Chúng tôi sẽ liên hệ xác nhận → Giao hàng tận nơi</p>
-    
-    <form id="order-form" action="https://script.google.com/macros/s/AKfycbyNnLWAwYetYmeX7u43j11j8NF_AtH5bgQYMYvyncso2wRX9yKN9XYp4U8bv1MpLY4T/exec" method="POST" target="_blank">
-      <label for="quantity">Số lượng:</label>
-      <input type="number" id="quantity" name="Số lượng" min="1" value="1" required>
 
-      <label for="name">Họ và tên:</label>
-      <input type="text" id="name" name="Họ tên" placeholder="Ví dụ: Phạm Chí Cường" required>
+    <form
+      id="order-form"
+      action="https://script.google.com/macros/s/AKfycbyNnLWAwYetYmeX7u43j11j8NF_AtH5bgQYMYvyncso2wRX9yKN9XYp4U8bv1MpLY4T/exec"
+      method="POST">
 
-      <label for="phone">Số điện thoại:</label>
-      <input type="tel" id="phone" name="Số điện thoại" placeholder="Ví dụ: 0987777788" required pattern="[0-9]{9,11}">
+      <label>Số lượng:</label>
+      <input type="number" name="Số lượng" value="1" min="1" required>
 
-      <label for="address">Địa chỉ nhận hàng:</label>
-      <input type="text" id="address" name="Địa chỉ" placeholder="Ví dụ: Ngõ 13 Linh Nam, Hà Nội" required>
+      <label>Họ tên:</label>
+      <input type="text" name="Họ tên" required>
 
-      <button type="submit" class="cta-btn" style="margin:30px auto 0; display:block; width:100%; max-width:420px;">ĐẶT HÀNG NGAY</button>
+      <label>Số điện thoại:</label>
+      <input type="tel" name="Số điện thoại" pattern="[0-9]{9,11}" required>
+
+      <label>Địa chỉ:</label>
+      <input type="text" name="Địa chỉ" required>
+
+      <button type="submit" class="cta-btn">ĐẶT HÀNG NGAY</button>
     </form>
 
-    <script>
+    <p style="font-size:13px;color:#666;margin-top:10px">
+      Nếu đặt hàng từ Facebook/Messenger, hãy mở link bằng Chrome hoặc Safari
+    </p>
+  </div>
+</section>
+
+<!-- ================= SCRIPT GỬI ĐƠN (CHỈ 1 CÁI – ĐÚNG) ================= -->
+<script>
 document.getElementById("order-form").addEventListener("submit", async function(e) {
   e.preventDefault();
 
@@ -414,21 +425,46 @@ document.getElementById("order-form").addEventListener("submit", async function(
       body: new FormData(this)
     });
 
-    const json = await res.json();
+    const text = await res.text();
+    const json = JSON.parse(text);
 
-    alert(json.message);
-
-    if (json.success) {
-      this.reset();
-    }
+    alert(json.message || "Đã gửi đơn hàng");
+    if (json.success) this.reset();
 
   } catch (err) {
-    alert("❌ Không gửi được đơn. Vui lòng mở link bằng Chrome hoặc Safari.");
+    alert("❌ Không gửi được đơn. Hãy mở link bằng Chrome/Safari.");
   }
 
   btn.disabled = false;
   btn.innerText = "ĐẶT HÀNG NGAY";
 });
+</script>
+
+<!-- ================= FIX CAROUSEL ================= -->
+<script>
+let currentSlide = 0;
+const slides = document.querySelectorAll('.carousel-item');
+const totalSlides = slides.length;
+let autoSlide = setInterval(() => moveSlide(1), 5000);
+
+function moveSlide(dir) {
+  currentSlide = (currentSlide + dir + totalSlides) % totalSlides;
+  document.getElementById('carousel').style.transform =
+    `translateX(-${currentSlide * 100}%)`;
+}
+
+document.querySelector('.carousel-container')
+  .addEventListener('mouseenter', () => clearInterval(autoSlide));
+
+document.querySelector('.carousel-container')
+  .addEventListener('mouseleave', () => {
+    autoSlide = setInterval(() => moveSlide(1), 5000);
+  });
+</script>
+
+</body>
+</html>
+
 </script>
 
 
