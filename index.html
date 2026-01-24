@@ -1,51 +1,65 @@
 <!DOCTYPE html>
-<html lang="vi">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <meta name="description" content="Máy bơm nhôm mini đúc chính hãng, nhỏ gọn, bền bỉ, giá từ 250.000đ. Bảo hành dài hạn, ship COD toàn quốc, giảm 50% hôm nay!"/>
-  <meta name="keywords" content="máy bơm nhôm mini, máy bơm nước mini, máy bơm đúc nhôm, máy bơm DIY"/>
-  <title>Máy Bơm Nhôm Mini Đúc | Giảm 50% - Xưởng Chế Tạo</title>
+<html>
+  <head>
+    <base target="_top">
+    <meta charset="utf-8">
+    <style>
+      body {font-family: Arial, sans-serif; padding: 20px; background:#f9f9f9;}
+      h2 {text-align:center; color:#d32f2f;}
+      label {display:block; margin:12px 0 4px; font-weight:bold;}
+      input, textarea {width:100%; padding:10px; box-sizing:border-box; border:1px solid #ccc; border-radius:4px;}
+      button {background:#4CAF50; color:white; padding:12px 20px; border:none; border-radius:4px; cursor:pointer; font-size:16px; margin-top:15px; width:100%;}
+      button:hover {background:#45a049;}
+      #result {margin-top:20px; padding:10px; text-align:center; color:green; font-weight:bold;}
+    </style>
+  </head>
+  <body>
+    <h2>ĐẶT HÀNG NHANH</h2>
+    
+    <form id="orderForm">
+      <label>Họ và tên:</label>
+      <input type="text" name="ten" required>
 
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org/",
-    "@type": "Product",
-    "name": "Máy Bơm Nhôm Mini Đúc",
-    "image": "https://raw.githubusercontent.com/Phamcuong1405/xuongchetao/main/may-1.jpg",
-    "description": "Máy bơm nước mini nhôm đúc bền bỉ, phù hợp DIY, tưới cây.",
-    "brand": {"@type": "Brand", "name": "Xưởng Chế Tạo"},
-    "offers": {
-      "@type": "Offer",
-      "priceCurrency": "VND",
-      "price": "250000",
-      "availability": "https://schema.org/InStock"
-    }
-  }
-  </script>
+      <label>Số điện thoại:</label>
+      <input type="tel" name="sdt" required pattern="[0-9]{9,11}">
 
-  <style>
-    * { margin:0; padding:0; box-sizing:border-box; }
-    body { font-family: system-ui, sans-serif; line-height:1.6; color:#333; background:#f8f8f8; }
-    .container { max-width:980px; margin:0 auto; padding:0 15px; }
-    header { background:linear-gradient(135deg,#ff416c,#ff4b2b); color:white; text-align:center; padding:50px 15px; }
-    h1 { font-size:2.6rem; margin-bottom:12px; }
-    .hot { background:#fff; color:#d32f2f; font-weight:bold; padding:6px 16px; border-radius:30px; display:inline-block; margin:10px 0; }
-    .cta-btn { display:inline-block; background:#ffeb3b; color:#d50000; font-size:1.5rem; font-weight:bold; padding:16px 50px; border-radius:50px; text-decoration:none; box-shadow:0 6px 0 #ffb300; transition:all .2s; cursor:pointer; border:none; }
-    .cta-btn:hover { transform:translateY(-3px); box-shadow:0 9px 0 #ffb300; }
-    section { padding:50px 0; }
-    h2 { text-align:center; color:#c62828; font-size:2.2rem; margin-bottom:30px; }
-    .carousel-container { position:relative; max-width:800px; margin:0 auto; overflow:hidden; border-radius:12px; box-shadow:0 8px 25px rgba(0,0,0,.15); }
-    .carousel { display:flex; transition:transform .5s ease; }
-    .carousel-item { min-width:100%; }
-    .carousel-item img { width:100%; height:auto; display:block; loading:lazy; }
-    .pricing { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:20px; margin:40px 0; }
-    .card { background:white; border-radius:12px; overflow:hidden; box-shadow:0 4px 15px rgba(0,0,0,.1); text-align:center; position:relative; }
-    .card h3 { background:#c62828; color:white; padding:16px; font-size:1.4rem; }
-    .card .price { font-size:2.4rem; font-weight:bold; color:#d32f2f; margin:15px 0; }
-    .card .old-price { font-size:1.2rem; color:#757575; text-decoration:line-through; }
-    .card .btn { display:block; background:#4caf50; color:white; padding:14px; margin:20px; border-radius:8px; text-decoration:none; font-weight:bold; }
-    .order-form { background:#ffebee; padding:50px 15px; text-align:center; }
-    .order-form input, .order-form select, .order-form textarea { width:100%; max-width:420px; padding:12px; margin:8px auto; display:block; border:2px solid #ef9a9a; border-radius:6px; font-size:1.1rem; }
-    footer { background:#333; color:white; text-align:center; padding:40px 15px; }
-  </style>
+      <label>Địa chỉ giao hàng:</label>
+      <textarea name="diachi" rows="3" required></textarea>
+
+      <label>Số lượng / Sản phẩm:</label>
+      <input type="text" name="soluong" required placeholder="Ví dụ: 2 áo thun đen size M">
+
+      <label>Ghi chú (nếu có):</label>
+      <textarea name="ghichu" rows="2"></textarea>
+
+      <button type="submit">GỬI ĐƠN HÀNG</button>
+    </form>
+
+    <div id="result"></div>
+
+    <script>
+      document.getElementById('orderForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const formData = {
+          ten: document.querySelector('[name="ten"]').value,
+          sdt: document.querySelector('[name="sdt"]').value,
+          diachi: document.querySelector('[name="diachi"]').value,
+          soluong: document.querySelector('[name="soluong"]').value,
+          ghichu: document.querySelector('[name="ghichu"]').value
+        };
+
+        google.script.run
+          .withSuccessHandler(function(msg) {
+            document.getElementById('result').innerText = msg;
+            document.getElementById('orderForm').reset();
+          })
+          .withFailureHandler(function(err) {
+            document.getElementById('result').innerText = 'Có lỗi xảy ra: ' + err.message;
+            document.getElementById('result').style.color = 'red';
+          })
+          .processForm(formData);
+      });
+    </script>
+  </body>
+</html>
