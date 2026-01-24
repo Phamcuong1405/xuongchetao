@@ -106,25 +106,27 @@ footer{
     <h2>Đặt hàng ngay</h2>
 
     <!-- ✅ FORM THUẦN – KHÔNG JS -->
-    <form
-      action="https://script.google.com/macros/s/AKfycbyNnLWAwYetYmeX7u43j11j8NF_AtH5bgQYMYvyncso2wRX9yKN9XYp4U8bv1MpLY4T/exec"
-      method="POST">
+  <form id="orderForm">
+  <input type="hidden" name="source" value="Web">
 
-      <label>Số lượng</label>
-      <input type="number" name="Số lượng" value="1" min="1" required>
+  <label>Số lượng</label>
+  <input type="number" name="quantity" value="1" min="1" required>
 
-      <label>Họ tên</label>
-      <input type="text" name="Họ tên" required>
+  <label>Họ tên</label>
+  <input type="text" name="name" required>
 
-      <label>Số điện thoại</label>
-      <input type="tel" name="Số điện thoại" pattern="[0-9]{9,11}" required>
+  <label>Số điện thoại</label>
+  <input type="tel" name="phone" required>
 
-      <label>Địa chỉ</label>
-      <input type="text" name="Địa chỉ" required>
+  <label>Địa chỉ</label>
+  <input type="text" name="address" required>
 
-      <br>
-      <button type="submit" class="cta-btn">ĐẶT HÀNG NGAY</button>
-    </form>
+  <br>
+  <button type="submit" class="cta-btn">ĐẶT HÀNG NGAY</button>
+</form>
+
+<p id="msg" style="margin-top:15px;font-weight:bold"></p>
+
 
     <p style="font-size:13px;color:#666;margin-top:10px">
       Nếu mở từ Facebook/Messenger hãy dùng Chrome hoặc Safari
@@ -148,6 +150,35 @@ function moveSlide(n){
   document.getElementById("carousel").style.transform =
     "translateX(-"+currentSlide*100+"%)";
 }
+</script>
+<script>
+const form = document.getElementById("orderForm");
+const msg  = document.getElementById("msg");
+
+form.addEventListener("submit", function(e){
+  e.preventDefault();
+  msg.textContent = "⏳ Đang gửi đơn...";
+
+  fetch("https://script.google.com/macros/s/AKfycbyNnLWAwYetYmeX7u43j11j8NF_AtH5bgQYMYvyncso2wRX9yKN9XYp4U8bv1MpLY4T/exec", {
+    method: "POST",
+    body: new FormData(form)
+  })
+  .then(r => r.json())
+  .then(res => {
+    if(res.success){
+      msg.style.color = "green";
+      msg.textContent = "✅ Đặt hàng thành công! Chúng tôi sẽ liên hệ sớm.";
+      form.reset();
+    }else{
+      msg.style.color = "red";
+      msg.textContent = "❌ " + res.msg;
+    }
+  })
+  .catch(() => {
+    msg.style.color = "red";
+    msg.textContent = "❌ Lỗi kết nối, vui lòng thử lại";
+  });
+});
 </script>
 
 </body>
