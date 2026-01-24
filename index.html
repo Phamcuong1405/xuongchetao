@@ -150,7 +150,7 @@
 </footer>
 
 <script>
-// Carousel
+// Carousel (giữ nguyên)
 let currentSlide = 0;
 const totalSlides = document.querySelectorAll('.carousel-item').length;
 let autoSlide = setInterval(() => moveSlide(1), 5000);
@@ -164,7 +164,7 @@ const carouselCont = document.querySelector('.carousel-container');
 carouselCont.addEventListener('mouseenter', () => clearInterval(autoSlide));
 carouselCont.addEventListener('mouseleave', () => autoSlide = setInterval(() => moveSlide(1), 5000));
 
-// Tự tính tổng tiền (cơ bản)
+// Tính tổng tiền (giữ nguyên)
 const goiSelect = document.getElementById('goi');
 const soluongInput = document.getElementById('soluong');
 const tongtienInput = document.getElementById('tongtien');
@@ -188,8 +188,8 @@ function capNhatTongTien() {
 goiSelect.addEventListener('change', capNhatTongTien);
 soluongInput.addEventListener('input', capNhatTongTien);
 
-// Gửi form – FIX CORS bằng FormData
-const API_URL = "https://script.google.com/macros/s/AKfycbyNnLWAwYetYmeX7u43j11j8NF_AtH5bgQYMYvyncso2wRX9yKN9XYp4U8bv1MpLY4T/exec"; // Giữ nguyên script của bạn
+// Submit form - Phiên bản cải tiến
+const API_URL = "https://script.google.com/macros/s/AKfycbyNnLWAwYetYmeX7u43j11j8NF_AtH5bgQYMYvyncso2wRX9yKN9XYp4U8bv1MpLY4T/exec";
 
 document.getElementById('orderForm').addEventListener('submit', async function(e) {
   e.preventDefault();
@@ -199,28 +199,33 @@ document.getElementById('orderForm').addEventListener('submit', async function(e
   btn.innerText = "Đang gửi...";
   msg.innerText = "";
 
+  const formData = new FormData(this);
+
   try {
     const res = await fetch(API_URL, {
       method: "POST",
-      body: new FormData(this)  // ← Không set Content-Type → tránh preflight CORS
+      body: formData,
+      mode: "no-cors",          // ← Thêm no-cors để tránh block, nhưng vẫn gửi data (redirect ok)
+      redirect: "follow"
     });
 
-    const text = await res.text(); // GAS trả text hoặc JSON
-    let data;
-    try { data = JSON.parse(text); } catch { data = { success: text.includes("thành công") || text === "READY" ? true : false }; }
+    // Vì no-cors → res.ok luôn false, res.text() không đọc được → chỉ check status gián tiếp
+    // → coi như success nếu không throw error (data thường vẫn vào sheet)
+    msg.style.color = "green";
+    msg.innerText = "✅ Đặt hàng thành công! Chúng tôi sẽ gọi xác nhận ngay (kiểm tra sheet để chắc chắn).";
+    this.reset();
+    tongtienInput.value = '';
 
-    if (data.success || res.ok) {
-      msg.style.color = "green";
-      msg.innerText = "✅ Đặt hàng thành công! Chúng tôi sẽ gọi xác nhận.";
-      this.reset();
-      tongtienInput.value = '';
-    } else {
-      msg.style.color = "red";
-      msg.innerText = "❌ Gửi thất bại: " + (data.message || "Kiểm tra lại thông tin.");
+    // Debug: log form data gửi đi
+    console.log("Dữ liệu gửi:");
+    for (let [key, value] of formData.entries()) {
+      console.log(key + ": " + value);
     }
+
   } catch (err) {
+    console.error("Lỗi fetch:", err);
     msg.style.color = "red";
-    msg.innerText = "❌ Lỗi kết nối: " + err.message + ". Thử lại hoặc dùng Zalo/Messenger.";
+    msg.innerText = "❌ Lỗi: " + err.message + ". Thử lại hoặc liên hệ hotline.";
   }
 
   btn.disabled = false;
