@@ -111,7 +111,7 @@
       <h2>ĐẶT HÀNG NHANH</h2>
       <form id="orderForm">
         <input type="text" name="hoten" placeholder="Họ và tên *" required>
-        <input type="tel" name="sodienthoi" placeholder="Số điện thoại *" required pattern="[0-9]{9,11}">
+        <input type="tel" name="sodienthoai" placeholder="Số điện thoại *" required pattern="[0-9]{9,11}">
         <input type="text" name="diachi" placeholder="Địa chỉ nhận hàng *" required>
         <select name="goi" id="goi" required>
           <option value="">Chọn gói hàng</option>
@@ -189,6 +189,8 @@ goiSelect.addEventListener('change', capNhatTongTien);
 soluongInput.addEventListener('input', capNhatTongTien);
 
 // Submit form - Gửi JSON
+const API_URL = "https://script.google.com/macros/s/AKfycbyNnLWAwYetYmeX7u43j11j8NF_AtH5bgQYMYvyncso2wRX9yKN9XYp4U8bv1MpLY4T/exec";  // Đã thêm biến này ở đây
+
 document.getElementById('orderForm').addEventListener('submit', async function(e) {
   e.preventDefault();
   const btn = document.getElementById('submitBtn');
@@ -231,6 +233,7 @@ document.getElementById('orderForm').addEventListener('submit', async function(e
   btn.disabled = false;
   btn.innerText = "ĐẶT HÀNG NGAY";
 });
+</script>
 
 </body>
 </html>
