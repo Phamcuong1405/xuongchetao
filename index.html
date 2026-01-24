@@ -401,32 +401,24 @@
     </form>
 
     <script>
-      document.getElementById('order-form').addEventListener('submit', function(e) {
-        e.preventDefault();
-        const formData = new FormData(this);
+ <script>
+document.getElementById("order-form").addEventListener("submit", function(e){
+  e.preventDefault();
 
-        fetch(this.action, {
-          method: 'POST',
-          body: formData
-        })
-        .then(response => {
-          if (!response.ok) {
-            throw new Error('Lỗi server: ' + response.status);
-          }
-          return response.json();
-        })
-        .then(data => {
-          if (data.result === 'success') {
-            alert('Đặt hàng thành công! Chúng tôi sẽ liên hệ sớm.');
-            this.reset();
-          } else {
-            alert('Lỗi từ server: ' + (data.message || 'Không rõ'));
-          }
-        })
-        .catch(error => {
-          alert('Lỗi gửi đơn: ' + error.message + '\nThử mở link web trực tiếp trên Chrome/Safari thay vì trong Messenger nhé!');
-        });
-      });
+  fetch(this.action, {
+    method: "POST",
+    body: new FormData(this)
+  })
+  .then(() => {
+    alert("🎉 Đặt hàng thành công! Chúng tôi sẽ liên hệ sớm.");
+    this.reset();
+  })
+  .catch(() => {
+    alert("Không gửi được đơn. Hãy mở link bằng Chrome hoặc Safari.");
+  });
+});
+</script>
+
     </script>
 
     <p style="font-size: 0.9rem; color: #666; margin-top: 15px;">
