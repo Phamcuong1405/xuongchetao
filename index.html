@@ -188,9 +188,7 @@ function capNhatTongTien() {
 goiSelect.addEventListener('change', capNhatTongTien);
 soluongInput.addEventListener('input', capNhatTongTien);
 
-// Submit form - Phiên bản cải tiến
-const API_URL = "https://script.google.com/macros/s/AKfycbyNnLWAwYetYmeX7u43j11j8NF_AtH5bgQYMYvyncso2wRX9yKN9XYp4U8bv1MpLY4T/exec";
-
+// Submit form - Gửi JSON
 document.getElementById('orderForm').addEventListener('submit', async function(e) {
   e.preventDefault();
   const btn = document.getElementById('submitBtn');
@@ -199,39 +197,40 @@ document.getElementById('orderForm').addEventListener('submit', async function(e
   btn.innerText = "Đang gửi...";
   msg.innerText = "";
 
+  // Thu thập data từ form
   const formData = new FormData(this);
+  const data = {};
+  for (let [key, value] of formData.entries()) {
+    data[key] = value;
+  }
 
   try {
     const res = await fetch(API_URL, {
       method: "POST",
-      body: formData,
-      mode: "no-cors",          // ← Thêm no-cors để tránh block, nhưng vẫn gửi data (redirect ok)
-      redirect: "follow"
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data)
     });
 
-    // Vì no-cors → res.ok luôn false, res.text() không đọc được → chỉ check status gián tiếp
-    // → coi như success nếu không throw error (data thường vẫn vào sheet)
-    msg.style.color = "green";
-    msg.innerText = "✅ Đặt hàng thành công! Chúng tôi sẽ gọi xác nhận ngay (kiểm tra sheet để chắc chắn).";
-    this.reset();
-    tongtienInput.value = '';
+    const result = await res.json();  // Bây giờ đọc được vì không no-cors
 
-    // Debug: log form data gửi đi
-    console.log("Dữ liệu gửi:");
-    for (let [key, value] of formData.entries()) {
-      console.log(key + ": " + value);
+    if (result.success) {
+      msg.style.color = "green";
+      msg.innerText = "✅ Đặt hàng thành công! Chúng tôi sẽ gọi xác nhận.";
+      this.reset();
+      tongtienInput.value = '';
+    } else {
+      msg.style.color = "red";
+      msg.innerText = "❌ " + (result.message || "Gửi thất bại.");
     }
-
   } catch (err) {
-    console.error("Lỗi fetch:", err);
     msg.style.color = "red";
-    msg.innerText = "❌ Lỗi: " + err.message + ". Thử lại hoặc liên hệ hotline.";
+    msg.innerText = "❌ Lỗi: " + err.message + " (có thể do CORS, thử Zalo/FB)";
+    console.error(err);
   }
 
   btn.disabled = false;
   btn.innerText = "ĐẶT HÀNG NGAY";
 });
-</script>
 
 </body>
 </html>
