@@ -49,66 +49,62 @@
     .order-form input, .order-form select, .order-form textarea { width:100%; max-width:420px; padding:12px; margin:8px auto; display:block; border:2px solid #ef9a9a; border-radius:6px; font-size:1.1rem; }
     footer { background:#333; color:white; text-align:center; padding:40px 15px; }
   </style>
-</head>
+  </head>
 <body>
 
-<header>
-  <div class="container">
-    <h1>Máy Bơm Nhôm Mini Đúc Chính Hãng</h1>
-    <div class="hot">GIẢM 50% – BƠM NHANH – BỀN BỈ</div>
-    <p style="font-size:1.3rem; margin:20px 0;">Đã có <b>9.200+</b> người đặt mua hôm nay!</p>
-    <button class="cta-btn" onclick="document.getElementById('dat-hang').scrollIntoView({behavior:'smooth'})">ĐẶT MUA NGAY</button>
-  </div>
-</header>
+  
+    Máy Bơm Nhôm Mini Đúc Chính Hãng
+    GIẢM 50% – BƠM NHANH – BỀN BỈ
+    Đã có 9.200+ người đặt mua hôm nay!
+    <button class="cta-btn" onclick="document.getElementById(&#x27;dat-hang&#x27;).scrollIntoView({behavior:&#x27;smooth&#x27;})">ĐẶT MUA NGAY</button>
+  
 
-<main>
-  <section>
-    <div class="container">
-      <h2>Hình Ảnh Thực Tế</h2>
-      <div class="carousel-container">
-        <div class="carousel" id="carousel">
-          <div class="carousel-item"><img src="https://raw.githubusercontent.com/Phamcuong1405/xuongchetao/main/may-1.jpg" alt="Máy bơm nhôm mini góc chính diện"></div>
-          <div class="carousel-item"><img src="https://raw.githubusercontent.com/Phamcuong1405/xuongchetao/main/may-2.jpg" alt="Máy bơm nhôm mini góc nghiêng"></div>
-          <div class="carousel-item"><img src="https://raw.githubusercontent.com/Phamcuong1405/xuongchetao/main/may3.jpg" alt="Chi tiết impeller máy bơm nhôm mini"></div>
-        </div>
+
+  
+    
+      Hình Ảnh Thực Tế
+      
+        
+          Máy bơm nhôm mini góc chính diện
+          Máy bơm nhôm mini góc nghiêng
+          Chi tiết impeller máy bơm nhôm mini
+        
         <button class="carousel-arrow left" onclick="moveSlide(-1)">❮</button>
         <button class="carousel-arrow right" onclick="moveSlide(1)">❯</button>
-      </div>
-    </div>
-  </section>
-
-  <section>
-    <div class="container">
-      <h2>Chọn Gói Hàng</h2>
-      <div class="pricing">
-        <div class="card">
-          <h3>Gói 1 cái</h3>
-          <div class="price">250.000 ₫</div>
-          <div class="old-price">290.000 ₫</div>
-          <a href="#dat-hang" class="btn">Chọn gói</a>
-        </div>
-        <div class="card" style="border:2px solid #ff1744;">
-          <div style="position:absolute;top:10px;right:-45px;background:#ff1744;color:white;padding:4px 50px;transform:rotate(45deg);font-weight:bold;">HOT</div>
-          <h3>Gói 2 cái (Bán chạy)</h3>
-          <div class="price">500.000 ₫</div>
-          <div class="old-price">580.000 ₫</div>
-          <p>Miễn phí ship + Bảo hành 1 tháng</p>
-          <a href="#dat-hang" class="btn">Chọn gói</a>
-        </div>
-        <div class="card">
-          <h3>Gói 3 cái</h3>
-          <div class="price">750.000 ₫</div>
-          <div class="old-price">870.000 ₫</div>
-          <p>Miễn phí ship + Bảo hành 3 tháng</p>
-          <a href="#dat-hang" class="btn">Chọn gói</a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="dat-hang" class="order-form">
-    <div class="container">
-      <h2>ĐẶT HÀNG NHANH</h2>
+      
+    
+  
+  
+    
+      Chọn Gói Hàng
+      
+        
+          Gói 1 cái
+          250.000 ₫
+          290.000 ₫
+          Chọn gói
+        
+        
+          HOT
+          Gói 2 cái (Bán chạy)
+          500.000 ₫
+          580.000 ₫
+          Miễn phí ship + Bảo hành 1 tháng
+          Chọn gói
+        
+        
+          Gói 3 cái
+          750.000 ₫
+          870.000 ₫
+          Miễn phí ship + Bảo hành 3 tháng
+          Chọn gói
+        
+      
+    
+  
+  
+    
+      ĐẶT HÀNG NHANH
       <form id="orderForm">
         <input type="text" name="hoten" placeholder="Họ và tên *" required>
         <input type="tel" name="sodienthoi" placeholder="Số điện thoại *" required pattern="[0-9]{9,11}">
@@ -120,34 +116,31 @@
           <option value="Gói 3 cái - 750k">Gói 3 cái - 750.000đ</option>
         </select>
         <input type="number" name="soluong" id="soluong" value="1" min="1" placeholder="Số lượng">
-        <input type="text" name="tongtien" id="tongtien" placeholder="Tổng tiền (tự tính)" readonly>  <!-- Thêm name để gửi đi -->
-        <textarea name="ghichu" rows="3" placeholder="Ghi chú (nếu có)"></textarea>
+        <input type="text" name="tongtien" id="tongtien" placeholder="Tổng tiền (tự tính)" readonly>
+        &#x3C;textarea name="ghichu" rows="3" placeholder="Ghi chú (nếu có)">&#x3C;/textarea>
         <button type="submit" id="submitBtn" class="cta-btn" style="margin-top:20px;">ĐẶT HÀNG NGAY</button>
       </form>
-      <p id="msg" style="margin-top:20px; font-weight:bold; min-height:24px;"></p>
-    </div>
-  </section>
+      
+    
+  
+  
+    
+      Tại Sao Nên Mua Ngay?
+      
+        ✔ Nhôm đúc cao cấp, chống gỉ sét
+        ✔ Nhỏ gọn, dễ lắp DIY
+        ✔ Bơm mạnh, tiết kiệm điện
+        ✔ Hoàn tiền 200% nếu không đúng
+        ✔ Ship COD – Kiểm tra trước khi thanh toán
+      
+    
+  
 
-  <section>
-    <div class="container">
-      <h2>Tại Sao Nên Mua Ngay?</h2>
-      <ul style="list-style:none; font-size:1.2rem; max-width:800px; margin:0 auto;">
-        <li>✔ Nhôm đúc cao cấp, chống gỉ sét</li>
-        <li>✔ Nhỏ gọn, dễ lắp DIY</li>
-        <li>✔ Bơm mạnh, tiết kiệm điện</li>
-        <li>✔ Hoàn tiền 200% nếu không đúng</li>
-        <li>✔ Ship COD – Kiểm tra trước khi thanh toán</li>
-      </ul>
-    </div>
-  </section>
-</main>
 
-<footer>
-  <div class="container">
-    <p><strong>XƯỞNG CHẾ TẠO</strong> – 268 Lê Văn Lương, Hà Nội</p>
-    <p>Hotline: 0888 526 832</p>
-  </div>
-</footer>
+  
+    XƯỞNG CHẾ TẠO – 268 Lê Văn Lương, Hà Nội
+    Hotline: 0888 526 832
+  
 
 <script>
 // Carousel (giữ nguyên)
@@ -156,8 +149,8 @@ const totalSlides = document.querySelectorAll('.carousel-item').length;
 let autoSlide = setInterval(() => moveSlide(1), 5000);
 
 function moveSlide(dir) {
-  currentSlide = (currentSlide + dir + totalSlides) % totalSlides;
-  document.getElementById('carousel').style.transform = `translateX(-${currentSlide * 100}%)`;
+currentSlide = (currentSlide + dir + totalSlides) % totalSlides;
+document.getElementById('carousel').style.transform = `translateX(-${currentSlide * 100}%)`;
 }
 
 const carouselCont = document.querySelector('.carousel-container');
@@ -170,66 +163,59 @@ const soluongInput = document.getElementById('soluong');
 const tongtienInput = document.getElementById('tongtien');
 
 const giaGoi = {
-  "Gói 1 cái - 250k": 250000,
-  "Gói 2 cái - 500k (Hot)": 500000,
-  "Gói 3 cái - 750k": 750000
+"Gói 1 cái - 250k": 250000,
+"Gói 2 cái - 500k (Hot)": 500000,
+"Gói 3 cái - 750k": 750000
 };
 
 function capNhatTongTien() {
-  const goi = goiSelect.value;
-  const sl = parseInt(soluongInput.value) || 1;
-  if (giaGoi[goi]) {
-    tongtienInput.value = (giaGoi[goi] * sl).toLocaleString('vi-VN') + ' ₫';
-  } else {
-    tongtienInput.value = '';
-  }
+const goi = goiSelect.value;
+const sl = parseInt(soluongInput.value) || 1;
+if (giaGoi[goi]) {
+tongtienInput.value = (giaGoi[goi] * sl).toLocaleString('vi-VN') + ' ₫';
+} else {
+tongtienInput.value = '';
+}
 }
 
 goiSelect.addEventListener('change', capNhatTongTien);
 soluongInput.addEventListener('input', capNhatTongTien);
 
-// Submit form - Fix CORS với no-cors + gửi JSON
+// Submit form - Fix với FormData + no-cors
 const API_URL = "https://script.google.com/macros/s/AKfycbyNnLWAwYetYmeX7u43j11j8NF_AtH5bgQYMYvyncso2wRX9yKN9XYp4U8bv1MpLY4T/exec";
 
 document.getElementById('orderForm').addEventListener('submit', async function(e) {
-  e.preventDefault();
-  const btn = document.getElementById('submitBtn');
-  const msg = document.getElementById('msg');
-  btn.disabled = true;
-  btn.innerText = "Đang gửi...";
-  msg.innerText = "";
+e.preventDefault();
+const btn = document.getElementById('submitBtn');
+const msg = document.getElementById('msg');
+btn.disabled = true;
+btn.innerText = "Đang gửi...";
+msg.innerText = "";
 
-  // Thu thập data từ form, thêm tongtien nếu có
-  const formData = new FormData(this);
-  const data = {};
-  for (let [key, value] of formData.entries()) {
-    data[key] = value;
-  }
-  data.tongtien = tongtienInput.value || '0 ₫';  // Thêm tổng tiền nếu cần
+const formData = new FormData(this);
+formData.append('tongtien', tongtienInput.value || '0 ₫');  // Thêm tongtien thủ công
 
-  try {
-    await fetch(API_URL, {
-      method: "POST",
-      mode: "no-cors",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data)
-    });
+try {
+await fetch(API_URL, {
+method: "POST",
+mode: "no-cors",
+body: formData
+});
 
-    // Không đọc response được (no-cors), nhưng data đã gửi
-    msg.style.color = "green";
-    msg.innerText = "✅ Đặt hàng thành công! Chúng tôi sẽ gọi xác nhận (kiểm tra sheet).";
-    this.reset();
-    tongtienInput.value = '';
-  } catch (err) {
-    msg.style.color = "red";
-    msg.innerText = "❌ Lỗi: " + err.message + ". Thử lại.";
-    console.error(err);
-  }
+msg.style.color = "green";
+msg.innerText = "✅ Đặt hàng thành công! Chúng tôi sẽ gọi xác nhận.";
+this.reset();
+tongtienInput.value = '';
+} catch (err) {
+msg.style.color = "red";
+msg.innerText = "❌ Lỗi: " + err.message + ". Thử lại.";
+console.error(err);
+}
 
-  btn.disabled = false;
-  btn.innerText = "ĐẶT HÀNG NGAY";
+btn.disabled = false;
+btn.innerText = "ĐẶT HÀNG NGAY";
 });
 </script>
-
 </body>
 </html>
+```
