@@ -1,463 +1,228 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>MÁY BƠM NHÔM MINI - Xưởng Chế Tạo</title>
-  <style>
-    * { margin:0; padding:0; box-sizing:border-box; }
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      line-height: 1.6;
-      color: #333;
-      background: #f8f8f8;
-    }
-    .container { max-width: 980px; margin: 0 auto; padding: 0 15px; }
+<meta charset="UTF-8">
+<title>XƯỞNG CHẾ TẠO - ĐẶT HÀNG</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    header {
-      background: linear-gradient(135deg, #ff416c, #ff4b2b);
-      color: white;
-      text-align: center;
-      padding: 60px 15px 40px;
-    }
-    header h1 {
-      font-size: 2.8rem;
-      margin-bottom: 12px;
-      text-shadow: 2px 2px 8px rgba(0,0,0,0.4);
-    }
-    .hot {
-      background: #fff;
-      color: #d32f2f;
-      font-weight: bold;
-      padding: 6px 16px;
-      border-radius: 30px;
-      display: inline-block;
-      margin: 10px 0;
-      font-size: 1.1rem;
-    }
-    .countdown {
-      font-size: 1.3rem;
-      margin: 20px 0;
-      font-weight: bold;
-    }
-    .countdown span {
-      background: rgba(0,0,0,0.3);
-      padding: 8px 14px;
-      border-radius: 8px;
-      margin: 0 6px;
-      min-width: 60px;
-      display: inline-block;
-    }
-
-    .cta-btn {
-      display: inline-block;
-      background: #ffeb3b;
-      color: #d50000;
-      font-size: 1.5rem;
-      font-weight: bold;
-      padding: 18px 60px;
-      border-radius: 50px;
-      text-decoration: none;
-      margin: 25px 0;
-      box-shadow: 0 8px 0 #ffb300;
-      transition: all 0.2s;
-    }
-    .cta-btn:hover { transform: translateY(-3px); box-shadow: 0 11px 0 #ffb300; }
-
-    .watching {
-      font-size: 1.1rem;
-      margin-top: 15px;
-      opacity: 0.95;
-    }
-
-    section { padding: 50px 0; }
-    h2 { 
-      text-align: center; 
-      color: #c62828; 
-      font-size: 2.4rem; 
-      margin-bottom: 30px; 
-    }
-
-    .pricing {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 25px;
-      margin: 40px 0;
-    }
-    .card {
-      background: white;
-      border-radius: 16px;
-      overflow: hidden;
-      box-shadow: 0 6px 20px rgba(0,0,0,0.12);
-      text-align: center;
-      position: relative;
-    }
-    .card.hot-deal::after {
-      content: "HOT";
-      position: absolute;
-      top: 12px; right: -38px;
-      background: #ff1744;
-      color: white;
-      padding: 6px 50px;
-      transform: rotate(45deg);
-      font-weight: bold;
-      font-size: 1rem;
-    }
-    .card h3 {
-      background: #c62828;
-      color: white;
-      padding: 18px;
-      font-size: 1.5rem;
-    }
-    .card .price {
-      font-size: 2.6rem;
-      font-weight: bold;
-      color: #d32f2f;
-      margin: 20px 0 8px;
-    }
-    .card .old-price {
-      font-size: 1.3rem;
-      color: #757575;
-      text-decoration: line-through;
-      margin-bottom: 10px;
-    }
-    .card ul {
-      list-style: none;
-      padding: 0 20px 25px;
-      text-align: left;
-    }
-    .card ul li {
-      margin: 12px 0;
-      font-size: 1.1rem;
-    }
-    .card .btn {
-      display: block;
-      background: #4caf50;
-      color: white;
-      padding: 16px;
-      font-size: 1.3rem;
-      font-weight: bold;
-      text-decoration: none;
-      margin: 0 20px 25px;
-      border-radius: 10px;
-    }
-
-    .benefits {
-      background: #fff;
-      margin: 30px auto;
-      max-width: 900px;
-      padding: 40px;
-      border-radius: 16px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-    }
-    .benefits ul {
-      list-style: none;
-      font-size: 1.25rem;
-    }
-    .benefits li {
-      margin: 18px 0;
-      padding-left: 35px;
-      position: relative;
-    }
-    .benefits li::before {
-      content: "✔";
-      color: #4caf50;
-      position: absolute;
-      left: 0;
-      font-size: 1.4rem;
-    }
-
-    .order-form {
-      background: #ffebee;
-      padding: 50px 20px;
-      text-align: center;
-    }
-    .order-form label {
-      display: block;
-      font-size: 1.2rem;
-      margin: 15px 0 5px;
-      text-align: left;
-      max-width: 420px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-    .order-form input {
-      width: 100%;
-      max-width: 420px;
-      padding: 12px;
-      font-size: 1.2rem;
-      border: 2px solid #ef9a9a;
-      border-radius: 8px;
-      margin: 0 auto;
-      display: block;
-    }
-
-    footer {
-      background: #333;
-      color: white;
-      text-align: center;
-      padding: 40px 20px;
-      font-size: 0.95rem;
-    }
-    footer a { color: #ffca28; text-decoration: none; }
-
-    /* CAROUSEL CHO PHẦN HÌNH ẢNH */
-    .carousel-container {
-      position: relative;
-      max-width: 800px;
-      margin: 0 auto;
-      overflow: hidden;
-      border-radius: 12px;
-      box-shadow: 0 8px 25px rgba(0,0,0,0.15);
-    }
-    .carousel {
-      display: flex;
-      transition: transform 0.5s ease-in-out;
-    }
-    .carousel-item {
-      min-width: 100%;
-      position: relative;
-    }
-    .carousel-item img {
-      width: 100%;
-      height: auto;
-      display: block;
-      border-radius: 12px;
-    }
-    .carousel-caption {
-      position: absolute;
-      bottom: 15px;
-      left: 0;
-      right: 0;
-      background: rgba(0,0,0,0.6);
-      color: white;
-      padding: 10px;
-      text-align: center;
-      font-size: 1rem;
-      border-radius: 0 0 12px 12px;
-    }
-    .carousel-arrow {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      background: rgba(0,0,0,0.5);
-      color: white;
-      border: none;
-      padding: 12px 18px;
-      font-size: 1.8rem;
-      cursor: pointer;
-      border-radius: 50%;
-      user-select: none;
-    }
-    .carousel-arrow.left { left: 15px; }
-    .carousel-arrow.right { right: 15px; }
-    .carousel-arrow:hover { background: rgba(0,0,0,0.8); }
-
-    @media (max-width: 600px) {
-      header h1 { font-size: 2.2rem; }
-      .cta-btn { font-size: 1.3rem; padding: 15px 40px; }
-      .carousel-arrow { padding: 10px 14px; font-size: 1.5rem; }
-    }
-  </style>
+<style>
+body{
+  margin:0;
+  font-family:Arial, Helvetica, sans-serif;
+  background:#f2f2f2;
+  color:#222;
+}
+.wrap{
+  max-width:480px;
+  margin:auto;
+  background:#fff;
+}
+header{
+  background:#c62828;
+  color:#fff;
+  padding:20px;
+  text-align:center;
+}
+.section{
+  padding:20px;
+}
+.package{
+  border:1px solid #ddd;
+  border-radius:10px;
+  padding:15px;
+  margin-bottom:15px;
+}
+.btn{
+  display:block;
+  background:#c62828;
+  color:#fff;
+  text-align:center;
+  padding:12px;
+  border-radius:8px;
+  text-decoration:none;
+  margin-top:10px;
+}
+input, textarea{
+  width:100%;
+  padding:10px;
+  margin-top:10px;
+  border-radius:6px;
+  border:1px solid #ccc;
+  font-size:16px;
+}
+footer{
+  text-align:center;
+  padding:15px;
+  font-size:14px;
+  color:#777;
+}
+</style>
 </head>
+
 <body>
+<div class="wrap">
 
 <header>
-  <div class="container">
-    <h1>MÁY BƠM NHÔM MINI ĐÚC</h1>
-    <div class="hot">BƠM NƯỚC NHANH – NHỎ GỌN – BỀN BỈ 100%</div>
-    
-    <div class="countdown">
-      Khuyến mãi kết thúc sau: 
-      <span>03</span>ngày 
-      <span>14</span>giờ 
-      <span>37</span>phút 
-      <span>22</span>giây
-    </div>
-
-    <a href="LINK ĐẶT HÀNG CỦA BẠN" class="cta-btn">ĐẶT MUA NGAY – GIẢM 50%</a>
-    
-    <div class="watching">Đang có <b>9.2K</b> người đặt muamua sản phẩm này</div>
-  </div>
+  <h2>MÁY BƠM MINI 12V</h2>
+  <p>Bền – Mạnh – Giá xưởng</p>
 </header>
 
-<!-- PHẦN HÌNH ẢNH SẢN PHẨM (CAROUSEL) -->
-<section id="hinh-anh-san-pham" style="padding: 50px 15px; background: #f9f9f9; text-align: center;">
-  <div class="container" style="max-width: 980px; margin: 0 auto;">
-    <h2 style="color: #c62828; font-size: 2.2rem; margin-bottom: 30px;">Hình Ảnh Thực Tế Máy Bơm Nhôm Đúc</h2>
-    <p style="font-size: 1.15rem; margin-bottom: 40px; color: #444; max-width: 800px; margin-left: auto; margin-right: auto;">
-      Vuốt sang trái/phải hoặc click mũi tên để xem chi tiết. Máy bơm mini bằng nhôm, thiết kế chắc chắn, phù hợp cho ứng dụng DIY, tưới nhỏ hoặc mô hình.
-    </p>
-
-    <div class="carousel-container">
-      <div class="carousel" id="carousel">
-        <div class="carousel-item">
-          <img src="https://raw.githubusercontent.com/Phamcuong1405/xuongchetao/main/may-1.jpg" alt="Máy bơm nhôm đúc góc chính diện" loading="lazy">
-          <div class="carousel-caption">Góc chính diện – Thân máy và ống nối</div>
-        </div>
-        <div class="carousel-item">
-          <img src="https://raw.githubusercontent.com/Phamcuong1405/xuongchetao/main/may-2.jpg" alt="Máy bơm nhôm góc nghiêng" loading="lazy">
-          <div class="carousel-caption">Góc nghiêng – Chi tiết phần đầu ra và thân</div>
-        </div>
-        <div class="carousel-item">
-          <img src="https://raw.githubusercontent.com/Phamcuong1405/xuongchetao/main/may3.jpg" alt="Máy bơm nhôm chi tiết impeller" loading="lazy">
-          <div class="carousel-caption">Chi tiết impeller và phần lắp ráp bên trong</div>
-        </div>
-      </div>
-
-      <button class="carousel-arrow left" onclick="moveSlide(-1)">&#10094;</button>
-      <button class="carousel-arrow right" onclick="moveSlide(1)">&#10095;</button>
-    </div>
+<div class="section">
+  <div class="package">
+    <h3>GÓI 1 CÁI</h3>
+    <p>Giá: 250.000đ</p>
+    <a href="#order" class="btn" onclick="selectPackage(1)">MUA NGAY</a>
   </div>
-</section>
 
-<!-- PHẦN CHỌN GÓI -->
-<section>
-  <div class="container">
-    <h2>Chọn gói phù hợp ngay hôm nay</h2>
-    
-    <div class="pricing">
-      <div class="card">
-        <h3>GÓI 1 CÁI</h3>
-        <div class="price">250.000đ</div>
-        <div class="old-price">290.000đ</div>
-        <ul>
-          <li>1 máy bơm mini</li>
-          <li>Phù hợp thử nghiệm DIY</li>
-          <li>Phí ship: 20k–30k</li>
-        </ul>
-        <a href="LINK_MUA_1" class="btn">MUA NGAY</a>
-      </div>
-
-      <div class="card hot-deal">
-        <h3>GÓI 2 CÁI</h3>
-        <div class="price">500.000đ</div>
-        <div class="old-price">580.000đ</div>
-        <ul>
-          <li>MIỄN PHÍ SHIP TOÀN QUỐC</li>
-          <li>Bào hành 01 tháng cho đầu bơm </li>
-          <li>Tiết kiệm hơn 60%</li>
-        </ul>
-        <a href="LINK_MUA_3" class="btn">CHỌN GÓI NÀY</a>
-      </div>
-
-      <div class="card">
-        <h3>GÓI 3 CÁI </h3>
-        <div class="price">750.000đ</div>
-        <div class="old-price">870.000đ</div>
-        <ul>
-          <li>MIỄN PHÍ SHIP</li>
-          <li>Bảo hành 03 tháng cho đầu bơm </li>
-          <li>Phù hợp xưởng nhỏ</li>
-        </ul>
-        <a href="LINK_MUA_5" class="btn">MUA GÓI SIÊU TIẾT KIỆM</a>
-      </div>
-    </div>
+  <div class="package">
+    <h3>GÓI 2 CÁI</h3>
+    <p>Giá: 470.000đ</p>
+    <a href="#order" class="btn" onclick="selectPackage(2)">CHỌN GÓI NÀY</a>
   </div>
-</section>
 
-<!-- PHẦN ĐẶT HÀNG -->
-<section class="order-form">
-  <div class="container">
-    <h2>Đặt hàng ngay chỉ với 1 bước</h2>
-    <p style="font-size:1.3rem; margin:20px 0;">Nhập thông tin → Chúng tôi sẽ liên hệ xác nhận → Giao hàng tận nơi</p>
-    
-    <form id="order-form" action="https://script.google.com/macros/s/AKfycbyNnLWAwYetYmeX7u43j11j8NF_AtH5bgQYMYvyncso2wRX9yKN9XYp4U8bv1MpLY4T/exec" method="POST" target="_blank">
-      <label for="quantity">Số lượng:</label>
-      <input type="number" id="quantity" name="Số lượng" min="1" value="1" required>
-
-      <label for="name">Họ và tên:</label>
-      <input type="text" id="name" name="Họ tên" placeholder="Ví dụ: Phạm Chí Cường" required>
-
-      <label for="phone">Số điện thoại:</label>
-      <input type="tel" id="phone" name="Số điện thoại" placeholder="Ví dụ: 0987777788" required pattern="[0-9]{9,11}">
-
-      <label for="address">Địa chỉ nhận hàng:</label>
-      <input type="text" id="address" name="Địa chỉ" placeholder="Ví dụ: Ngõ 13 Linh Nam, Hà Nội" required>
-
-      <button type="submit" class="cta-btn" style="margin:30px auto 0; display:block; width:100%; max-width:420px;">ĐẶT HÀNG NGAY</button>
-    </form>
-
-    <script>
-      document.getElementById('order-form').addEventListener('submit', function(e) {
-        e.preventDefault();
-        const formData = new FormData(this);
-
-        fetch(this.action, {
-          method: 'POST',
-          body: formData
-        })
-        .then(response => {
-          if (!response.ok) {
-            throw new Error('Lỗi server: ' + response.status);
-          }
-          return response.json();
-        })
-        .then(data => {
-          if (data.result === 'success') {
-            alert('Đặt hàng thành công! Chúng tôi sẽ liên hệ sớm.');
-            this.reset();
-          } else {
-            alert('Lỗi từ server: ' + (data.message || 'Không rõ'));
-          }
-        })
-        .catch(error => {
-          alert('Lỗi gửi đơn: ' + error.message + '\nThử mở link web trực tiếp trên Chrome/Safari thay vì trong Messenger nhé!');
-        });
-      });
-    </script>
-
-    <p style="font-size: 0.9rem; color: #666; margin-top: 15px;">
-      Nếu đặt hàng từ Messenger/Facebook, hãy mở link web trực tiếp trên Chrome hoặc Safari để gửi nhanh hơn.
-    </p>
+  <div class="package">
+    <h3>GÓI 3 CÁI</h3>
+    <p>Giá: 680.000đ</p>
+    <a href="#order" class="btn" onclick="selectPackage(3)">MUA GÓI SIÊU TIẾT KIỆM</a>
   </div>
-</section>
+</div>
 
-<!-- PHẦN LỢI ÍCH -->
-<section class="benefits">
-  <div class="container">
-    <h2>Tại sao nên chọn ngay hôm nay?</h2>
-    <ul>
-      <li>Chất liệu nhôm đúc bền bỉ, chống gỉ sét</li>
-      <li>Kích thước nhỏ gọn, dễ lắp đặt DIY</li>
-      <li>Bơm nước nhanh, hiệu suất cao</li>
-      <li>HOÀN TIỀN 200% nếu không như quảng cáo</li>
-      <li>Ship COD toàn quốc – kiểm tra hàng trước khi thanh toán</li>
-    </ul>
-  </div>
-</section>
+<div class="section" id="order">
+  <h3>THÔNG TIN ĐẶT HÀNG</h3>
+
+  <form id="order-form" method="POST"
+    action="ACTION_URL">
+
+    <input name="Họ tên" placeholder="Họ và tên" required>
+    <input id="phone" name="Số điện thoại" placeholder="Số điện thoại" required>
+    <textarea name="Địa chỉ" placeholder="Địa chỉ nhận hàng"></textarea>
+
+    <input id="quantity" name="Số lượng" value="1" readonly>
+
+    <!-- INPUT ẨN -->
+    <input type="hidden" id="package" name="Gói mua" value="Gói 1 cái">
+    <input type="hidden" id="price" name="Đơn giá" value="0">
+    <input type="hidden" id="total" name="Tổng tiền" value="0">
+    <input type="hidden" id="source" name="Nguồn khách" value="Website">
+
+    <div id="show-total" style="margin-top:10px;font-weight:bold;color:#c62828"></div>
+
+    <button class="btn" type="submit">GỬI ĐƠN HÀNG</button>
+  </form>
+</div>
 
 <footer>
-  <div class="container">
-    <p><strong>XƯỞNG CHẾ TẠO</strong></p>
-    <p>Địa chỉ: số 268 Lê Văn Lương, Hà Nội</p>
-    <p>Hotline: 0888 526 832</p>
-    <p style="margin-top:20px;">
-      <a href="#">Chính sách đổi trả</a> • 
-      <a href="#">Điều khoản sử dụng</a> • 
-      <a href="#">Chính sách bảo mật</a>
-    </p>
-    <p style="margin-top:15px;">SHIP TOÀN QUỐC – UY TÍN TẠO NÊN THƯƠNG HIỆU</p>
-  </div>
+  © Xưởng Chế Tạo
 </footer>
 
-<!-- JS CHO CAROUSEL HÌNH ẢNH -->
-<script>
-  let currentSlide = 0;
-  const slides = document.querySelectorAll('.carousel-item');
-  const totalSlides = slides.length;
+</div>
 
-  function moveSlide(direction) {
-    currentSlide = (currentSlide + direction + totalSlides) % totalSlides;
-    document.getElementById('carousel').style.transform = `translateX(-${currentSlide * 100}%)`;
+<!-- MODAL -->
+<div id="modal" style="
+  position:fixed;inset:0;
+  background:rgba(0,0,0,.6);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  z-index:9999">
+  <div style="
+    background:#fff;
+    padding:25px;
+    border-radius:12px;
+    text-align:center;
+    max-width:320px">
+    <h3 id="modal-title"></h3>
+    <p id="modal-msg" style="margin:15px 0"></p>
+    <button class="btn" onclick="closeModal()">Đóng</button>
+  </div>
+</div>
+
+<!-- LOADING -->
+<div id="loading" style="
+  position:fixed;inset:0;
+  background:rgba(255,255,255,.8);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  z-index:9998;
+  font-size:20px;
+  font-weight:bold;
+  color:#c62828">
+  ĐANG GỬI ĐƠN HÀNG...
+</div>
+
+<script>
+/* GIÁ */
+const PRICE = {1:250000,2:470000,3:680000};
+
+function selectPackage(qty){
+  const total = PRICE[qty];
+  quantity.value = qty;
+  package.value = `Gói ${qty} cái`;
+  price.value = PRICE[qty];
+  totalInput.value = total;
+  showTotal(total);
+}
+
+function showTotal(v){
+  show-total.innerText = "Tổng tiền: " + v.toLocaleString() + "đ";
+}
+
+/* NGUỒN KHÁCH */
+(function(){
+  const p=new URLSearchParams(location.search);
+  let s="Website";
+  if(p.get("utm_source")){
+    const x=p.get("utm_source").toLowerCase();
+    if(x.includes("facebook")) s="Facebook";
+    else if(x.includes("zalo")) s="Zalo";
+    else s=x;
+  }
+  source.value=s;
+})();
+
+/* GỬI FORM */
+const form=document.getElementById("order-form");
+const loading=document.getElementById("loading");
+
+form.addEventListener("submit",e=>{
+  e.preventDefault();
+
+  if(!/^[0-9]{9,11}$/.test(phone.value)){
+    showModal("LỖI","Số điện thoại không hợp lệ");
+    return;
   }
 
-  // Tự động chuyển slide mỗi 5 giây
-  setInterval(() => moveSlide(1), 5000);
+  loading.style.display="flex";
 
-  // Dừng khi hover
-  document.querySelector('.carousel-container').addEventListener('mouseenter', () => clearInterval(autoSlide));
-  document.querySelector('.carousel-container').addEventListener('mouseleave', () => autoSlide = setInterval(() => moveSlide(1), 5000));
+  fetch(form.action,{
+    method:"POST",
+    body:new FormData(form)
+  })
+  .then(r=>r.json())
+  .then(d=>{
+    loading.style.display="none";
+    if(d.result==="success"){
+      showModal("THÀNH CÔNG","🎉 Đặt hàng thành công!");
+      form.reset();
+    }else{
+      showModal("LỖI",d.message);
+    }
+  })
+  .catch(()=>{
+    loading.style.display="none";
+    showModal("LỖI","Không kết nối được máy chủ");
+  });
+});
+
+function showModal(t,m){
+  modal-title.innerText=t;
+  modal-msg.innerText=m;
+  modal.style.display="flex";
+}
+function closeModal(){
+  modal.style.display="none";
+}
 </script>
 
 </body>
