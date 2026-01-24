@@ -401,25 +401,36 @@
     </form>
 
     <script>
- <script>
-document.getElementById("order-form").addEventListener("submit", function(e){
+document.getElementById("order-form").addEventListener("submit", async function(e) {
   e.preventDefault();
 
-  fetch(this.action, {
-    method: "POST",
-    body: new FormData(this)
-  })
-  .then(() => {
-    alert("🎉 Đặt hàng thành công! Chúng tôi sẽ liên hệ sớm.");
-    this.reset();
-  })
-  .catch(() => {
-    alert("Không gửi được đơn. Hãy mở link bằng Chrome hoặc Safari.");
-  });
+  const btn = this.querySelector("button");
+  btn.disabled = true;
+  btn.innerText = "Đang gửi...";
+
+  try {
+    const res = await fetch(this.action, {
+      method: "POST",
+      body: new FormData(this)
+    });
+
+    const json = await res.json();
+
+    alert(json.message);
+
+    if (json.success) {
+      this.reset();
+    }
+
+  } catch (err) {
+    alert("❌ Không gửi được đơn. Vui lòng mở link bằng Chrome hoặc Safari.");
+  }
+
+  btn.disabled = false;
+  btn.innerText = "ĐẶT HÀNG NGAY";
 });
 </script>
 
-    </script>
 
     <p style="font-size: 0.9rem; color: #666; margin-top: 15px;">
       Nếu đặt hàng từ Messenger/Facebook, hãy mở link web trực tiếp trên Chrome hoặc Safari để gửi nhanh hơn.
