@@ -1,65 +1,47 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <base target="_top">
-    <meta charset="utf-8">
-    <style>
-      body {font-family: Arial, sans-serif; padding: 20px; background:#f9f9f9;}
-      h2 {text-align:center; color:#d32f2f;}
-      label {display:block; margin:12px 0 4px; font-weight:bold;}
-      input, textarea {width:100%; padding:10px; box-sizing:border-box; border:1px solid #ccc; border-radius:4px;}
-      button {background:#4CAF50; color:white; padding:12px 20px; border:none; border-radius:4px; cursor:pointer; font-size:16px; margin-top:15px; width:100%;}
-      button:hover {background:#45a049;}
-      #result {margin-top:20px; padding:10px; text-align:center; color:green; font-weight:bold;}
-    </style>
-  </head>
-  <body>
-    <h2>ĐẶT HÀNG NHANH</h2>
-    
-    <form id="orderForm">
-      <label>Họ và tên:</label>
-      <input type="text" name="ten" required>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ĐẶT HÀNG</title>
+<style>
+body{font-family:Arial;background:#f2f2f2}
+form{max-width:400px;margin:30px auto;background:#fff;padding:20px;border-radius:8px}
+input,textarea,button{width:100%;padding:10px;margin:8px 0}
+button{background:#e53935;color:#fff;border:none;font-size:16px}
+</style>
+</head>
 
-      <label>Số điện thoại:</label>
-      <input type="tel" name="sdt" required pattern="[0-9]{9,11}">
+<body>
 
-      <label>Địa chỉ giao hàng:</label>
-      <textarea name="diachi" rows="3" required></textarea>
+<form 
+action="https://docs.google.com/forms/d/e/FORM_ID/formResponse"
+method="POST"
+target="hidden_iframe"
+onsubmit="submitted=true;"
+>
 
-      <label>Số lượng / Sản phẩm:</label>
-      <input type="text" name="soluong" required placeholder="Ví dụ: 2 áo thun đen size M">
+<input name="entry.111111111" placeholder="Tên khách hàng" required>
+<input name="entry.222222222" placeholder="Số điện thoại" required>
+<input name="entry.333333333" placeholder="Địa chỉ" required>
+<input name="entry.444444444" type="number" value="1">
+<textarea name="entry.555555555" placeholder="Ghi chú"></textarea>
 
-      <label>Ghi chú (nếu có):</label>
-      <textarea name="ghichu" rows="2"></textarea>
+<button type="submit">ĐẶT HÀNG</button>
+</form>
 
-      <button type="submit">GỬI ĐƠN HÀNG</button>
-    </form>
+<iframe name="hidden_iframe" style="display:none;"></iframe>
 
-    <div id="result"></div>
+<script>
+let submitted = false;
+document.querySelector("form").onsubmit = function(){
+  submitted = true;
+  setTimeout(()=>{
+    alert("ĐẶT HÀNG THÀNH CÔNG");
+    document.querySelector("form").reset();
+  },800);
+}
+</script>
 
-    <script>
-      document.getElementById('orderForm').addEventListener('submit', function(e) {
-        e.preventDefault();
-        
-        const formData = {
-          ten: document.querySelector('[name="ten"]').value,
-          sdt: document.querySelector('[name="sdt"]').value,
-          diachi: document.querySelector('[name="diachi"]').value,
-          soluong: document.querySelector('[name="soluong"]').value,
-          ghichu: document.querySelector('[name="ghichu"]').value
-        };
-
-        google.script.run
-          .withSuccessHandler(function(msg) {
-            document.getElementById('result').innerText = msg;
-            document.getElementById('orderForm').reset();
-          })
-          .withFailureHandler(function(err) {
-            document.getElementById('result').innerText = 'Có lỗi xảy ra: ' + err.message;
-            document.getElementById('result').style.color = 'red';
-          })
-          .processForm(formData);
-      });
-    </script>
-  </body>
+</body>
 </html>
