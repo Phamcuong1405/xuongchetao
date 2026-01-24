@@ -1,46 +1,110 @@
-<form id="order-form">
-  <input type="text" name="name" placeholder="Họ và tên" required>
-  <input type="tel" name="phone" placeholder="Số điện thoại" required>
-  <input type="text" name="address" placeholder="Địa chỉ nhận hàng" required>
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MÁY BƠM NHÔM MINI</title>
 
-  <select name="quantity">
-    <option value="1">1 sản phẩm</option>
-    <option value="2">2 sản phẩm</option>
-    <option value="3">3 sản phẩm</option>
-  </select>
+<style>
+body{
+  margin:0;
+  font-family:Arial,Helvetica,sans-serif;
+  background:#f5f5f5;
+}
+.container{
+  max-width:900px;
+  margin:auto;
+  padding:20px;
+  background:#fff;
+}
+h1{color:#c62828;text-align:center}
+label{display:block;margin-top:15px;font-weight:bold}
+input,select,button{
+  width:100%;
+  padding:10px;
+  margin-top:5px;
+  font-size:16px;
+}
+button{
+  background:#d32f2f;
+  color:#fff;
+  border:none;
+  cursor:pointer;
+  margin-top:20px;
+}
+button:disabled{background:#aaa}
+#order-msg{margin-top:15px;font-weight:bold}
+</style>
+</head>
 
-  <input type="hidden" name="source" value="Web">
+<body>
 
-  <button type="submit">ĐẶT HÀNG NGAY</button>
-</form>
+<div class="container">
+  <h1>MÁY BƠM NHÔM MINI ĐÚC</h1>
 
-<div id="order-msg" style="margin-top:10px;font-weight:bold"></div>
+  <!-- ===== FORM ĐẶT HÀNG ===== -->
+  <form id="order-form">
+    <label>Họ và tên</label>
+    <input type="text" name="name" required>
+
+    <label>Số điện thoại</label>
+    <input type="tel" name="phone" required>
+
+    <label>Địa chỉ</label>
+    <input type="text" name="address" required>
+
+    <label>Số lượng</label>
+    <select name="quantity">
+      <option value="1">1 sản phẩm</option>
+      <option value="2">2 sản phẩm</option>
+      <option value="3">3 sản phẩm</option>
+    </select>
+
+    <button id="submitBtn" type="submit">ĐẶT HÀNG NGAY</button>
+  </form>
+
+  <p id="order-msg"></p>
+</div>
+
+<!-- ===== SCRIPT GỬI ĐƠN DUY NHẤT ===== -->
 <script>
-const form = document.getElementById("order-form");
-const msg  = document.getElementById("order-msg");
+const API_URL = "https://script.google.com/macros/s/AKfycbyNnLWAwYetYmeX7u43j11j8NF_AtH5bgQYMYvyncso2wRX9yKN9XYp4U8bv1MpLY4T/exec";
 
-form.addEventListener("submit", function(e) {
+document.getElementById("order-form").addEventListener("submit", async function(e){
   e.preventDefault();
 
-  msg.innerHTML = "⏳ Đang gửi đơn...";
+  const btn = document.getElementById("submitBtn");
+  const msg = document.getElementById("order-msg");
 
-  const data = new FormData(form);
+  btn.disabled = true;
+  btn.innerText = "Đang gửi...";
+  msg.innerText = "";
 
-  fetch("https://script.google.com/macros/s/AKfycbXXXXXXXXXXXX/exec", {
-    method: "POST",
-    body: data
-  })
-  .then(res => res.json())
-  .then(r => {
-    if (r.success) {
-      msg.innerHTML = "✅ ĐẶT HÀNG THÀNH CÔNG!";
-      form.reset();
-    } else {
-      msg.innerHTML = "❌ " + r.msg;
+  try{
+    const res = await fetch(API_URL,{
+      method:"POST",
+      body:new FormData(this)
+    });
+
+    const data = await res.json();
+
+    if(data.success){
+      msg.style.color="green";
+      msg.innerText="✅ ĐẶT HÀNG THÀNH CÔNG";
+      this.reset();
+    }else{
+      msg.style.color="red";
+      msg.innerText=data.msg || "❌ Gửi thất bại";
     }
-  })
-  .catch(() => {
-    msg.innerHTML = "❌ Lỗi gửi đơn. Thử lại!";
-  });
+  }catch(err){
+    msg.style.color="red";
+    msg.innerText="❌ Không kết nối được máy chủ";
+  }
+
+  btn.disabled = false;
+  btn.innerText = "ĐẶT HÀNG NGAY";
 });
 </script>
+
+</body>
+</html>
