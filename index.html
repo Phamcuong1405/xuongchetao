@@ -5,38 +5,51 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>MÁY BƠM NHÔM MINI - Xưởng Chế Tạo</title>
   <style>
-    /* CSS CƠ BẢN */
+    /* TOÀN BỘ CSS CỦA TRANG */
     * { margin:0; padding:0; box-sizing:border-box; }
-    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.6; color: #333; background: #f8f8f8; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.6; color: #333; background: #f8f8f8; scroll-behavior: smooth; }
     .container { max-width: 980px; margin: 0 auto; padding: 0 15px; }
 
     header { background: linear-gradient(135deg, #ff416c, #ff4b2b); color: white; text-align: center; padding: 60px 15px 40px; }
     header h1 { font-size: 2.8rem; margin-bottom: 12px; text-shadow: 2px 2px 8px rgba(0,0,0,0.4); }
     .hot { background: #fff; color: #d32f2f; font-weight: bold; padding: 6px 16px; border-radius: 30px; display: inline-block; margin: 10px 0; font-size: 1.1rem; }
     
-    .cta-btn { display: inline-block; background: #ffeb3b; color: #d50000; font-size: 1.5rem; font-weight: bold; padding: 18px 60px; border-radius: 50px; text-decoration: none; margin: 25px 0; box-shadow: 0 8px 0 #ffb300; transition: all 0.2s; border: none; cursor: pointer; }
+    .cta-btn { display: inline-block; background: #ffeb3b; color: #d50000; font-size: 1.5rem; font-weight: bold; padding: 18px 60px; border-radius: 50px; text-decoration: none; margin: 25px 0; box-shadow: 0 8px 0 #ffb300; transition: all 0.2s; border: none; cursor: pointer; text-align: center; }
     .cta-btn:hover { transform: translateY(-3px); box-shadow: 0 11px 0 #ffb300; }
+    .cta-btn:disabled { background: #ccc; box-shadow: none; cursor: not-allowed; transform: none; }
 
     /* CAROUSEL */
-    .carousel-container { position: relative; max-width: 800px; margin: 0 auto; overflow: hidden; border-radius: 12px; box-shadow: 0 8px 25px rgba(0,0,0,0.15); }
+    .carousel-container { position: relative; max-width: 800px; margin: 30px auto; overflow: hidden; border-radius: 12px; box-shadow: 0 8px 25px rgba(0,0,0,0.15); }
     .carousel { display: flex; transition: transform 0.5s ease-in-out; }
     .carousel-item { min-width: 100%; position: relative; }
-    .carousel-item img { width: 100%; height: auto; display: block; }
-    .carousel-caption { position: absolute; bottom: 0; left: 0; right: 0; background: rgba(0,0,0,0.6); color: white; padding: 10px; text-align: center; }
-    .carousel-arrow { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.5); color: white; border: none; padding: 12px 18px; font-size: 1.8rem; cursor: pointer; border-radius: 50%; }
+    .carousel-item img { width: 100%; height: auto; display: block; border-radius: 12px; }
+    .carousel-caption { position: absolute; bottom: 0; left: 0; right: 0; background: rgba(0,0,0,0.6); color: white; padding: 10px; text-align: center; font-size: 0.9rem; }
+    .carousel-arrow { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.5); color: white; border: none; padding: 12px 18px; font-size: 1.5rem; cursor: pointer; border-radius: 50%; user-select: none; }
+
+    /* BẢNG GIÁ */
+    .pricing { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; margin: 40px 0; }
+    .card { background: white; border-radius: 16px; overflow: hidden; box-shadow: 0 6px 20px rgba(0,0,0,0.12); text-align: center; position: relative; }
+    .card h3 { background: #c62828; color: white; padding: 18px; font-size: 1.4rem; }
+    .card .price { font-size: 2.2rem; color: #d32f2f; font-weight: bold; margin: 20px 0 5px; }
+    .card .old-price { text-decoration: line-through; color: #888; margin-bottom: 15px; }
+    .card ul { list-style: none; padding: 0 20px 20px; text-align: left; font-size: 1rem; }
+    .card ul li { margin: 10px 0; }
+    .card ul li::before { content: "✓ "; color: #4caf50; font-weight: bold; }
 
     /* FORM ĐẶT HÀNG */
-    .order-form { background: #ffebee; padding: 50px 20px; text-align: center; }
-    .order-form label { display: block; font-size: 1.1rem; margin: 15px 0 5px; text-align: left; max-width: 420px; margin-left: auto; margin-right: auto; font-weight: bold; }
-    .order-form input, .order-form select { width: 100%; max-width: 420px; padding: 12px; font-size: 1.1rem; border: 2px solid #ef9a9a; border-radius: 8px; margin: 0 auto; display: block; }
-    
-    .pricing { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; margin: 40px 0; }
-    .card { background: white; border-radius: 16px; overflow: hidden; box-shadow: 0 6px 20px rgba(0,0,0,0.12); text-align: center; padding-bottom: 20px; }
-    .card h3 { background: #c62828; color: white; padding: 18px; }
-    .price { font-size: 2rem; color: #d32f2f; font-weight: bold; margin: 15px 0; }
-    
-    footer { background: #333; color: white; text-align: center; padding: 40px 20px; }
-    @media (max-width: 600px) { header h1 { font-size: 2rem; } }
+    .order-section { background: #ffebee; padding: 60px 20px; text-align: center; }
+    .order-form-box { max-width: 500px; margin: 0 auto; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+    .order-form-box label { display: block; text-align: left; font-weight: bold; margin: 15px 0 5px; color: #c62828; }
+    .order-form-box input, .order-form-box select { width: 100%; padding: 12px; border: 2px solid #ef9a9a; border-radius: 8px; font-size: 1rem; outline: none; }
+    .order-form-box input:focus { border-color: #d32f2f; }
+    #order-msg { margin-top: 20px; font-weight: bold; min-height: 1.5em; }
+
+    footer { background: #333; color: white; text-align: center; padding: 40px 20px; margin-top: 50px; }
+
+    @media (max-width: 600px) {
+      header h1 { font-size: 2rem; }
+      .cta-btn { font-size: 1.2rem; padding: 15px 30px; }
+    }
   </style>
 </head>
 <body>
@@ -50,71 +63,101 @@
   </div>
 </header>
 
-<section id="hinh-anh">
-  <div class="container" style="text-align:center; padding-top: 50px;">
-    <h2>Hình Ảnh Thực Tế</h2>
-    <div class="carousel-container">
-      <div class="carousel" id="carousel">
-        <div class="carousel-item">
-          <img src="https://raw.githubusercontent.com/Phamcuong1405/xuongchetao/main/may-1.jpg" alt="Máy 1">
-          <div class="carousel-caption">Góc chính diện – Thân máy và ống nối</div>
-        </div>
-        <div class="carousel-item">
-          <img src="https://raw.githubusercontent.com/Phamcuong1405/xuongchetao/main/may-2.jpg" alt="Máy 2">
-          <div class="carousel-caption">Góc nghiêng – Chi tiết phần đầu ra</div>
-        </div>
-        <div class="carousel-item">
-          <img src="https://raw.githubusercontent.com/Phamcuong1405/xuongchetao/main/may3.jpg" alt="Máy 3">
-          <div class="carousel-caption">Chi tiết impeller bên trong</div>
-        </div>
+<section class="container" style="padding: 50px 0;">
+  <h2 style="text-align: center; color: #c62828; margin-bottom: 20px;">HÌNH ẢNH THỰC TẾ SẢN PHẨM</h2>
+  <div class="carousel-container">
+    <div class="carousel" id="carousel">
+      <div class="carousel-item">
+        <img src="https://raw.githubusercontent.com/Phamcuong1405/xuongchetao/main/may-1.jpg" alt="Máy bơm 1">
+        <div class="carousel-caption">Góc chính diện – Thân máy nhôm đúc nguyên khối</div>
       </div>
-      <button class="carousel-arrow" style="left:10px" onclick="moveSlide(-1)">&#10094;</button>
-      <button class="carousel-arrow" style="right:10px" onclick="moveSlide(1)">&#10095;</button>
+      <div class="carousel-item">
+        <img src="https://raw.githubusercontent.com/Phamcuong1405/xuongchetao/main/may-2.jpg" alt="Máy bơm 2">
+        <div class="carousel-caption">Thiết kế nhỏ gọn - Dễ dàng lắp đặt DIY</div>
+      </div>
+      <div class="carousel-item">
+        <img src="https://raw.githubusercontent.com/Phamcuong1405/xuongchetao/main/may3.jpg" alt="Máy bơm 3">
+        <div class="carousel-caption">Cánh quạt (Impeller) tối ưu lưu lượng nước</div>
+      </div>
+    </div>
+    <button class="carousel-arrow" style="left:10px" onclick="moveSlide(-1)">&#10094;</button>
+    <button class="carousel-arrow" style="right:10px" onclick="moveSlide(1)">&#10095;</button>
+  </div>
+</section>
+
+<section class="container">
+  <h2 style="text-align: center; color: #c62828;">CHỌN GÓI ƯU ĐÃI</h2>
+  <div class="pricing">
+    <div class="card">
+      <h3>GÓI 1 CÁI</h3>
+      <div class="price">250.000đ</div>
+      <div class="old-price">290.000đ</div>
+      <ul>
+        <li>1 máy bơm mini nhôm</li>
+        <li>Phù hợp thử nghiệm</li>
+        <li>Phí ship: 30.000đ</li>
+      </ul>
+      <a href="#dat-hang" onclick="setPackage('Gói 1 cái - 250k')" style="color: #c62828; font-weight: bold;">Chọn gói này</a>
+    </div>
+    <div class="card" style="border: 2px solid #ff4b2b;">
+      <h3 style="background: #ff4b2b;">GÓI 2 CÁI (HOT)</h3>
+      <div class="price">500.000đ</div>
+      <div class="old-price">580.000đ</div>
+      <ul>
+        <li>MIỄN PHÍ VẬN CHUYỂN</li>
+        <li>Bảo hành 1 tháng đầu bơm</li>
+        <li>Tiết kiệm 80.000đ</li>
+      </ul>
+      <a href="#dat-hang" onclick="setPackage('Gói 2 cái - 500k')" style="color: #ff4b2b; font-weight: bold;">Chọn gói này</a>
     </div>
   </div>
 </section>
 
-<section id="dat-hang" class="order-form">
+<section id="dat-hang" class="order-section">
   <div class="container">
-    <h2>THÔNG TIN ĐẶT HÀNG</h2>
-    <p>Vui lòng điền chính xác thông tin để xưởng gửi hàng sớm nhất</p>
-    
-    <form id="mainOrderForm">
-      <label>Họ và Tên:</label>
-      <input type="text" name="name" placeholder="Ví dụ: Nguyễn Văn An" required>
+    <div class="order-form-box">
+      <h2 style="color: #c62828;">THÔNG TIN GIAO HÀNG</h2>
+      <p style="font-size: 0.9rem; margin-bottom: 20px;">(Vui lòng kiểm tra kỹ số điện thoại)</p>
+      
+      <form id="mainOrderForm">
+        <label>Họ và Tên:</label>
+        <input type="text" name="name" placeholder="Ví dụ: Nguyễn Văn A" required>
 
-      <label>Số điện thoại:</label>
-      <input type="tel" name="phone" placeholder="Nhập số điện thoại" required>
+        <label>Số điện thoại:</label>
+        <input type="tel" name="phone" id="phoneField" placeholder="Nhập số điện thoại để nhận hàng" required pattern="[0-9]{10,11}">
 
-      <label>Địa chỉ nhận hàng:</label>
-      <input type="text" name="address" placeholder="Số nhà, tên đường, xã/huyện, tỉnh" required>
+        <label>Địa chỉ nhận hàng:</label>
+        <input type="text" name="address" placeholder="Số nhà, tên đường, xã/huyện, tỉnh" required>
 
-      <label>Chọn gói sản phẩm:</label>
-      <select name="package" id="package">
-        <option value="1 cái - 250k">Gói 1 cái - 250.000đ</option>
-        <option value="2 cái - 500k">Gói 2 cái - 500.000đ (Miễn phí ship)</option>
-        <option value="3 cái - 750k">Gói 3 cái - 750.000đ (Bảo hành 3 tháng)</option>
-      </select>
+        <label>Gói sản phẩm:</label>
+        <select name="package" id="packageSelect">
+          <option value="Gói 1 cái - 250k">Gói 1 cái - 250.000đ</option>
+          <option value="Gói 2 cái - 500k">Gói 2 cái - 500.000đ (Miễn phí ship)</option>
+          <option value="Gói 3 cái - 750k">Gói 3 cái - 750.000đ (Bảo hành 3 tháng)</option>
+        </select>
 
-      <label>Ghi chú thêm:</label>
-      <input type="text" name="note" placeholder="Yêu cầu khác (nếu có)">
+        <label>Ghi chú (nếu có):</label>
+        <input type="text" name="note" placeholder="Ví dụ: Giao giờ hành chính">
 
-      <button type="submit" id="submitBtn" class="cta-btn">GỬI ĐƠN HÀNG NGAY</button>
-    </form>
-    
-    <div id="order-msg" style="margin-top:20px; font-size:1.2rem; font-weight:bold;"></div>
+        <button type="submit" id="submitBtn" class="cta-btn" style="width: 100%; margin-top: 30px;">XÁC NHẬN ĐẶT HÀNG</button>
+      </form>
+      
+      <div id="order-msg"></div>
+    </div>
   </div>
 </section>
 
 <footer>
   <div class="container">
     <p><strong>XƯỞNG CHẾ TẠO MÁY BƠM</strong></p>
-    <p>Địa chỉ: số 268 Lê Văn Lương, Hà Nội | Hotline: 0888 526 832</p>
+    <p>Địa chỉ: số 268 Lê Văn Lương, Hà Nội</p>
+    <p>Hotline: 0888 526 832</p>
+    <p style="margin-top: 10px; font-size: 0.8rem; opacity: 0.7;">© 2024 XuongCheTao - All rights reserved</p>
   </div>
 </footer>
 
 <script>
-  // SCRIPT CAROUSEL
+  // 1. CAROUSEL HÌNH ẢNH
   let currentSlide = 0;
   const slides = document.querySelectorAll('.carousel-item');
   function moveSlide(dir) {
@@ -123,47 +166,82 @@
   }
   let autoSlide = setInterval(() => moveSlide(1), 5000);
 
-  // SCRIPT GỬI DỮ LIỆU GOOGLE SHEET
-  const API_URL = "https://script.google.com/macros/s/AKfycbxaQdIPRFnkyDAAmaMnBPSdk-41Ng7sDf1OrYkZRLEXHc5c4b-sad8JnJLVYv5AWpOEoA/exec";
+  // 2. CHỌN GÓI NHANH
+  function setPackage(val) {
+    document.getElementById('packageSelect').value = val;
+  }
+
+  // 3. GỬI ĐƠN VÀ CHỐNG SPAM
+  const API_URL = "https://script.google.com/macros/s/AKfycbyNnLWAwYetYmeX7u43j11j8NF_AtH5bgQYMYvyncso2wRX9yKN9XYp4U8bv1MpLY4T/exec";
 
   document.getElementById("mainOrderForm").addEventListener("submit", async function(e) {
     e.preventDefault();
     const btn = document.getElementById("submitBtn");
     const msg = document.getElementById("order-msg");
+    const phoneInput = document.getElementById("phoneField").value.trim();
 
+    // KIỂM TRA CHỐNG SPAM
+    const lastOrderTime = localStorage.getItem("lastOrderTime");
+    const lastOrderPhone = localStorage.getItem("lastOrderPhone");
+    const currentTime = new Date().getTime();
+
+    if (lastOrderTime && (currentTime - lastOrderTime < 60000)) {
+        msg.style.color = "#e67e22";
+        msg.innerText = "⚠️ Bạn gửi đơn quá nhanh. Vui lòng đợi 1 phút.";
+        return;
+    }
+    
+    if (phoneInput === lastOrderPhone) {
+        msg.style.color = "#e67e22";
+        msg.innerText = "⚠️ Số điện thoại này vừa mới đặt hàng xong.";
+        return;
+    }
+
+    // BẮT ĐẦU GỬI
     btn.disabled = true;
-    btn.innerText = "ĐANG GỬI ĐƠN...";
-    msg.innerText = "";
+    btn.innerText = "ĐANG XỬ LÝ ĐƠN...";
+    msg.innerText = "Vui lòng đợi trong giây lát...";
+    msg.style.color = "#333";
 
     const formData = new FormData(this);
     const data = {
       name: formData.get("name"),
-      phone: formData.get("phone"),
+      phone: phoneInput,
       address: formData.get("address"),
       package: formData.get("package"),
       note: formData.get("note"),
-      source: window.location.hostname
+      source: window.location.hostname || "GitHub-Web"
     };
 
     try {
-      const res = await fetch(API_URL, {
+      // Gửi theo phương thức no-cors để tránh lỗi bảo mật trình duyệt
+      await fetch(API_URL, {
         method: "POST",
-        mode: "no-cors", // Quan trọng để tránh lỗi CORS khi dùng Apps Script
+        mode: "no-cors",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data)
       });
 
-      // Vì dùng no-cors nên ta mặc định coi như gửi thành công nếu không vào catch
+      // LƯU TRẠNG THÁI CHỐNG SPAM SAU KHI GỬI
+      localStorage.setItem("lastOrderTime", new Date().getTime());
+      localStorage.setItem("lastOrderPhone", phoneInput);
+
       msg.style.color = "green";
-      msg.innerText = "✅ ĐẶT HÀNG THÀNH CÔNG! Chúng tôi sẽ gọi lại sớm.";
+      msg.innerText = "✅ ĐẶT HÀNG THÀNH CÔNG! Chúng tôi sẽ gọi lại bạn sớm.";
       this.reset();
+      
+      // Mở lại nút sau 30 giây
+      setTimeout(() => {
+          btn.disabled = false;
+          btn.innerText = "XÁC NHẬN ĐẶT HÀNG";
+      }, 30000);
+
     } catch (err) {
       msg.style.color = "red";
-      msg.innerText = "❌ Lỗi kết nối. Vui lòng liên hệ Hotline.";
+      msg.innerText = "❌ Lỗi mạng. Vui lòng gọi Hotline để đặt hàng.";
+      btn.disabled = false;
+      btn.innerText = "XÁC NHẬN ĐẶT HÀNG";
     }
-
-    btn.disabled = false;
-    btn.innerText = "GỬI ĐƠN HÀNG NGAY";
   });
 </script>
 </body>
