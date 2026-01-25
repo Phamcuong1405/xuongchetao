@@ -171,10 +171,10 @@
     document.getElementById('packageSelect').value = val;
   }
 
-  // 3. GỬI ĐƠN VÀ CHỐNG SPAM
+  // 3. GỬI ĐƠN VỚI CÔNG NGHỆ PIXEL TRACKING (SỬA LỖI MESSENGER IOS)
   const API_URL = "https://script.google.com/macros/s/AKfycbyNnLWAwYetYmeX7u43j11j8NF_AtH5bgQYMYvyncso2wRX9yKN9XYp4U8bv1MpLY4T/exec";
 
-  document.getElementById("mainOrderForm").addEventListener("submit", async function(e) {
+  document.getElementById("mainOrderForm").addEventListener("submit", function(e) {
     e.preventDefault();
     const btn = document.getElementById("submitBtn");
     const msg = document.getElementById("order-msg");
@@ -200,48 +200,38 @@
     // BẮT ĐẦU GỬI
     btn.disabled = true;
     btn.innerText = "ĐANG XỬ LÝ ĐƠN...";
-    msg.innerText = "Vui lòng đợi trong giây lát...";
+    msg.innerText = "Hệ thống đang gửi đơn hàng...";
     msg.style.color = "#333";
 
-    const formData = new FormData(this);
-    const data = {
-      name: formData.get("name"),
-      phone: phoneInput,
-      address: formData.get("address"),
-      package: formData.get("package"),
-      note: formData.get("note"),
-      source: window.location.hostname || "GitHub-Web"
-    };
+    // CHUYỂN DỮ LIỆU THÀNH URL PARAMETERS
+    const name = encodeURIComponent(this.name.value);
+    const phone = encodeURIComponent(phoneInput);
+    const address = encodeURIComponent(this.address.value);
+    const pkg = encodeURIComponent(this.package.value);
+    const note = encodeURIComponent(this.note.value || "");
+    const source = encodeURIComponent("Messenger-Fix");
 
-    try {
-      // Gửi theo phương thức no-cors để tránh lỗi bảo mật trình duyệt
-      await fetch(API_URL, {
-        method: "POST",
-        mode: "no-cors",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data)
-      });
+    // Tạo link gửi dữ liệu kiểu GET
+    const finalUrl = `${API_URL}?name=${name}&phone=${phone}&address=${address}&package=${pkg}&note=${note}&source=${source}`;
 
-      // LƯU TRẠNG THÁI CHỐNG SPAM SAU KHI GỬI
-      localStorage.setItem("lastOrderTime", new Date().getTime());
-      localStorage.setItem("lastOrderPhone", phoneInput);
+    // Lách lỗi iOS Messenger bằng cách dùng thẻ Image (Pixel Tracking)
+    const img = new Image();
+    img.src = finalUrl;
+    
+    // Đợi 1.5 giây để dữ liệu kịp gửi đi trước khi thông báo thành công
+    setTimeout(() => {
+        localStorage.setItem("lastOrderTime", new Date().getTime());
+        localStorage.setItem("lastOrderPhone", phoneInput);
 
-      msg.style.color = "green";
-      msg.innerText = "✅ ĐẶT HÀNG THÀNH CÔNG! Chúng tôi sẽ gọi lại bạn sớm.";
-      this.reset();
-      
-      // Mở lại nút sau 30 giây
-      setTimeout(() => {
-          btn.disabled = false;
-          btn.innerText = "XÁC NHẬN ĐẶT HÀNG";
-      }, 30000);
-
-    } catch (err) {
-      msg.style.color = "red";
-      msg.innerText = "❌ Lỗi mạng. Vui lòng gọi Hotline để đặt hàng.";
-      btn.disabled = false;
-      btn.innerText = "XÁC NHẬN ĐẶT HÀNG";
-    }
+        msg.style.color = "green";
+        msg.innerText = "✅ ĐẶT HÀNG THÀNH CÔNG! Chúng tôi sẽ gọi lại bạn sớm.";
+        this.reset();
+        
+        setTimeout(() => {
+            btn.disabled = false;
+            btn.innerText = "XÁC NHẬN ĐẶT HÀNG";
+        }, 30000);
+    }, 1500;
   });
 </script>
 </body>
