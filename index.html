@@ -3,35 +3,123 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>MÁY BƠM NHÔM MINI</title>
+  <title>MÁY BƠM NHÔM MINI ĐÚC - Xưởng Chế Tạo</title>
   <style>
-    body { font-family: sans-serif; padding: 20px; background: #f4f4f4; text-align: center; }
-    .box { max-width: 450px; margin: 0 auto; background: white; padding: 25px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
-    input, select { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ddd; border-radius: 8px; font-size: 16px; }
-    .btn { width: 100%; padding: 15px; background: #ff4b2b; color: white; border: none; border-radius: 30px; font-weight: bold; cursor: pointer; font-size: 18px; }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family: -apple-system, system-ui, sans-serif; line-height: 1.6; background: #f0f2f5; color: #333; }
+    .container { max-width: 600px; margin: 0 auto; background: #fff; min-height: 100vh; padding-bottom: 50px; }
+
+    /* TIÊU ĐỀ */
+    header { background: linear-gradient(135deg, #d32f2f, #ff5252); color: white; text-align: center; padding: 30px 15px; }
+    header h1 { font-size: 1.8rem; text-transform: uppercase; letter-spacing: 1px; }
+    header p { font-size: 1rem; opacity: 0.9; margin-top: 5px; }
+
+    /* BOX HÌNH ẢNH CHUYỂN ĐỘNG (CAROUSEL) */
+    .carousel-container { position: relative; width: 100%; overflow: hidden; background: #000; }
+    .carousel-wrapper { display: flex; transition: transform 0.5s ease-in-out; }
+    .carousel-item { min-width: 100%; position: relative; }
+    .carousel-item img { width: 100%; display: block; object-fit: cover; }
+    
+    .nav-btn { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.3); color: white; border: none; padding: 15px 10px; cursor: pointer; font-size: 20px; border-radius: 5px; }
+    .next { right: 0; }
+    .prev { left: 0; }
+
+    /* PHẦN NỘI DUNG CÁC GÓI */
+    .content-section { padding: 20px; }
+    .package-info { background: #fff8e1; border-left: 5px solid #ffc107; padding: 15px; margin-bottom: 20px; border-radius: 4px; }
+    .package-info h3 { color: #856404; margin-bottom: 10px; }
+    .package-info ul { list-style: none; }
+    .package-info li { margin-bottom: 8px; font-size: 0.95rem; display: flex; align-items: center; }
+    .package-info li::before { content: '✅'; margin-right: 8px; }
+
+    /* FORM ĐẶT HÀNG */
+    .order-box { padding: 20px; background: #fff; }
+    .order-box h2 { text-align: center; color: #d32f2f; margin-bottom: 20px; }
+    label { font-weight: bold; display: block; margin-top: 10px; font-size: 0.9rem; }
+    input, select { width: 100%; padding: 12px; margin-top: 5px; border: 1px solid #ddd; border-radius: 8px; font-size: 16px; background: #f9f9f9; }
+    input:focus { border-color: #d32f2f; outline: none; background: #fff; }
+
+    .btn-submit { width: 100%; padding: 18px; background: #ff4b2b; color: white; border: none; border-radius: 50px; font-weight: bold; cursor: pointer; font-size: 1.2rem; margin-top: 25px; box-shadow: 0 4px 15px rgba(255, 75, 43, 0.4); text-transform: uppercase; }
+    .btn-submit:active { transform: scale(0.98); }
+
+    #msg { text-align: center; margin-top: 15px; font-weight: bold; }
   </style>
 </head>
 <body>
 
-<div class="box">
-  <h2 style="color:#d32f2f;">ĐẶT HÀNG NHANH</h2>
-  <form id="orderForm">
-    <input type="text" name="name" placeholder="Họ và Tên" required>
-    <input type="tel" name="phone" placeholder="Số điện thoại" required>
-    <input type="text" name="address" placeholder="Địa chỉ nhận hàng" required>
-    <select name="package">
-      <option value="1 cái - 250k">1 máy bơm - 250.000đ</option>
-      <option value="2 cái - 500k">2 máy bơm - 500.000đ (Free Ship)</option>
-    </select>
-    <input type="text" name="note" placeholder="Ghi chú">
-    <button type="submit" id="btnSubmit" class="btn">XÁC NHẬN ĐẶT HÀNG</button>
-  </form>
-  <div id="msg" style="margin-top:15px; font-weight:bold;"></div>
+<div class="container">
+  <header>
+    <h1>Máy Bơm Nhôm Mini Đúc</h1>
+    <p>Siêu bền - Siêu nhẹ - Chuyên dụng cho nông nghiệp</p>
+  </header>
+
+  <div class="carousel-container">
+    <div class="carousel-wrapper" id="carousel">
+      <div class="carousel-item"><img src="https://raw.githubusercontent.com/Phamcuong1405/xuongchetao/main/may-1.jpg" alt="Sản phẩm 1"></div>
+      <div class="carousel-item"><img src="https://raw.githubusercontent.com/Phamcuong1405/xuongchetao/main/may-2.jpg" alt="Sản phẩm 2"></div>
+      <div class="carousel-item"><img src="https://raw.githubusercontent.com/Phamcuong1405/xuongchetao/main/may3.jpg" alt="Sản phẩm 3"></div>
+    </div>
+    <button class="nav-btn prev" onclick="moveSlide(-1)">&#10094;</button>
+    <button class="nav-btn next" onclick="moveSlide(1)">&#10095;</button>
+  </div>
+
+  <div class="content-section">
+    <div class="package-info">
+      <h3>Ưu đãi các gói chọn mua:</h3>
+      <ul>
+        <li><strong>Gói 1 máy:</strong> 250.000đ (Phí ship 30k)</li>
+        <li><strong>Gói 2 máy:</strong> 500.000đ - <strong>Miễn phí giao hàng</strong></li>
+        <li><strong>Gói 3 máy:</strong> 750.000đ - <strong>Tặng kèm đầu nối ống</strong></li>
+      </ul>
+    </div>
+
+    <div class="order-box">
+      <h2>THÔNG TIN ĐẶT HÀNG</h2>
+      <form id="orderForm">
+        <label>Họ và Tên</label>
+        <input type="text" name="name" placeholder="Nhập tên của bạn" required>
+
+        <label>Số điện thoại</label>
+        <input type="tel" name="phone" placeholder="Số điện thoại nhận hàng" required>
+
+        <label>Địa chỉ nhận hàng</label>
+        <input type="text" name="address" placeholder="Số nhà, tên đường, tỉnh/thành" required>
+
+        <label>Chọn gói sản phẩm</label>
+        <select name="package">
+          <option value="1 cái - 250k">Mua 1 máy bơm - 250.000đ</option>
+          <option value="2 cái - 500k">Mua 2 máy bơm - 500.000đ (Free Ship)</option>
+          <option value="3 cái - 750k">Mua 3 máy bơm - 750.000đ (Quà tặng)</option>
+        </select>
+
+        <label>Ghi chú</label>
+        <input type="text" name="note" placeholder="Yêu cầu thêm (nếu có)">
+
+        <button type="submit" id="btnSubmit" class="btn-submit">Xác nhận đặt mua</button>
+      </form>
+      <div id="msg"></div>
+    </div>
+  </div>
 </div>
 
+
+
 <script>
-  // LINK API CỦA BẠN
-  const API_URL = "https://script.google.com/macros/s/AKfycbyC9ZqEzpvd-q1afHQvO1hboWUeaRyyW_0Uo0a3rwZO4IQVQbXqP0y3syIYfQzpfo88jQ/exec";
+  // XỬ LÝ CAROUSEL (ẢNH TRƯỢT)
+  let currentIndex = 0;
+  const slides = document.getElementById('carousel');
+  const totalSlides = 3;
+
+  function moveSlide(step) {
+    currentIndex = (currentIndex + step + totalSlides) % totalSlides;
+    slides.style.transform = `translateX(-${currentIndex * 100}%)`;
+  }
+
+  // Tự động chuyển ảnh sau 4 giây
+  setInterval(() => moveSlide(1), 4000);
+
+  // XỬ LÝ GỬI DỮ LIỆU (FIX CHO IOS MESSENGER)
+  const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbyC9ZqEzpvd-q1afHQvO1hboWUeaRyyW_0Uo0a3rwZO4IQVQbXqP0y3syIYfQzpfo88jQ/exec";
 
   document.getElementById("orderForm").addEventListener("submit", function(e) {
     e.preventDefault();
@@ -39,7 +127,7 @@
     const msg = document.getElementById("msg");
 
     btn.disabled = true;
-    btn.innerText = "ĐANG GỬI...";
+    btn.innerText = "ĐANG XỬ LÝ...";
 
     const params = new URLSearchParams({
       name: this.name.value,
@@ -47,21 +135,24 @@
       address: this.address.value,
       package: this.package.value,
       note: this.note.value,
-      source: "Web-Fix-iOS"
+      source: "Web-Pro-iOS"
     });
 
-    const finalUrl = API_URL + "?" + params.toString();
+    const finalUrl = WEB_APP_URL + "?" + params.toString();
     
-    // Gửi bằng Image - Cách an toàn nhất cho iPhone/Messenger
+    // Gửi ngầm qua Fetch
+    fetch(finalUrl, { mode: 'no-cors' });
+
+    // Gửi qua Pixel Image (Dự phòng cho iPhone cực kỳ chắc chắn)
     const img = new Image();
     img.src = finalUrl;
 
     setTimeout(() => {
       msg.style.color = "green";
-      msg.innerHTML = "✅ ĐẶT HÀNG THÀNH CÔNG!";
+      msg.innerHTML = "✅ ĐẶT HÀNG THÀNH CÔNG! <br> Chúng tôi sẽ gọi lại cho bạn sớm nhất.";
       this.reset();
       btn.disabled = false;
-      btn.innerText = "XÁC NHẬN ĐẶT HÀNG";
+      btn.innerText = "XÁC NHẬN ĐẶT MUA";
     }, 1500);
   });
 </script>
