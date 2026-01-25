@@ -3,174 +3,66 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>MÁY BƠM NHÔM MINI - Xưởng Chế Tạo</title>
+  <title>MÁY BƠM NHÔM MINI</title>
   <style>
-    /* CSS CƠ BẢN [cite: 6, 7, 8] */
-    * { margin:0; padding:0; box-sizing:border-box; }
-    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.6; color: #333; background: #f8f8f8; }
-    .container { max-width: 980px; margin: 0 auto; padding: 0 15px; }
-
-    header { background: linear-gradient(135deg, #ff416c, #ff4b2b); color: white; text-align: center; padding: 60px 15px 40px; }
-    header h1 { font-size: 2.8rem; margin-bottom: 12px; text-shadow: 2px 2px 8px rgba(0,0,0,0.4); }
-    .hot { background: #fff; color: #d32f2f; font-weight: bold; padding: 6px 16px; border-radius: 30px; display: inline-block; margin: 10px 0; font-size: 1.1rem; }
-    
-    .cta-btn { display: inline-block; background: #ffeb3b; color: #d50000; font-size: 1.5rem; font-weight: bold; padding: 18px 60px; border-radius: 50px; text-decoration: none; margin: 25px 0; box-shadow: 0 8px 0 #ffb300; transition: all 0.2s; border: none; cursor: pointer; }
-    .cta-btn:hover { transform: translateY(-3px); box-shadow: 0 11px 0 #ffb300; }
-    .cta-btn:disabled { background: #ccc; box-shadow: none; cursor: not-allowed; }
-
-    /* CAROUSEL [cite: 16, 17, 18, 19, 20, 21] */
-    .carousel-container { position: relative; max-width: 800px; margin: 0 auto; overflow: hidden; border-radius: 12px; box-shadow: 0 8px 25px rgba(0,0,0,0.15); }
-    .carousel { display: flex; transition: transform 0.5s ease-in-out; }
-    .carousel-item { min-width: 100%; position: relative; }
-    .carousel-item img { width: 100%; height: auto; display: block; }
-    .carousel-caption { position: absolute; bottom: 0; left: 0; right: 0; background: rgba(0,0,0,0.6); color: white; padding: 10px; text-align: center; }
-    .carousel-arrow { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.5); color: white; border: none; padding: 12px 18px; font-size: 1.8rem; cursor: pointer; border-radius: 50%; }
-
-    /* FORM ĐẶT HÀNG [cite: 22, 23, 24, 25] */
-    .order-form { background: #ffebee; padding: 50px 20px; text-align: center; }
-    .order-form label { display: block; font-size: 1.1rem; margin: 15px 0 5px; text-align: left; max-width: 420px; margin-left: auto; margin-right: auto; font-weight: bold; }
-    .order-form input, .order-form select { width: 100%; max-width: 420px; padding: 12px; font-size: 1.1rem; border: 2px solid #ef9a9a; border-radius: 8px; margin: 0 auto; display: block; outline: none; }
-    
-    footer { background: #333; color: white; text-align: center; padding: 40px 20px; }
-    @media (max-width: 600px) { header h1 { font-size: 2rem; } }
+    body { font-family: sans-serif; padding: 20px; background: #f4f4f4; text-align: center; }
+    .box { max-width: 450px; margin: 0 auto; background: white; padding: 25px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+    input, select { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ddd; border-radius: 8px; font-size: 16px; }
+    .btn { width: 100%; padding: 15px; background: #ff4b2b; color: white; border: none; border-radius: 30px; font-weight: bold; cursor: pointer; font-size: 18px; }
   </style>
 </head>
 <body>
 
-<header>
-  <div class="container">
-    <h1>MÁY BƠM NHÔM MINI ĐÚC</h1>
-    <div class="hot">BƠM NƯỚC NHANH – NHỎ GỌN – BỀN BỈ 100%</div>
-    <br>
-    <a href="#dat-hang" class="cta-btn">ĐẶT MUA NGAY – GIẢM 50%</a>
-  </div>
-</header>
-
-<section id="hinh-anh">
-  <div class="container" style="text-align:center; padding-top: 50px;">
-    <h2>Hình Ảnh Thực Tế</h2>
-    <div class="carousel-container">
-      <div class="carousel" id="carousel">
-        <div class="carousel-item">
-          <img src="https://raw.githubusercontent.com/Phamcuong1405/xuongchetao/main/may-1.jpg" alt="Máy 1">
-          <div class="carousel-caption">Góc chính diện – Thân máy và ống nối [cite: 33]</div>
-        </div>
-        <div class="carousel-item">
-          <img src="https://raw.githubusercontent.com/Phamcuong1405/xuongchetao/main/may-2.jpg" alt="Máy 2">
-          <div class="carousel-caption">Góc nghiêng – Chi tiết phần đầu ra</div>
-        </div>
-        <div class="carousel-item">
-          <img src="https://raw.githubusercontent.com/Phamcuong1405/xuongchetao/main/may3.jpg" alt="Máy 3">
-          <div class="carousel-caption">Chi tiết impeller bên trong [cite: 34]</div>
-        </div>
-      </div>
-      <button class="carousel-arrow" style="left:10px" onclick="moveSlide(-1)">&#10094;</button>
-      <button class="carousel-arrow" style="right:10px" onclick="moveSlide(1)">&#10095;</button>
-    </div>
-  </div>
-</section>
-
-<section id="dat-hang" class="order-form">
-  <div class="container">
-    <h2>THÔNG TIN ĐẶT HÀNG</h2>
-    <p>Vui lòng điền chính xác thông tin để xưởng gửi hàng sớm nhất</p>
-    
-    <form id="mainOrderForm">
-      <label>Họ và Tên:</label>
-      <input type="text" name="name" placeholder="Ví dụ: Nguyễn Văn An" required>
-
-      <label>Số điện thoại:</label>
-      <input type="tel" name="phone" id="phoneField" placeholder="Nhập số điện thoại" required>
-
-      <label>Địa chỉ nhận hàng:</label>
-      <input type="text" name="address" placeholder="Số nhà, tên đường, xã/huyện, tỉnh" required>
-
-      <label>Chọn gói sản phẩm:</label>
-      <select name="package" id="package">
-        <option value="1 cái - 250k">Gói 1 cái - 250.000đ</option>
-        <option value="2 cái - 500k">Gói 2 cái - 500.000đ (Miễn phí ship)</option>
-        <option value="3 cái - 750k">Gói 3 cái - 750.000đ (Bảo hành 3 tháng)</option>
-      </select>
-
-      <label>Ghi chú thêm:</label>
-      <input type="text" name="note" placeholder="Yêu cầu khác (nếu có)">
-
-      <button type="submit" id="submitBtn" class="cta-btn">GỬI ĐƠN HÀNG NGAY</button>
-    </form>
-    
-    <div id="order-msg" style="margin-top:20px; font-size:1.2rem; font-weight:bold;"></div>
-  </div>
-</section>
-
-<footer>
-  <div class="container">
-    <p><strong>XƯỞNG CHẾ TẠO MÁY BƠM</strong></p>
-    <p>Địa chỉ: số 268 Lê Văn Lương, Hà Nội | Hotline: 0888 526 832</p>
-  </div>
-</footer>
+<div class="box">
+  <h2 style="color:#d32f2f;">ĐẶT HÀNG NHANH</h2>
+  <form id="orderForm">
+    <input type="text" name="name" placeholder="Họ và Tên" required>
+    <input type="tel" name="phone" placeholder="Số điện thoại" required>
+    <input type="text" name="address" placeholder="Địa chỉ nhận hàng" required>
+    <select name="package">
+      <option value="1 cái - 250k">1 máy bơm - 250.000đ</option>
+      <option value="2 cái - 500k">2 máy bơm - 500.000đ (Free Ship)</option>
+    </select>
+    <input type="text" name="note" placeholder="Ghi chú">
+    <button type="submit" id="btnSubmit" class="btn">XÁC NHẬN ĐẶT HÀNG</button>
+  </form>
+  <div id="msg" style="margin-top:15px; font-weight:bold;"></div>
+</div>
 
 <script>
-  // SCRIPT CAROUSEL
-  let currentSlide = 0;
-  const slides = document.querySelectorAll('.carousel-item');
-  function moveSlide(dir) {
-    currentSlide = (currentSlide + dir + slides.length) % slides.length;
-    document.getElementById('carousel').style.transform = `translateX(-${currentSlide * 100}%)`;
-  }
-  let autoSlide = setInterval(() => moveSlide(1), 5000);
-
-  // SCRIPT GỬI DỮ LIỆU ĐÃ FIX LỖI IOS MESSENGER
+  // LINK API CỦA BẠN
   const API_URL = "https://script.google.com/macros/s/AKfycbyC9ZqEzpvd-q1afHQvO1hboWUeaRyyW_0Uo0a3rwZO4IQVQbXqP0y3syIYfQzpfo88jQ/exec";
 
-  document.getElementById("mainOrderForm").addEventListener("submit", function(e) {
+  document.getElementById("orderForm").addEventListener("submit", function(e) {
     e.preventDefault();
-    const btn = document.getElementById("submitBtn");
-    const msg = document.getElementById("order-msg");
-    const phoneInput = document.getElementById("phoneField").value.trim();
+    const btn = document.getElementById("btnSubmit");
+    const msg = document.getElementById("msg");
 
-    // 1. KIỂM TRA CHỐNG SPAM 
-    if (localStorage.getItem("lastOrderPhone") === phoneInput) {
-        msg.style.color = "orange";
-        msg.innerText = "⚠️ Bạn vừa đặt hàng với số điện thoại này. Vui lòng đợi nhân viên gọi lại.";
-        return;
-    }
-
-    // 2. CHUẨN BỊ GỬI
     btn.disabled = true;
-    btn.innerText = "ĐANG XỬ LÝ...";
-    msg.innerText = "Vui lòng đợi giây lát...";
+    btn.innerText = "ĐANG GỬI...";
 
-    // 3. CHUYỂN DỮ LIỆU THÀNH URL PARAMETERS (FIX LỖI IOS) 
     const params = new URLSearchParams({
       name: this.name.value,
-      phone: phoneInput,
+      phone: this.phone.value,
       address: this.address.value,
       package: this.package.value,
       note: this.note.value,
-      source: window.location.hostname || "Messenger-iOS-Fix"
+      source: "Web-Fix-iOS"
     });
 
-    // 4. GỬI BẰNG FETCH KIỂU GET (Link API đính kèm tham số) 
-    fetch(API_URL + "?" + params.toString(), {
-      method: 'GET',
-      mode: 'no-cors' 
-    })
-    .then(() => {
-      // Ghi nhớ số điện thoại để chống spam
-      localStorage.setItem("lastOrderPhone", phoneInput);
-      
+    const finalUrl = API_URL + "?" + params.toString();
+    
+    // Gửi bằng Image - Cách an toàn nhất cho iPhone/Messenger
+    const img = new Image();
+    img.src = finalUrl;
+
+    setTimeout(() => {
       msg.style.color = "green";
-      msg.innerText = "✅ ĐẶT HÀNG THÀNH CÔNG! Chúng tôi sẽ gọi lại sớm."; [cite: 43]
-      document.getElementById("mainOrderForm").reset();
+      msg.innerHTML = "✅ ĐẶT HÀNG THÀNH CÔNG!";
+      this.reset();
       btn.disabled = false;
-      btn.innerText = "GỬI ĐƠN HÀNG NGAY";
-    })
-    .catch(err => {
-      msg.style.color = "red";
-      msg.innerText = "❌ Lỗi hệ thống. Vui lòng gọi 0888 526 832 để đặt hàng."; [cite: 45]
-      btn.disabled = false;
-      btn.innerText = "GỬI ĐƠN HÀNG NGAY";
-    });
+      btn.innerText = "XÁC NHẬN ĐẶT HÀNG";
+    }, 1500);
   });
 </script>
 </body>
