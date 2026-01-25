@@ -9,9 +9,35 @@
     body { font-family: 'Segoe UI', Tahoma, sans-serif; line-height: 1.6; background: #f4f7f6; color: #333; }
     .container { max-width: 600px; margin: 0 auto; background: #fff; min-height: 100vh; box-shadow: 0 0 20px rgba(0,0,0,0.1); }
 
-    header { background: linear-gradient(135deg, #d32f2f, #b71c1c); color: white; text-align: center; padding: 40px 20px; }
-    header h1 { font-size: 2rem; text-transform: uppercase; margin-bottom: 10px; }
-    .badge { background: #ffeb3b; color: #d32f2f; padding: 5px 15px; border-radius: 20px; font-weight: bold; font-size: 0.9rem; }
+    /* Đã sửa phần Header để hiển thị đẹp hơn */
+    header { 
+      background: linear-gradient(135deg, #d32f2f, #b71c1c); 
+      color: white; 
+      text-align: center; 
+      padding: 40px 20px; 
+    }
+    header h1 { 
+      font-size: 2.2rem; 
+      text-transform: uppercase; 
+      margin: 10px 0; 
+      font-weight: 800;
+      letter-spacing: 1px;
+    }
+    header p {
+      font-size: 0.95rem;
+      font-weight: 400;
+      opacity: 0.9;
+      line-height: 1.4;
+    }
+    .badge { 
+      background: #ffeb3b; 
+      color: #d32f2f; 
+      padding: 6px 18px; 
+      border-radius: 20px; 
+      font-weight: bold; 
+      font-size: 0.9rem; 
+      display: inline-block;
+    }
 
     /* CAROUSEL */
     .carousel-container { position: relative; width: 100%; overflow: hidden; background: #000; height: 350px; }
@@ -52,9 +78,9 @@
 
 <div class="container">
   <header>
-    <span class="badge">MÁY BƠM MINI 12v -150W <//span>
-    <h1>- Xưởng Chế Tạo </h1>
-    <p>GIẢI PHÁP MỚI - TIỆN DỤNG - DỄ LẮP ĐẶT - TIẾT KIỆM ĐIỆN </p>
+    <span class="badge">MÁY BƠM MINI 12V - 150W</span>
+    <h1>XƯỞNG CHẾ TẠO</h1>
+    <p>GIẢI PHÁP MỚI - TIỆN DỤNG - DỄ LẮP ĐẶT - TIẾT KIỆM ĐIỆN</p>
   </header>
 
   <div class="carousel-container">
@@ -83,7 +109,7 @@
       <div class="price-card">
         <h4>Gói 3 máy</h4>
         <div class="price">750.000đ</div>
-        <div class="gift">MIỄN PHÍ GIAO HÀNG  VÀ BẢO HÀNH 02 THÁNG CHO ĐẦU BƠM </div>
+        <div class="gift">MIỄN PHÍ GIAO HÀNG VÀ BẢO HÀNH 02 THÁNG CHO ĐẦU BƠM</div>
       </div>
     </div>
   </section>
@@ -164,7 +190,7 @@
 
     const finalUrl = WEB_APP_URL + "?" + params.toString();
     
-    // SỬ DỤNG 1 PHƯƠNG THỨC DUY NHẤT (IMAGE PIXEL) ĐỂ TRANH TRÙNG ĐƠN
+    // SỬ DỤNG 1 PHƯƠNG THỨC DUY NHẤT (IMAGE PIXEL) ĐỂ TRANH TRÙNG ĐƠN [cite: 38, 41]
     const img = new Image();
     img.src = finalUrl;
 
