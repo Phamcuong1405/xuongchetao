@@ -174,7 +174,7 @@ const msg = document.getElementById("msg");
 if (btn.disabled) return;
 btn.disabled = true;
 btn.innerText = "ĐANG XỬ LÝ...";
-// Facebook ghi nhận khách bắt đầu gửi đơn
+// Khách bắt đầu gửi đơn
 fbq('track', 'InitiateCheckout');
 const selectedPackage = this.package.value;
 let orderValue = 250000;
@@ -193,23 +193,34 @@ note: this.note.value,
 source: "LandingPage-Pro"
 });
 const finalUrl = WEB_APP_URL + "?" + params.toString();
+
 const img = new Image();
+
+img.onload = function() {
+
+    fbq('track', 'Lead');
+
+    msg.style.color = "green";
+    msg.innerHTML = "✅ ĐẶT HÀNG THÀNH CÔNG! <br> Shop sẽ liên hệ với bạn ngay.";
+
+    document.getElementById("orderForm").reset();
+
+    btn.disabled = false;
+    btn.innerText = "ĐẶT MUA THÊM";
+};
+
+img.onerror = function() {
+
+    msg.style.color = "red";
+    msg.innerHTML = "❌ Có lỗi khi gửi đơn. Vui lòng thử lại.";
+
+    btn.disabled = false;
+    btn.innerText = "XÁC NHẬN ĐẶT HÀNG";
+};
+
 img.src = finalUrl;
-setTimeout(() => {
-// Khách gửi form thành công
-fbq('track', 'Lead');
-// Ghi nhận giá trị đơn hàng
-fbq('track', 'Purchase', {
-value: orderValue,
-currency: 'VND'
-});
-msg.style.color = "green";
-msg.innerHTML = "✅ ĐẶT HÀNG THÀNH CÔNG! <br> Shop sẽ liên hệ với bạn ngay.";
-this.reset();
-btn.disabled = false;
-btn.innerText = "ĐẶT MUA THÊM";
-}, 1500);
-});
+});   // đóng addEventListener
+  
 </script>
 </body>
 </html>
