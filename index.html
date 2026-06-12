@@ -4,6 +4,22 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>MÁY BƠM MINI 12v -150W - Xưởng Chế Tạo</title>
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s) {
+if(f.fbq)return; n=f.fbq=function(){n.callMethod? 
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n; n.push=n; n.loaded=!0; 
+n.version='2.0'; n.queue=[]; t=b.createElement(e); 
+t.async=!0; t.src=v; s=b.getElementsByTagName(e)[0]; 
+s.parentNode.insertBefore(t,s);
+}(window, document,'script', 'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '956995736702434'); fbq('track', 'PageView'); 
+</script>
+<noscript> 
+<img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=956995736702434&ev=PageView&noscript=1"/>
+</noscript>
+<!-- End Meta Pixel Code -->
 <style>
 * { margin:0; padding:0; box-sizing:border-box; }
 body { font-family: 'Segoe UI', Tahoma, sans-serif; line-height: 1.6; background: #f4f7f6; color: #333; }
@@ -129,15 +145,17 @@ footer { background: #2c3e50; color: white; padding: 40px 20px; }
 <div class="shop-info">
 <h3>THÔNG TIN LIÊN HỆ</h3>
 <p>🏠 <strong>Địa chỉ:</strong> XƯỜNG CHẾ TẠO , LĨNH NAM , Hà Nội</p>
-<p>📞 <strong>Phone:</strong> 0987654321</p>
-<p>📧 <strong>Email:</strong> contact@xuongchetao.com</p>
+<p>📞 <strong>Hotline/Zalo:</strong> 0886.073 .622 </p>
+<p>⏰ <strong>Giờ làm việc:</strong> 08:00 - 21:00 (Cả tuần)</p>
+<p>🛡️ <strong>Bảo hành:</strong> Lỗi 1 đổi 1 trong 7 ngày</p>
 </div>
 <div class="trust-badges">
-<img src="https://example.com/guarantee-badge.png" alt="Bảo hành uy tín">
-<img src="https://example.com/fast-shipping-badge.png" alt="Giao hàng nhanh chóng">
-<img src="https://example.com/secure-payment-badge.png" alt="Thanh toán an toàn">
+<div>🚚<br>Giao hàng toàn quốc</div>
+<div>📦<br>Kiểm tra trước khi trả tiền</div>
+<div>⭐<br>Chất lượng hàng đầu</div>
 </div>
 </footer>
+</div>
 <script>
 // CAROUSEL LOGIC
 let currentIndex = 0;
@@ -156,43 +174,42 @@ const msg = document.getElementById("msg");
 if (btn.disabled) return;
 btn.disabled = true;
 btn.innerText = "ĐANG XỬ LÝ...";
+// Facebook ghi nhận khách bắt đầu gửi đơn
+fbq('track', 'InitiateCheckout');
+const selectedPackage = this.package.value;
+let orderValue = 250000;
+if (selectedPackage.includes("500k")) {
+orderValue = 500000;
+}
+if (selectedPackage.includes("750k")) {
+orderValue = 750000;
+}
 const params = new URLSearchParams({
 name: this.name.value,
 phone: this.phone.value,
 address: this.address.value,
-package: this.package.value,
+package: selectedPackage,
 note: this.note.value,
 source: "LandingPage-Pro"
 });
 const finalUrl = WEB_APP_URL + "?" + params.toString();
-// SỬ DỤNG 1 PHƯƠNG THỨC DUY NHẤT (IMAGE PIXEL) ĐỂ TRANH TRÙNG ĐƠN [cite: 38, 41]
 const img = new Image();
 img.src = finalUrl;
 setTimeout(() => {
+// Khách gửi form thành công
+fbq('track', 'Lead');
+// Ghi nhận giá trị đơn hàng
+fbq('track', 'Purchase', {
+value: orderValue,
+currency: 'VND'
+});
 msg.style.color = "green";
 msg.innerHTML = "✅ ĐẶT HÀNG THÀNH CÔNG! <br> Shop sẽ liên hệ với bạn ngay.";
 this.reset();
 btn.disabled = false;
 btn.innerText = "ĐẶT MUA THÊM";
-
-// Send purchase event to Facebook Pixel
-const selectedPackage = this.package.value.split(' - ')[1].replace('.', '');
-const price = Number(selectedPackage);
-fbq('track', 'Purchase', { 
-  value: price, 
-  currency: 'VND' 
-});
-
 }, 1500);
 });
 </script>
-<!-- Facebook Pixel Code -->
-<script>
-  !function(f,b,e,v,n,t,s)
-  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-  n.queue=[];t=b.createElement(e);t.async=!0;
-  t.src=v;s=b.getElementsByTagName(e)[0];
-  s.parentNode.insertBefore(t,s)}(window, document,'script',
-  'https://connect.facebook.net
+</body>
+</html>
