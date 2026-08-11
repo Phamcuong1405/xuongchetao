@@ -7,7 +7,7 @@
 <meta http-equiv="Pragma" content="no-cache"/>
 <meta http-equiv="Expires" content="0"/>
 <title>MÁY BƠM MINI 12v -150W - Xưởng Chế Tạo</title>
-<!-- layout-v6-nen-hien-dai: 2026-08-11 -->
+<!-- layout-v7-clip-test: 2026-08-11 -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;600;700;800&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
@@ -326,10 +326,106 @@ footer {
   color: #cbd5e1;
 }
 #msg { text-align: center; margin-top: 15px; font-weight: bold; }
+/* VIDEO TEST */
+.video-section {
+  padding: 8px 14px 26px;
+  background: linear-gradient(180deg, rgba(14,165,233,0.06), rgba(255,255,255,0.2));
+}
+.video-section h2 {
+  text-align: center;
+  color: var(--brand);
+  font-family: 'Manrope', sans-serif;
+  font-size: 1.25rem;
+  margin-bottom: 6px;
+  letter-spacing: 0.4px;
+}
+.video-section .video-sub {
+  text-align: center;
+  color: var(--muted);
+  font-size: 0.9rem;
+  margin-bottom: 14px;
+}
+.video-section .video-sub a {
+  color: var(--brand);
+  font-weight: 700;
+  text-decoration: none;
+}
+.video-player-wrap {
+  position: relative;
+  width: 100%;
+  max-width: 360px;
+  margin: 0 auto;
+  aspect-ratio: 9 / 16;
+  border-radius: 18px;
+  overflow: hidden;
+  background: #0f172a;
+  box-shadow: 0 14px 32px rgba(15,23,42,0.18);
+  border: 1px solid rgba(148,163,184,0.35);
+}
+.video-player-wrap iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+.video-thumbs {
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  padding: 14px 2px 4px;
+  -webkit-overflow-scrolling: touch;
+}
+.video-thumb {
+  flex: 0 0 auto;
+  width: 92px;
+  border: 2px solid transparent;
+  border-radius: 12px;
+  overflow: hidden;
+  cursor: pointer;
+  background: #fff;
+  padding: 0;
+}
+.video-thumb.active {
+  border-color: var(--brand);
+}
+.video-thumb img {
+  display: block;
+  width: 100%;
+  height: 120px;
+  object-fit: cover;
+}
+.video-thumb span {
+  display: block;
+  font-size: 0.68rem;
+  padding: 6px 4px;
+  color: var(--ink);
+  font-weight: 600;
+  line-height: 1.25;
+  text-align: center;
+}
+.video-loading, .video-empty {
+  text-align: center;
+  color: var(--muted);
+  font-size: 0.9rem;
+  padding: 18px 10px;
+}
+.btn-yt {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 10px 16px;
+  background: linear-gradient(135deg, var(--brand), var(--brand-deep));
+  color: #fff;
+  border-radius: 12px;
+  text-decoration: none;
+  font-weight: 800;
+  font-size: 0.9rem;
+}
 @media (max-width: 480px) {
   header h1 { font-size: 1.7rem; }
   .product-card img { height: 160px; }
   .product-caption { font-size: 0.78rem; }
+  .video-player-wrap { max-width: 300px; }
 }
 </style>
 </head>
@@ -356,6 +452,30 @@ footer {
 <button type="button" class="btn-order" onclick="chonSanPham(2)">ĐẶT HÀNG</button>
 </article>
 </div>
+</section>
+
+<section class="video-section" id="clip-test">
+  <h2>CLIP TEST SẢN PHẨM</h2>
+  <p class="video-sub">
+    Xem thực tế lực bơm ngay trên trang ·
+    <a href="https://www.youtube.com/@B%C6%A0MMINI12VDC/shorts" target="_blank" rel="noopener">Xem tại đây</a>
+  </p>
+  <div class="video-player-wrap" id="videoPlayerWrap">
+    <div class="video-loading" id="videoLoading">Đang tải clip test...</div>
+    <iframe
+      id="ytPlayer"
+      title="Clip test máy bơm"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+      allowfullscreen
+      referrerpolicy="strict-origin-when-cross-origin"
+      style="display:none"
+    ></iframe>
+  </div>
+  <div class="video-thumbs" id="videoThumbs"></div>
+  <div class="video-empty" id="videoEmpty" style="display:none">
+    <p>Chạm để mở kênh Shorts test sản phẩm</p>
+    <a class="btn-yt" href="https://www.youtube.com/@B%C6%A0MMINI12VDC/shorts" target="_blank" rel="noopener">MỞ CLIP TRÊN YOUTUBE</a>
+  </div>
 </section>
 
 <section class="order-section" id="dat-hang">
@@ -473,6 +593,133 @@ document.getElementById("packageSelect").addEventListener("change", function() {
 document.getElementById("quantity").addEventListener("input", capNhatTongTien);
 
 capNhatTongTien();
+
+/* ===== CLIP TEST YOUTUBE ===== */
+const YT_HANDLE = "B%C6%A0MMINI12VDC";
+const YT_SHORTS_URL = "https://www.youtube.com/@B%C6%A0MMINI12VDC/shorts";
+/* Nếu muốn cố định clip, dán ID vào đây (lấy từ youtube.com/shorts/XXXX): */
+const MANUAL_CLIPS = [];
+
+function playClip(videoId, autoplay) {
+  const iframe = document.getElementById("ytPlayer");
+  const loading = document.getElementById("videoLoading");
+  const q = autoplay ? "&autoplay=1&mute=1" : "";
+  iframe.src = "https://www.youtube.com/embed/" + videoId + "?rel=0&modestbranding=1&playsinline=1" + q;
+  iframe.style.display = "block";
+  if (loading) loading.style.display = "none";
+  document.querySelectorAll(".video-thumb").forEach(function(btn) {
+    btn.classList.toggle("active", btn.dataset.id === videoId);
+  });
+}
+
+function renderClips(clips) {
+  const thumbs = document.getElementById("videoThumbs");
+  const empty = document.getElementById("videoEmpty");
+  const loading = document.getElementById("videoLoading");
+  if (!clips.length) {
+    if (loading) loading.style.display = "none";
+    if (empty) empty.style.display = "block";
+    document.getElementById("videoPlayerWrap").style.display = "none";
+    return;
+  }
+  if (empty) empty.style.display = "none";
+  thumbs.innerHTML = "";
+  clips.slice(0, 6).forEach(function(clip, idx) {
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "video-thumb" + (idx === 0 ? " active" : "");
+    btn.dataset.id = clip.id;
+    btn.innerHTML = '<img src="https://i.ytimg.com/vi/' + clip.id + '/hqdefault.jpg" alt="' + (clip.title || "Clip test") + '"><span>' + (clip.title || ("Clip " + (idx + 1))) + "</span>";
+    btn.addEventListener("click", function() { playClip(clip.id, true); });
+    thumbs.appendChild(btn);
+  });
+  playClip(clips[0].id, true);
+}
+
+function extractVideoId(url) {
+  if (!url) return "";
+  const m = String(url).match(/(?:shorts\/|v=|youtu\.be\/|embed\/)([a-zA-Z0-9_-]{11})/);
+  return m ? m[1] : "";
+}
+
+async function fetchText(url) {
+  const proxies = [
+    url,
+    "https://corsproxy.io/?" + encodeURIComponent(url),
+    "https://api.allorigins.win/raw?url=" + encodeURIComponent(url)
+  ];
+  for (let i = 0; i < proxies.length; i++) {
+    try {
+      const res = await fetch(proxies[i], { signal: AbortSignal.timeout(8000) });
+      if (res.ok) return await res.text();
+    } catch (e) {}
+  }
+  return "";
+}
+
+async function resolveChannelId() {
+  const html = await fetchText("https://www.youtube.com/@" + decodeURIComponent(YT_HANDLE));
+  if (!html) return "";
+  const m = html.match(/"channelId":"(UC[\w-]{20,})"/);
+  return m ? m[1] : "";
+}
+
+async function loadClipsFromRss(channelId) {
+  const xml = await fetchText("https://www.youtube.com/feeds/videos.xml?channel_id=" + channelId);
+  if (!xml) return [];
+  const ids = [];
+  const re = /<yt:videoId>([\w-]{11})<\/yt:videoId>[\s\S]*?<title>([^<]*)<\/title>/g;
+  let match;
+  while ((match = re.exec(xml)) && ids.length < 6) {
+    ids.push({ id: match[1], title: match[2].slice(0, 28) });
+  }
+  if (!ids.length) {
+    const re2 = /<yt:videoId>([\w-]{11})<\/yt:videoId>/g;
+    while ((match = re2.exec(xml)) && ids.length < 6) {
+      ids.push({ id: match[1], title: "Clip test " + (ids.length + 1) });
+    }
+  }
+  return ids;
+}
+
+async function loadClipsFromPiped() {
+  const endpoints = [
+    "https://pipedapi.adminforge.de/c/" + YT_HANDLE,
+    "https://pipedapi.nosebs.ru/c/" + YT_HANDLE,
+    "https://pipedapi.kavin.rocks/c/" + YT_HANDLE
+  ];
+  for (let i = 0; i < endpoints.length; i++) {
+    try {
+      const res = await fetch(endpoints[i], { signal: AbortSignal.timeout(8000) });
+      if (!res.ok) continue;
+      const data = await res.json();
+      const streams = data.relatedStreams || data.items || [];
+      const clips = streams.map(function(s) {
+        const id = extractVideoId(s.url) || s.id || "";
+        return { id: id, title: (s.title || "Clip test").slice(0, 28) };
+      }).filter(function(c) { return c.id; }).slice(0, 6);
+      if (clips.length) return clips;
+    } catch (e) {}
+  }
+  return [];
+}
+
+async function initTestClips() {
+  if (MANUAL_CLIPS.length) {
+    renderClips(MANUAL_CLIPS.map(function(c, i) {
+      return typeof c === "string" ? { id: c, title: "Clip test " + (i + 1) } : c;
+    }));
+    return;
+  }
+  let clips = await loadClipsFromPiped();
+  if (!clips.length) {
+    const channelId = await resolveChannelId();
+    if (channelId) clips = await loadClipsFromRss(channelId);
+  }
+  renderClips(clips);
+}
+
+initTestClips();
 
 const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbyC9ZqEzpvd-q1afHQvO1hboWUeaRyyW_0Uo0a3rwZO4IQVQbXqP0y3syIYfQzpfo88jQ/exec";
 document.getElementById("orderForm").addEventListener("submit", function(e) {
