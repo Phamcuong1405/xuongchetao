@@ -7,7 +7,7 @@
 <meta http-equiv="Pragma" content="no-cache"/>
 <meta http-equiv="Expires" content="0"/>
 <title>MÁY BƠM MINI 12v -150W - Xưởng Chế Tạo</title>
-<!-- layout-v3-ngang: 2026-03-11 -->
+<!-- layout-v4-gia-soluong: 2026-08-11 -->
 <!-- Meta Pixel Code -->
 <script>
 !function(f,b,e,v,n,t,s) {
@@ -56,7 +56,7 @@ font-weight: bold;
 font-size: 0.9rem; 
 display: inline-block;
 }
-/* 2 Ô ẢNH NẰNG NGANG (trái - phải) */
+/* 2 Ô ẢNH NẰNG NGANG */
 .product-section { padding: 16px 10px; background: #f4f7f6; }
 .product-grid {
 display: flex !important;
@@ -78,6 +78,10 @@ width: 50%;
 min-width: 0;
 flex: 1 1 50%;
 }
+.product-card.active {
+border-color: #d32f2f;
+box-shadow: 0 0 0 2px rgba(211,47,47,0.2);
+}
 .product-card img {
 width: 100%;
 height: 190px;
@@ -94,6 +98,12 @@ font-weight: 600;
 line-height: 1.35;
 flex: 1;
 }
+.product-price {
+color: #d32f2f;
+font-size: 1.15rem;
+font-weight: 900;
+margin: 6px 0 2px;
+}
 .btn-order {
 display: block;
 width: 100%;
@@ -102,27 +112,56 @@ padding: 11px 8px;
 background: #d32f2f;
 color: #fff;
 text-decoration: none;
+border: none;
 border-radius: 50px;
 font-weight: bold;
 font-size: 0.88rem;
 box-shadow: 0 4px 12px rgba(211,47,47,0.25);
 text-align: center;
+cursor: pointer;
 }
 .btn-order:hover {
 background: #b71c1c;
 }
-/* PRICING */
-.pricing-section { padding: 30px 15px; background: #fff; text-align: center; }
-.pricing-title { color: #d32f2f; margin-bottom: 20px; font-size: 1.4rem; font-weight: bold; }
-.pricing-grid { display: grid; grid-template-columns: 1fr; gap: 15px; }
-.price-card { border: 2px solid #eee; border-radius: 15px; padding: 20px; position: relative; overflow: hidden; }
-.price-card.popular { border-color: #d32f2f; background: #fff8f8; transform: scale(1.02); }
-.price-card.popular::after { content: "KHUYÊN DÙNG"; position: absolute; top: 10px; right: -30px; background: #d32f2f; color: white; font-size: 0.7rem; padding: 5px 35px; transform: rotate(45deg); }
-.price-card h4 { font-size: 1.2rem; }
-.price-card .price { font-size: 1.5rem; color: #d32f2f; font-weight: 900; }
-.price-card .gift { font-size: 0.9rem; color: #2e7d32; font-weight: bold; }
 /* FORM */
 .order-section { padding: 30px 20px; background: #fdfdfd; border-top: 5px solid #d32f2f; scroll-margin-top: 16px; }
+.selected-box {
+background: #fff8f8;
+border: 1px solid #ffcdd2;
+border-radius: 12px;
+padding: 14px;
+margin-top: 12px;
+text-align: center;
+}
+.selected-box strong { color: #d32f2f; }
+.total-line {
+margin-top: 10px;
+font-size: 1.15rem;
+font-weight: 800;
+color: #d32f2f;
+}
+.qty-wrap {
+display: flex;
+align-items: center;
+gap: 10px;
+margin-top: 5px;
+}
+.qty-wrap button {
+width: 44px;
+height: 44px;
+border: 1px solid #ddd;
+background: #fff;
+border-radius: 10px;
+font-size: 1.3rem;
+font-weight: bold;
+cursor: pointer;
+color: #d32f2f;
+}
+.qty-wrap input {
+width: 80px;
+text-align: center;
+margin-top: 0;
+}
 label { display: block; margin-top: 15px; font-weight: bold; font-size: 0.9rem; color: #555; }
 input, select { width: 100%; padding: 14px; margin-top: 5px; border: 1px solid #ddd; border-radius: 10px; font-size: 16px; }
 .btn-submit { width: 100%; padding: 20px; background: #d32f2f; color: white; border: none; border-radius: 50px; font-weight: bold; font-size: 1.3rem; margin-top: 30px; cursor: pointer; box-shadow: 0 6px 20px rgba(211,47,47,0.3); }
@@ -144,62 +183,64 @@ footer { background: #2c3e50; color: white; padding: 40px 20px; }
 
 <section class="product-section">
 <div class="product-grid">
-<!-- Ô 1 -->
-<article class="product-card">
+<article class="product-card" id="card-1" data-product="1">
 <img src="may-1.jpg?v=3" alt="Bộ máy bơm mini đầy đủ phụ kiện">
 <p class="product-caption">Ảnh 1: Bộ máy bơm + phụ kiện đầy đủ (co, cút, lọc, keo, băng tan)</p>
-<a class="btn-order" href="#dat-hang">ĐẶT HÀNG</a>
+<div class="product-price">299.000đ</div>
+<button type="button" class="btn-order" onclick="chonSanPham(1)">ĐẶT HÀNG</button>
 </article>
-<!-- Ô 2 -->
-<article class="product-card">
+<article class="product-card" id="card-2" data-product="2">
 <img src="may-2.jpg?v=3" alt="Máy bơm mini 12V đã lắp sẵn">
 <p class="product-caption">Ảnh 2: Máy bơm mini 12V-150W đã lắp sẵn, sẵn sàng sử dụng</p>
-<a class="btn-order" href="#dat-hang">ĐẶT HÀNG</a>
+<div class="product-price">499.000đ</div>
+<button type="button" class="btn-order" onclick="chonSanPham(2)">ĐẶT HÀNG</button>
 </article>
 </div>
 </section>
 
-<section class="pricing-section">
-<div class="pricing-title">BẢNG GIÁ ƯU ĐÃI HÔM NAY</div>
-<div class="pricing-grid">
-<div class="price-card">
-<h4>Gói 1 máy</h4>
-<div class="price">250.000đ</div>
-<p>(PHÍ SHIP TOÀN QUỐC 30K)</p>
-</div>
-<div class="price-card popular">
-<h4>Gói 2 máy</h4>
-<div class="price">500.000đ</div>
-<div class="gift">MIỄN PHÍ GIAO HÀNG</div>
-</div>
-<div class="price-card">
-<h4>Gói 3 máy</h4>
-<div class="price">750.000đ</div>
-<div class="gift">MIỄN PHÍ GIAO HÀNG VÀ BẢO HÀNH 02 THÁNG CHO ĐẦU BƠM</div>
-</div>
-</div>
-</section>
 <section class="order-section" id="dat-hang">
 <h2 style="text-align:center; color:#d32f2f;">THÔNG TIN ĐẶT HÀNG</h2>
+
+<div class="selected-box" id="selectedBox">
+<div>Sản phẩm đang chọn: <strong id="selectedName">Ảnh 1 - Bộ phụ kiện đầy đủ</strong></div>
+<div>Đơn giá: <strong id="selectedUnit">299.000đ</strong></div>
+<div class="total-line">Thành tiền: <span id="selectedTotal">299.000đ</span></div>
+</div>
+
 <form id="orderForm">
+<input type="hidden" name="productId" id="productId" value="1">
+<input type="hidden" name="unitPrice" id="unitPrice" value="299000">
+
 <label>Họ và Tên</label>
 <input type="text" name="name" placeholder="Ví dụ: Nguyễn Văn An" required>
+
 <label>Số điện thoại</label>
 <input type="tel" name="phone" placeholder="Số điện thoại nhận hàng" required>
+
 <label>Địa chỉ nhận hàng</label>
 <input type="text" name="address" placeholder="Số nhà, tên đường, xã, huyện, tỉnh" required>
-<label>Chọn gói ưu đãi</label>
-<select name="package">
-<option value="1 cái - 250k">Mua 1 máy bơm - 250.000đ (Phí Ship 30k toàn quốc) </option>
-<option value="2 cái - 500k">Mua 2 máy bơm - 500.000đ (Miễn phí ship)</option>
-<option value="3 cái - 750k">Mua 3 máy bơm - 750.000đ (Miễn phí ship và bảo hành 2 tháng cho dầu bơm )</option>
+
+<label>Chọn sản phẩm</label>
+<select name="package" id="packageSelect">
+<option value="1">Ảnh 1 - Bộ máy bơm + phụ kiện - 299.000đ</option>
+<option value="2">Ảnh 2 - Máy bơm lắp sẵn - 499.000đ</option>
 </select>
+
+<label>Số lượng</label>
+<div class="qty-wrap">
+<button type="button" onclick="doiSoLuong(-1)">−</button>
+<input type="number" name="quantity" id="quantity" value="1" min="1" max="99" required>
+<button type="button" onclick="doiSoLuong(1)">+</button>
+</div>
+
 <label>Ghi chú yêu cầu</label>
 <input type="text" name="note" placeholder="Yêu cầu thêm (nếu có)">
+
 <button type="submit" id="btnSubmit" class="btn-submit">XÁC NHẬN ĐẶT HÀNG</button>
 </form>
 <div id="msg"></div>
 </section>
+
 <footer>
 <div class="shop-info">
 <h3>THÔNG TIN LIÊN HỆ</h3>
@@ -216,62 +257,115 @@ footer { background: #2c3e50; color: white; padding: 40px 20px; }
 </footer>
 </div>
 <script>
-// LOGIC GỬI ĐƠN (ĐÃ FIX GỬI TRÙNG)
+const PRODUCTS = {
+  1: {
+    name: "Ảnh 1 - Bộ máy bơm + phụ kiện đầy đủ",
+    price: 299000,
+    label: "299.000đ"
+  },
+  2: {
+    name: "Ảnh 2 - Máy bơm mini 12V-150W lắp sẵn",
+    price: 499000,
+    label: "499.000đ"
+  }
+};
+
+function formatVnd(n) {
+  return n.toLocaleString("vi-VN") + "đ";
+}
+
+function capNhatTongTien() {
+  const id = Number(document.getElementById("productId").value) || 1;
+  const qty = Math.max(1, Number(document.getElementById("quantity").value) || 1);
+  document.getElementById("quantity").value = qty;
+  const p = PRODUCTS[id];
+  const total = p.price * qty;
+  document.getElementById("selectedName").innerText = p.name;
+  document.getElementById("selectedUnit").innerText = p.label;
+  document.getElementById("selectedTotal").innerText = formatVnd(total);
+  document.getElementById("unitPrice").value = p.price;
+  document.querySelectorAll(".product-card").forEach(function(card) {
+    card.classList.toggle("active", Number(card.dataset.product) === id);
+  });
+}
+
+function chonSanPham(id) {
+  document.getElementById("productId").value = id;
+  document.getElementById("packageSelect").value = String(id);
+  document.getElementById("quantity").value = 1;
+  capNhatTongTien();
+  document.getElementById("dat-hang").scrollIntoView({ behavior: "smooth" });
+}
+
+function doiSoLuong(step) {
+  const input = document.getElementById("quantity");
+  let qty = Number(input.value) || 1;
+  qty = Math.min(99, Math.max(1, qty + step));
+  input.value = qty;
+  capNhatTongTien();
+}
+
+document.getElementById("packageSelect").addEventListener("change", function() {
+  document.getElementById("productId").value = this.value;
+  capNhatTongTien();
+});
+
+document.getElementById("quantity").addEventListener("input", capNhatTongTien);
+
+capNhatTongTien();
+
 const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbyC9ZqEzpvd-q1afHQvO1hboWUeaRyyW_0Uo0a3rwZO4IQVQbXqP0y3syIYfQzpfo88jQ/exec";
 document.getElementById("orderForm").addEventListener("submit", function(e) {
-e.preventDefault();
-const btn = document.getElementById("btnSubmit");
-const msg = document.getElementById("msg");
-if (btn.disabled) return;
-btn.disabled = true;
-btn.innerText = "ĐANG XỬ LÝ...";
-// Khách bắt đầu gửi đơn
-fbq('track', 'InitiateCheckout');
-const selectedPackage = this.package.value;
-let orderValue = 250000;
-if (selectedPackage.includes("500k")) {
-orderValue = 500000;
-}
-if (selectedPackage.includes("750k")) {
-orderValue = 750000;
-}
-const params = new URLSearchParams({
-name: this.name.value,
-phone: this.phone.value,
-address: this.address.value,
-package: selectedPackage,
-note: this.note.value,
-source: "LandingPage-Pro"
-});
-const finalUrl = WEB_APP_URL + "?" + params.toString();
+  e.preventDefault();
+  const btn = document.getElementById("btnSubmit");
+  const msg = document.getElementById("msg");
+  if (btn.disabled) return;
+  btn.disabled = true;
+  btn.innerText = "ĐANG XỬ LÝ...";
 
-const img = new Image();
+  fbq('track', 'InitiateCheckout');
 
-img.onload = function() {
+  const id = Number(this.productId.value) || 1;
+  const qty = Math.max(1, Number(this.quantity.value) || 1);
+  const p = PRODUCTS[id];
+  const total = p.price * qty;
+  const packageText = p.name + " | SL: " + qty + " | Đơn giá: " + formatVnd(p.price) + " | Thành tiền: " + formatVnd(total);
 
+  const params = new URLSearchParams({
+    name: this.name.value,
+    phone: this.phone.value,
+    address: this.address.value,
+    package: packageText,
+    quantity: String(qty),
+    note: this.note.value,
+    source: "LandingPage-Pro"
+  });
+  const finalUrl = WEB_APP_URL + "?" + params.toString();
+
+  const img = new Image();
+
+  img.onload = function() {
     fbq('track', 'Lead');
-
     msg.style.color = "green";
     msg.innerHTML = "✅ ĐẶT HÀNG THÀNH CÔNG! <br> Shop sẽ liên hệ với bạn ngay.";
-
     document.getElementById("orderForm").reset();
-
+    document.getElementById("productId").value = "1";
+    document.getElementById("packageSelect").value = "1";
+    document.getElementById("quantity").value = "1";
+    capNhatTongTien();
     btn.disabled = false;
     btn.innerText = "ĐẶT MUA THÊM";
-};
+  };
 
-img.onerror = function() {
-
+  img.onerror = function() {
     msg.style.color = "red";
     msg.innerHTML = "❌ Có lỗi khi gửi đơn. Vui lòng thử lại.";
-
     btn.disabled = false;
     btn.innerText = "XÁC NHẬN ĐẶT HÀNG";
-};
+  };
 
-img.src = finalUrl;
-});   // đóng addEventListener
-  
+  img.src = finalUrl;
+});
 </script>
 </body>
 </html>
