@@ -52,58 +52,53 @@ font-weight: bold;
 font-size: 0.9rem; 
 display: inline-block;
 }
-/* PRODUCT GRID - 2 ảnh ngang */
-.product-section { padding: 20px 12px; background: #fff; }
+/* 2 Ô ẢNH RIÊNG BIỆT */
+.product-section { padding: 20px 15px; background: #f4f7f6; }
 .product-grid {
-display: grid;
-grid-template-columns: 1fr 1fr;
-gap: 12px;
-}
-.product-card {
-background: #fafafa;
-border: 1px solid #eee;
-border-radius: 12px;
-padding: 10px;
-text-align: center;
 display: flex;
 flex-direction: column;
+gap: 18px;
+}
+.product-card {
+background: #fff;
+border: 2px solid #e0e0e0;
+border-radius: 16px;
+padding: 16px;
+text-align: center;
+box-shadow: 0 4px 14px rgba(0,0,0,0.06);
 }
 .product-card img {
 width: 100%;
-height: 180px;
+height: auto;
+max-height: 320px;
 object-fit: contain;
 background: #fff;
-border-radius: 8px;
+border-radius: 10px;
+display: block;
 }
 .product-caption {
-margin-top: 10px;
-font-size: 0.85rem;
-color: #444;
+margin: 14px 0 4px;
+font-size: 0.95rem;
+color: #333;
 font-weight: 600;
-line-height: 1.35;
-min-height: 2.7em;
+line-height: 1.4;
 }
 .btn-order {
-display: inline-block;
-margin-top: 10px;
-padding: 10px 14px;
+display: block;
+width: 100%;
+margin-top: 12px;
+padding: 14px 16px;
 background: #d32f2f;
 color: #fff;
 text-decoration: none;
-border-radius: 25px;
+border-radius: 50px;
 font-weight: bold;
-font-size: 0.9rem;
+font-size: 1.05rem;
 box-shadow: 0 4px 12px rgba(211,47,47,0.25);
-transition: background 0.2s, transform 0.15s;
+text-align: center;
 }
 .btn-order:hover {
 background: #b71c1c;
-transform: translateY(-1px);
-}
-@media (max-width: 420px) {
-.product-card img { height: 140px; }
-.product-caption { font-size: 0.78rem; }
-.btn-order { font-size: 0.82rem; padding: 8px 10px; }
 }
 /* PRICING */
 .pricing-section { padding: 30px 15px; background: #fff; text-align: center; }
@@ -138,11 +133,13 @@ footer { background: #2c3e50; color: white; padding: 40px 20px; }
 
 <section class="product-section">
 <div class="product-grid">
+<!-- Ô 1 -->
 <article class="product-card">
 <img src="may-1.jpg" alt="Bộ máy bơm mini đầy đủ phụ kiện">
 <p class="product-caption">Ảnh 1: Bộ máy bơm + phụ kiện đầy đủ (co, cút, lọc, keo, băng tan)</p>
 <a class="btn-order" href="#dat-hang">ĐẶT HÀNG</a>
 </article>
+<!-- Ô 2 -->
 <article class="product-card">
 <img src="may-2.jpg" alt="Máy bơm mini 12V đã lắp sẵn">
 <p class="product-caption">Ảnh 2: Máy bơm mini 12V-150W đã lắp sẵn, sẵn sàng sử dụng</p>
