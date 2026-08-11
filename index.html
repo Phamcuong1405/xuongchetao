@@ -7,7 +7,10 @@
 <meta http-equiv="Pragma" content="no-cache"/>
 <meta http-equiv="Expires" content="0"/>
 <title>MÁY BƠM MINI 12v -150W - Xưởng Chế Tạo</title>
-<!-- layout-v5-ten-sp: 2026-08-11 -->
+<!-- layout-v6-nen-hien-dai: 2026-08-11 -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;600;700;800&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
 <!-- Meta Pixel Code -->
 <script>
 !function(f,b,e,v,n,t,s) {
@@ -25,152 +28,309 @@ fbq('init', '956995736702434'); fbq('track', 'PageView');
 </noscript>
 <!-- End Meta Pixel Code -->
 <style>
-* { margin:0; padding:0; box-sizing:border-box; }
-body { font-family: 'Segoe UI', Tahoma, sans-serif; line-height: 1.6; background: #f4f7f6; color: #333; }
-.container { max-width: 720px; margin: 0 auto; background: #fff; min-height: 100vh; box-shadow: 0 0 20px rgba(0,0,0,0.1); }
-header { 
-background: linear-gradient(135deg, #d32f2f, #b71c1c); 
-color: white; 
-text-align: center; 
-padding: 40px 20px; 
+:root {
+  --brand: #e11d2e;
+  --brand-deep: #9f1239;
+  --ink: #0f172a;
+  --muted: #475569;
+  --surface: rgba(255,255,255,0.86);
+  --line: rgba(15,23,42,0.08);
+  --water-1: #e8f4ff;
+  --water-2: #d7ecfb;
+  --steel: #f1f5f9;
 }
-header h1 { 
-font-size: 2.2rem; 
-text-transform: uppercase; 
-margin: 10px 0; 
-font-weight: 800;
-letter-spacing: 1px;
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  font-family: 'Be Vietnam Pro', sans-serif;
+  line-height: 1.6;
+  color: var(--ink);
+  min-height: 100vh;
+  background:
+    radial-gradient(900px 420px at 10% -10%, rgba(14,165,233,0.22), transparent 55%),
+    radial-gradient(700px 380px at 95% 8%, rgba(225,29,46,0.16), transparent 50%),
+    radial-gradient(600px 400px at 50% 100%, rgba(56,189,248,0.18), transparent 55%),
+    linear-gradient(180deg, #eaf4fc 0%, #f5f8fb 42%, #eef3f8 100%);
+  background-attachment: fixed;
+}
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.45;
+  background-image:
+    linear-gradient(rgba(15,23,42,0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(15,23,42,0.035) 1px, transparent 1px);
+  background-size: 28px 28px;
+  mask-image: radial-gradient(ellipse at center, black 35%, transparent 85%);
+}
+.container {
+  position: relative;
+  z-index: 1;
+  max-width: 760px;
+  margin: 0 auto;
+  min-height: 100vh;
+  background: linear-gradient(180deg, rgba(255,255,255,0.72), rgba(255,255,255,0.92));
+  backdrop-filter: blur(10px);
+  box-shadow: 0 18px 50px rgba(15,23,42,0.12);
+  border-left: 1px solid rgba(255,255,255,0.65);
+  border-right: 1px solid rgba(255,255,255,0.65);
+}
+header {
+  position: relative;
+  overflow: hidden;
+  background:
+    linear-gradient(120deg, rgba(225,29,46,0.92), rgba(159,18,57,0.95)),
+    linear-gradient(180deg, #0ea5e9, transparent);
+  color: white;
+  text-align: center;
+  padding: 44px 20px 48px;
+}
+header::before {
+  content: "";
+  position: absolute;
+  inset: auto -20% -55% -20%;
+  height: 180px;
+  background: radial-gradient(ellipse at center, rgba(255,255,255,0.25), transparent 65%);
+  animation: wavePulse 6s ease-in-out infinite;
+}
+header::after {
+  content: "";
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  height: 28px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 60' preserveAspectRatio='none'%3E%3Cpath fill='%23f5f8fb' d='M0,32 C240,60 480,0 720,24 C960,48 1200,56 1440,20 L1440,60 L0,60 Z'/%3E%3C/svg%3E") center/cover no-repeat;
+}
+@keyframes wavePulse {
+  0%, 100% { transform: translateY(0); opacity: 0.8; }
+  50% { transform: translateY(-8px); opacity: 1; }
+}
+header h1 {
+  font-family: 'Manrope', sans-serif;
+  font-size: 2.15rem;
+  text-transform: uppercase;
+  margin: 12px 0;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  position: relative;
+  z-index: 1;
 }
 header p {
-font-size: 0.95rem;
-font-weight: 400;
-opacity: 0.9;
-line-height: 1.4;
+  font-size: 0.95rem;
+  font-weight: 400;
+  opacity: 0.95;
+  line-height: 1.45;
+  position: relative;
+  z-index: 1;
 }
-.badge { 
-background: #ffeb3b; 
-color: #d32f2f; 
-padding: 6px 18px; 
-border-radius: 20px; 
-font-weight: bold; 
-font-size: 0.9rem; 
-display: inline-block;
+.badge {
+  background: rgba(255,255,255,0.95);
+  color: var(--brand-deep);
+  padding: 7px 16px;
+  border-radius: 8px;
+  font-weight: 800;
+  font-size: 0.82rem;
+  display: inline-block;
+  letter-spacing: 0.4px;
+  position: relative;
+  z-index: 1;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.12);
 }
 /* 2 Ô ẢNH NẰNG NGANG */
-.product-section { padding: 16px 10px; background: #f4f7f6; }
+.product-section {
+  padding: 8px 14px 22px;
+  background:
+    linear-gradient(180deg, #f5f8fb 0%, transparent 28%),
+    radial-gradient(420px 180px at 20% 30%, rgba(14,165,233,0.1), transparent 70%),
+    radial-gradient(420px 180px at 80% 40%, rgba(225,29,46,0.07), transparent 70%);
+}
 .product-grid {
-display: flex !important;
-flex-direction: row !important;
-flex-wrap: nowrap;
-gap: 12px;
-align-items: stretch;
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: nowrap;
+  gap: 14px;
+  align-items: stretch;
 }
 .product-card {
-background: #fff;
-border: 2px solid #e0e0e0;
-border-radius: 14px;
-padding: 10px;
-text-align: center;
-box-shadow: 0 4px 14px rgba(0,0,0,0.06);
-display: flex;
-flex-direction: column;
-width: 50%;
-min-width: 0;
-flex: 1 1 50%;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  padding: 12px;
+  text-align: center;
+  box-shadow: 0 10px 28px rgba(15,23,42,0.08);
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  min-width: 0;
+  flex: 1 1 50%;
+  backdrop-filter: blur(8px);
+  transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+}
+.product-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 16px 34px rgba(15,23,42,0.12);
 }
 .product-card.active {
-border-color: #d32f2f;
-box-shadow: 0 0 0 2px rgba(211,47,47,0.2);
+  border-color: rgba(225,29,46,0.55);
+  box-shadow: 0 0 0 3px rgba(225,29,46,0.12), 0 14px 30px rgba(15,23,42,0.1);
 }
 .product-card img {
-width: 100%;
-height: 190px;
-object-fit: contain;
-background: #fff;
-border-radius: 8px;
-display: block;
+  width: 100%;
+  height: 200px;
+  object-fit: contain;
+  background:
+    radial-gradient(circle at 50% 40%, #fff 0%, #eef6fc 58%, #ddeaf5 100%);
+  border-radius: 14px;
+  display: block;
+  border: 1px solid rgba(148,163,184,0.25);
 }
 .product-caption {
-margin: 10px 0 4px;
-font-size: 0.78rem;
-color: #333;
-font-weight: 600;
-line-height: 1.35;
-flex: 1;
+  margin: 12px 0 4px;
+  font-size: 0.85rem;
+  color: var(--ink);
+  font-weight: 700;
+  line-height: 1.35;
+  flex: 1;
+  font-family: 'Manrope', sans-serif;
+  letter-spacing: 0.3px;
 }
 .product-price {
-color: #d32f2f;
-font-size: 1.15rem;
-font-weight: 900;
-margin: 6px 0 2px;
+  color: var(--brand);
+  font-size: 1.2rem;
+  font-weight: 800;
+  margin: 6px 0 2px;
+  font-family: 'Manrope', sans-serif;
 }
 .btn-order {
-display: block;
-width: 100%;
-margin-top: 10px;
-padding: 11px 8px;
-background: #d32f2f;
-color: #fff;
-text-decoration: none;
-border: none;
-border-radius: 50px;
-font-weight: bold;
-font-size: 0.88rem;
-box-shadow: 0 4px 12px rgba(211,47,47,0.25);
-text-align: center;
-cursor: pointer;
+  display: block;
+  width: 100%;
+  margin-top: 10px;
+  padding: 12px 8px;
+  background: linear-gradient(135deg, var(--brand), var(--brand-deep));
+  color: #fff;
+  text-decoration: none;
+  border: none;
+  border-radius: 12px;
+  font-weight: 800;
+  font-size: 0.9rem;
+  box-shadow: 0 8px 18px rgba(225,29,46,0.28);
+  text-align: center;
+  cursor: pointer;
+  transition: transform 0.15s ease, filter 0.15s ease;
 }
 .btn-order:hover {
-background: #b71c1c;
+  filter: brightness(1.05);
+  transform: translateY(-1px);
 }
 /* FORM */
-.order-section { padding: 30px 20px; background: #fdfdfd; border-top: 5px solid #d32f2f; scroll-margin-top: 16px; }
-.selected-box {
-background: #fff8f8;
-border: 1px solid #ffcdd2;
-border-radius: 12px;
-padding: 14px;
-margin-top: 12px;
-text-align: center;
+.order-section {
+  padding: 28px 20px 34px;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.4), rgba(248,250,252,0.95)),
+    var(--steel);
+  border-top: 1px solid rgba(225,29,46,0.25);
+  scroll-margin-top: 16px;
 }
-.selected-box strong { color: #d32f2f; }
+.order-section h2 {
+  font-family: 'Manrope', sans-serif;
+  letter-spacing: 0.5px;
+}
+.selected-box {
+  background: linear-gradient(135deg, #fff5f5, #f0f9ff);
+  border: 1px solid rgba(225,29,46,0.18);
+  border-radius: 14px;
+  padding: 14px;
+  margin-top: 12px;
+  text-align: center;
+}
+.selected-box strong { color: var(--brand); }
 .total-line {
-margin-top: 10px;
-font-size: 1.15rem;
-font-weight: 800;
-color: #d32f2f;
+  margin-top: 10px;
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--brand);
 }
 .qty-wrap {
-display: flex;
-align-items: center;
-gap: 10px;
-margin-top: 5px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 5px;
 }
 .qty-wrap button {
-width: 44px;
-height: 44px;
-border: 1px solid #ddd;
-background: #fff;
-border-radius: 10px;
-font-size: 1.3rem;
-font-weight: bold;
-cursor: pointer;
-color: #d32f2f;
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--line);
+  background: #fff;
+  border-radius: 12px;
+  font-size: 1.3rem;
+  font-weight: bold;
+  cursor: pointer;
+  color: var(--brand);
 }
 .qty-wrap input {
-width: 80px;
-text-align: center;
-margin-top: 0;
+  width: 80px;
+  text-align: center;
+  margin-top: 0;
 }
-label { display: block; margin-top: 15px; font-weight: bold; font-size: 0.9rem; color: #555; }
-input, select { width: 100%; padding: 14px; margin-top: 5px; border: 1px solid #ddd; border-radius: 10px; font-size: 16px; }
-.btn-submit { width: 100%; padding: 20px; background: #d32f2f; color: white; border: none; border-radius: 50px; font-weight: bold; font-size: 1.3rem; margin-top: 30px; cursor: pointer; box-shadow: 0 6px 20px rgba(211,47,47,0.3); }
+label { display: block; margin-top: 15px; font-weight: 700; font-size: 0.9rem; color: var(--muted); }
+input, select {
+  width: 100%;
+  padding: 14px;
+  margin-top: 5px;
+  border: 1px solid rgba(148,163,184,0.45);
+  border-radius: 12px;
+  font-size: 16px;
+  background: rgba(255,255,255,0.95);
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+input:focus, select:focus {
+  outline: none;
+  border-color: rgba(14,165,233,0.55);
+  box-shadow: 0 0 0 3px rgba(14,165,233,0.12);
+}
+.btn-submit {
+  width: 100%;
+  padding: 18px;
+  background: linear-gradient(135deg, var(--brand), var(--brand-deep));
+  color: white;
+  border: none;
+  border-radius: 14px;
+  font-weight: 800;
+  font-size: 1.2rem;
+  margin-top: 28px;
+  cursor: pointer;
+  box-shadow: 0 10px 24px rgba(225,29,46,0.28);
+}
 /* FOOTER */
-footer { background: #2c3e50; color: white; padding: 40px 20px; }
-.shop-info h3 { border-left: 4px solid #ffeb3b; padding-left: 10px; margin-bottom: 15px; }
-.shop-info p { margin-bottom: 10px; font-size: 0.95rem; }
-.trust-badges { display: flex; justify-content: space-around; margin-top: 20px; border-top: 1px solid #555; padding-top: 20px; text-align: center; font-size: 0.8rem; }
+footer {
+  background: linear-gradient(160deg, #0f172a, #1e293b 55%, #0c4a6e);
+  color: white;
+  padding: 40px 20px;
+}
+.shop-info h3 {
+  border-left: 4px solid #38bdf8;
+  padding-left: 10px;
+  margin-bottom: 15px;
+  font-family: 'Manrope', sans-serif;
+}
+.shop-info p { margin-bottom: 10px; font-size: 0.95rem; color: #e2e8f0; }
+.trust-badges {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 20px;
+  border-top: 1px solid rgba(148,163,184,0.35);
+  padding-top: 20px;
+  text-align: center;
+  font-size: 0.8rem;
+  color: #cbd5e1;
+}
 #msg { text-align: center; margin-top: 15px; font-weight: bold; }
+@media (max-width: 480px) {
+  header h1 { font-size: 1.7rem; }
+  .product-card img { height: 160px; }
+  .product-caption { font-size: 0.78rem; }
+}
 </style>
 </head>
 <body>
