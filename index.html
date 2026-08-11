@@ -52,48 +52,51 @@ font-weight: bold;
 font-size: 0.9rem; 
 display: inline-block;
 }
-/* 2 Ô ẢNH RIÊNG BIỆT */
-.product-section { padding: 20px 15px; background: #f4f7f6; }
+/* 2 Ô ẢNH NẰNG NGANG */
+.product-section { padding: 16px 10px; background: #f4f7f6; }
 .product-grid {
-display: flex;
-flex-direction: column;
-gap: 18px;
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 10px;
+align-items: stretch;
 }
 .product-card {
 background: #fff;
 border: 2px solid #e0e0e0;
-border-radius: 16px;
-padding: 16px;
+border-radius: 14px;
+padding: 10px;
 text-align: center;
 box-shadow: 0 4px 14px rgba(0,0,0,0.06);
+display: flex;
+flex-direction: column;
 }
 .product-card img {
 width: 100%;
-height: auto;
-max-height: 320px;
+height: 200px;
 object-fit: contain;
 background: #fff;
-border-radius: 10px;
+border-radius: 8px;
 display: block;
 }
 .product-caption {
-margin: 14px 0 4px;
-font-size: 0.95rem;
+margin: 10px 0 4px;
+font-size: 0.78rem;
 color: #333;
 font-weight: 600;
-line-height: 1.4;
+line-height: 1.35;
+flex: 1;
 }
 .btn-order {
 display: block;
 width: 100%;
-margin-top: 12px;
-padding: 14px 16px;
+margin-top: 10px;
+padding: 11px 8px;
 background: #d32f2f;
 color: #fff;
 text-decoration: none;
 border-radius: 50px;
 font-weight: bold;
-font-size: 1.05rem;
+font-size: 0.88rem;
 box-shadow: 0 4px 12px rgba(211,47,47,0.25);
 text-align: center;
 }
