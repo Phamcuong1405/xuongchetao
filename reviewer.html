@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>App Review test notes — traloitudong</title>
+  <style>
+    body { font-family: system-ui, Segoe UI, Roboto, Arial, sans-serif; max-width: 760px; margin: 32px auto; padding: 0 16px; line-height: 1.6; color: #0f172a; }
+    h1 { font-size: 1.4rem; }
+    code, pre { background: #f1f5f9; padding: 2px 6px; border-radius: 4px; }
+    pre { padding: 12px; overflow-x: auto; }
+    .box { background: #eff6ff; border: 1px solid #bfdbfe; padding: 12px 14px; border-radius: 8px; }
+  </style>
+</head>
+<body>
+  <h1>Meta App Review — how to test (traloitudong)</h1>
+  <p class="box">
+    <strong>This is a server-side Page sales desk.</strong> Customers do <em>not</em> log into the web app with Facebook Login.
+    The Page admin stores a <strong>Page Access Token</strong>. Messenger traffic is received via webhooks and replies are sent with the Send API inside the 24-hour window.
+    Please do not reject the submission for a missing Facebook Login button on the storefront.
+  </p>
+  <p>
+    App ID: <code>2461711684326049</code> (traloitudong)<br />
+    Page: Xưởng Bơm MINI <code>1242996232237252</code><br />
+    Privacy: <a href="./privacy.html">privacy.html</a> ·
+    <a href="./terms.html">terms.html</a> ·
+    <a href="./data-deletion.html">data-deletion.html</a>
+  </p>
+  <h2>What the app does</h2>
+  <ol>
+    <li>Customer messages the Page → automated greeting + order button (pages_messaging).</li>
+    <li>Customer comments on a Page post → one-time Messenger private reply with the same order button (pages_read_engagement, pages_read_user_content, pages_messaging).</li>
+    <li>Customer submits name / phone / address → COD order in FBAUTO.</li>
+  </ol>
+  <h2>Test steps for reviewers</h2>
+  <ol>
+    <li>Use a Facebook user who is an <strong>Admin, Developer, or Tester</strong> of this app (Development mode).</li>
+    <li>Open Messenger and message Page <strong>Xưởng Bơm MINI</strong> with any product question (example: “xin giá”).</li>
+    <li>Expect an automated reply with an order button / order link within the 24-hour messaging window.</li>
+    <li>Open the order link, enter a test name, phone, and address, submit.</li>
+    <li>Comment on any post of the Page. Expect a one-time private reply on Messenger (not a public comment reply spam).</li>
+  </ol>
+  <p>We do not send promotional blasts. We do not use HUMAN_AGENT in this submission. We only message people who messaged or commented on our Page.</p>
+</body>
+</html>
