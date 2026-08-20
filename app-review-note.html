@@ -31,6 +31,10 @@
     .paste { background: #fff; border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; margin: 14px 0; }
     .paste h3 { margin: 0 0 8px; font-size: .95rem; }
     .warn { background: #fff7ed; border: 1px solid #fed7aa; border-radius: 10px; padding: 10px 12px; font-size: .9rem; }
+    .how { margin: 8px 0 0; padding-left: 1.15rem; color: #334155; font-size: .9rem; }
+    .how li { margin: 5px 0; }
+    .tip { margin: 8px 0 0; font-size: .82rem; color: #9a3412; background: #fff7ed; border-radius: 8px; padding: 8px 10px; }
+    .time { font-size: .78rem; color: #64748b; margin: 0 0 6px; }
     a { color: var(--blue); }
   </style>
 </head>
@@ -67,97 +71,189 @@
       Cấm trong video: token / .env, shop localhost, voucher blast, HUMAN_AGENT, Graph Explorer, nick ảo, trả lời công khai trên bài.
     </div>
 
-    <h2>2. Quay 12 cảnh (đúng thứ tự)</h2>
-    <p class="do">Mỗi cảnh: hiện caption 3–5 giây → làm việc → cảnh sau. Upload YouTube <strong>Unlisted</strong>, dán <strong>cùng 1 link</strong> vào cả 6 quyền.</p>
+        <h2>2. Quay 12 cảnh (đúng thứ tự)</h2>
+    <p class="do">Mỗi cảnh: hiện caption 3–5 giây → làm việc (chuột chậm, zoom rõ) → cảnh sau. Tổng <strong>3–7 phút</strong>. Upload YouTube <strong>Unlisted</strong>, dán <strong>cùng 1 link</strong> vào cả 6 quyền.</p>
+
+    <div class="id" style="margin-bottom:14px">
+      <strong>Bố trí màn hình trước khi Record</strong>
+      <ol class="how">
+        <li>Tắt thông báo Windows / Messenger popup. Che thanh bookmark nếu có token.</li>
+        <li>Chrome cửa sổ 1: <a href="./screencast.html">screencast.html</a> (F11). Space = caption kế.</li>
+        <li>Chrome cửa sổ 2 (nick Tester Facebook): Messenger + tab Page + tab Developers.</li>
+        <li>Chrome cửa sổ 3: FBAUTO <code>http://127.0.0.1:3000/login</code> (chỉ desk nhân viên — shop khách phải là GitHub Pages).</li>
+        <li>OBS / Xbox Game Bar: quay cả màn hình. Không nhạc.</li>
+        <li>Đã login sẵn nick Tester trên Facebook. FBAUTO thì login <em>trong video</em> (cảnh 2).</li>
+      </ol>
+    </div>
 
     <div class="step">
-      <h3><span class="n">1</span> Title</h3>
+      <h3><span class="n">1</span> Title — giới thiệu app</h3>
+      <p class="time">~8 giây · không click</p>
       <div class="cap" id="c1">FBAUTO Page sales desk
 App: traloitudong (2461711684326049)
 Page: Xuong Bom MINI (1242996232237252)</div>
-      <p class="do">Slide 1 trên screencast.html, đứng yên 5–8 giây.</p>
+      <ol class="how">
+        <li>Mở <a href="./screencast.html">screencast.html</a> → F11. Đúng <strong>Slide 1</strong>.</li>
+        <li>Bấm Record. Giữ 5–8 giây cho reviewer đọc App ID + Page ID.</li>
+        <li>Không rê chuột. Xong → Space (slide 2) hoặc Alt-Tab FBAUTO.</li>
+      </ol>
+      <p class="tip">Không dùng slide: Notepad fullscreen cùng chữ caption, 8 giây.</p>
       <div class="row"><button class="copy" data-copy="c1">Copy caption</button></div>
     </div>
 
     <div class="step">
-      <h3><span class="n">2</span> Login staff</h3>
+      <h3><span class="n">2</span> Login staff FBAUTO (không Facebook Login)</h3>
+      <p class="time">~20 giây</p>
       <div class="cap" id="c2">Staff login only. Customers never Facebook-login. Page token on server.</div>
-      <p class="do">FBAUTO /login → email. <strong>Không</strong> bấm Facebook Login.</p>
+      <ol class="how">
+        <li>Hiện caption 3 giây (slide 2).</li>
+        <li>Mở <code>http://127.0.0.1:3000/login</code>. Thấy chữ kiểu Page sales desk / customers do not Facebook-login.</li>
+        <li>Gõ <code>admin@fbauto.local</code> + mật khẩu → <strong>Đăng nhập</strong>. Chuột chậm.</li>
+        <li>Vào Dashboard: rê qua menu <strong>Hộp thư</strong> / <strong>Đơn hàng</strong>. Không mở Ads / AI.</li>
+      </ol>
+      <p class="tip">Cấm: Continue with Facebook, Graph Explorer, file .env, token EAA…</p>
       <div class="row"><button class="copy" data-copy="c2">Copy caption</button></div>
     </div>
 
     <div class="step">
-      <h3><span class="n">3</span> Reviewer notes</h3>
+      <h3><span class="n">3</span> Trang test cho reviewer</h3>
+      <p class="time">~8 giây</p>
       <div class="cap" id="c3">Public test notes
 https://phamcuong1405.github.io/xuongchetao/reviewer.html</div>
-      <p class="do">Mở <a href="./reviewer.html">reviewer.html</a> khoảng 5 giây.</p>
+      <ol class="how">
+        <li>Tab mới, dán URL reviewer (HTTPS github.io — không localhost).</li>
+        <li>Scroll chậm 5–8 giây: đoạn never Facebook Login + App ID + bước test Messenger.</li>
+        <li>Không cần click link khác.</li>
+      </ol>
       <div class="row"><button class="copy" data-copy="c3">Copy caption</button></div>
     </div>
 
     <div class="step">
       <h3><span class="n">4</span> Webhook — pages_manage_metadata</h3>
+      <p class="time">~35 giây</p>
       <div class="cap" id="c4">pages_manage_metadata — webhook messages + feed</div>
-      <p class="do">developers.facebook.com → traloitudong → Messenger → Webhooks: HTTPS + Page subscribed + fields <code>messages</code>, <code>feed</code>.</p>
+      <ol class="how">
+        <li>Mở <a href="https://developers.facebook.com/apps/2461711684326049/">App Dashboard traloitudong</a>.</li>
+        <li>Menu trái: <strong>Messenger</strong> → Cài đặt API / Webhooks.</li>
+        <li>Zoom Callback URL: phải <strong>https://</strong> (đừng che hết — reviewer cần thấy HTTPS).</li>
+        <li>Chỉ Page <strong>Xưởng Bơm MINI</strong> đã Subscribe.</li>
+        <li>Rê chuột các field đã tick: <code>messages</code>, <code>messaging_postbacks</code>, <code>feed</code>.</li>
+      </ol>
+      <p class="tip">Field feed chưa tick: tick xong rồi mới quay. Đừng sửa lung tung trong video.</p>
       <div class="row"><button class="copy" data-copy="c4">Copy caption</button></div>
     </div>
 
     <div class="step">
-      <h3><span class="n">5</span> Page + Business</h3>
+      <h3><span class="n">5</span> Business + chọn Page</h3>
+      <p class="time">~20 giây</p>
       <div class="cap" id="c5">business_management + pages_show_list — Fovimarlo · Page Xuong Bom MINI</div>
-      <p class="do">Settings → Basic (App ID) + Messenger Access Tokens hiện Page Xưởng Bơm MINI.</p>
+      <ol class="how">
+        <li>Settings → Basic. Zoom App ID <code>2461711684326049</code> và tên <strong>traloitudong</strong>.</li>
+        <li>Rê tới Business <strong>Fovimarlo</strong> (Verified nếu hiện).</li>
+        <li>Messenger → Access Tokens: hàng Page <strong>Xưởng Bơm MINI</strong> / ID <code>1242996232237252</code>.</li>
+        <li>Không bấm Generate token, không copy token ra màn hình.</li>
+      </ol>
       <div class="row"><button class="copy" data-copy="c5">Copy caption</button></div>
     </div>
 
     <div class="step">
-      <h3><span class="n">6</span> Khách nhắn</h3>
+      <h3><span class="n">6</span> Khách (Tester) nhắn Page</h3>
+      <p class="time">~25 giây</p>
       <div class="cap" id="c6">Customer messages the Page. 24-hour window starts.</div>
-      <p class="do">Nick Tester gửi Messenger: <strong>xin gia bom mini</strong></p>
+      <ol class="how">
+        <li>Messenger (facebook.com/messages). Avatar phải là <strong>nick Tester</strong>, không phải Page.</li>
+        <li>Mở hội thoại Page <strong>Xưởng Bơm MINI</strong> (nếu chưa có: vào Page → Nhắn tin).</li>
+        <li>Gõ chậm, gửi đúng: <strong>xin gia bom mini</strong>.</li>
+        <li>Giữ khung chat 3 giây sau khi gửi (thấy đã gửi).</li>
+      </ol>
+      <p class="tip">Đừng nhắn từ nick Page. Đừng sticker / nhiều tin spam.</p>
       <div class="row"><button class="copy" data-copy="c6">Copy caption</button></div>
     </div>
 
     <div class="step">
-      <h3><span class="n">7</span> Auto-reply — pages_messaging</h3>
+      <h3><span class="n">7</span> Auto-reply + nút đặt hàng — pages_messaging</h3>
+      <p class="time">~40 giây · chờ bot tối đa 15 giây</p>
       <div class="cap" id="c7">pages_messaging — automated reply + order button, 24h only</div>
-      <p class="do">Zoom tin Page trả lời + nút/link ĐẶT HÀNG.</p>
+      <ol class="how">
+        <li>Ở nguyên hội thoại cảnh 6. Đợi tin Page (1–15 giây).</li>
+        <li>Scroll để thấy cả greeting + nút/link <strong>ĐẶT HÀNG</strong> trong một khung.</li>
+        <li>Zoom (Ctrl + lăn chuột) vào nút/link. Giữ 5 giây.</li>
+        <li>Có hotline: rê chuột qua số, không gọi.</li>
+      </ol>
+      <p class="tip">Không có tin? Dừng quay, kiểm tra backend + webhook rồi take lại. Đừng cắt ghép tin cũ.</p>
       <div class="row"><button class="copy" data-copy="c7">Copy caption</button></div>
     </div>
 
     <div class="step">
-      <h3><span class="n">8</span> Đặt hàng HTTPS</h3>
+      <h3><span class="n">8</span> Khách đặt hàng trên shop HTTPS</h3>
+      <p class="time">~45 giây</p>
       <div class="cap" id="c8">Customer submits COD order on HTTPS shop</div>
-      <p class="do">Bấm nút → <a href="./index.html">shop GitHub Pages</a> → tên, SĐT, địa chỉ test → Xác nhận. Không dùng localhost.</p>
+      <ol class="how">
+        <li>Trong Messenger, bấm nút/link ĐẶT HÀNG (tab mới).</li>
+        <li>Thanh địa chỉ phải là <code>https://phamcuong1405.github.io/xuongchetao/</code> — cấm localhost.</li>
+        <li>Chọn Bơm nổi hoặc Bơm chìm nếu chưa chọn.</li>
+        <li>Form: Họ tên <code>Nguyen Van Test</code> · SĐT <code>0900000001</code> · Địa chỉ <code>Linh Nam, Ha Noi</code>.</li>
+        <li>Bấm <strong>Xác nhận đặt hàng</strong>. Giữ thông báo thành công 4 giây.</li>
+      </ol>
       <div class="row"><button class="copy" data-copy="c8">Copy caption</button></div>
     </div>
 
     <div class="step">
-      <h3><span class="n">9</span> Đơn trên FBAUTO</h3>
+      <h3><span class="n">9</span> Đơn hiện trên desk FBAUTO</h3>
+      <p class="time">~20 giây</p>
       <div class="cap" id="c9">Order appears in FBAUTO staff desk</div>
-      <p class="do">Mở /orders hoặc Dashboard: đơn mới <strong>Đặt hàng thành công</strong>.</p>
+      <ol class="how">
+        <li>Alt-Tab FBAUTO (đã login cảnh 2) → menu <strong>Đơn hàng</strong>.</li>
+        <li>URL kiểu <code>http://127.0.0.1:3000/orders</code> được (màn nhân viên).</li>
+        <li>Zoom hàng mới: tên test, SĐT, trạng thái <strong>Đặt hàng thành công</strong>.</li>
+        <li>Không bấm Ads / AI / Workflows.</li>
+      </ol>
+      <p class="tip">Không thấy đơn: backend :4000 phải chạy. Thử lại form shop rồi quay cảnh này.</p>
       <div class="row"><button class="copy" data-copy="c9">Copy caption</button></div>
     </div>
 
     <div class="step">
-      <h3><span class="n">10</span> Comment trên bài</h3>
+      <h3><span class="n">10</span> Comment trên bài Page</h3>
+      <p class="time">~25 giây</p>
       <div class="cap" id="c10">pages_read_engagement + pages_read_user_content — comment on our Page</div>
-      <p class="do">Tester comment bài Page: <strong>shop con bom khong a</strong></p>
+      <ol class="how">
+        <li>Facebook nick <strong>Tester</strong> → Page <strong>Xưởng Bơm MINI</strong>.</li>
+        <li>Mở 1 bài viết có sẵn (ảnh sản phẩm). Không tạo bài mới trong video.</li>
+        <li>Ô bình luận, gõ: <strong>shop con bom khong a</strong> → Enter.</li>
+        <li>Giữ 3 giây: comment hiện dưới bài (tên Tester, không phải Page).</li>
+      </ol>
+      <p class="tip">Đừng trả lời công khai bằng Page. Đừng mở extension “Trả lời trên bài”.</p>
       <div class="row"><button class="copy" data-copy="c10">Copy caption</button></div>
     </div>
 
     <div class="step">
-      <h3><span class="n">11</span> Private reply Messenger</h3>
+      <h3><span class="n">11</span> Private reply trên Messenger</h3>
+      <p class="time">~40 giây · chờ bot tối đa 20 giây</p>
       <div class="cap" id="c11">One-time Messenger private reply — not a public comment blast</div>
-      <p class="do">Messenger Tester: <strong>1</strong> tin private reply + nút đặt hàng. Không trả lời công khai trên bài.</p>
+      <ol class="how">
+        <li>Messenger nick Tester, cùng hội thoại Page.</li>
+        <li>Đợi 1 tin mới từ Page (private reply, thường có nút ĐẶT HÀNG) — tin trong inbox, không phải comment dưới bài.</li>
+        <li>Zoom tin đó 5 giây. Có thể rê lên comment cảnh 10 rồi cắt sang inbox.</li>
+        <li>Không gửi thêm tin. Không like / trả lời công khai dưới comment.</li>
+      </ol>
+      <p class="tip">Không ra private reply: webhook field feed + comment auto-reply phải bật. Đừng giả bằng nhắn tay từ Page.</p>
       <div class="row"><button class="copy" data-copy="c11">Copy caption</button></div>
     </div>
 
     <div class="step">
-      <h3><span class="n">12</span> End</h3>
+      <h3><span class="n">12</span> End card + upload</h3>
+      <p class="time">~8 giây trên slide · rồi dừng Record</p>
       <div class="cap" id="c12">No HUMAN_AGENT. No ads. No blast.</div>
-      <p class="do">Slide 12, đứng yên 8 giây. Upload Unlisted.</p>
+      <ol class="how">
+        <li>F11 <a href="./screencast.html">screencast.html</a> → bấm tới <strong>Slide 12</strong>.</li>
+        <li>Đứng yên 8 giây. Dừng Record.</li>
+        <li>YouTube Studio → Upload → Visibility <strong>Unlisted</strong> (không Public, không Private).</li>
+        <li>Copy URL, dán vào <strong>cả 6 quyền</strong> trên form App Review.</li>
+      </ol>
       <div class="row"><button class="copy" data-copy="c12">Copy caption</button></div>
     </div>
 
-    <h2>3. Dán form Facebook (bấm Copy)</h2>
+<h2>3. Dán form Facebook (bấm Copy)</h2>
 
     <div class="paste">
       <h3>D1 — App description / App purpose (Settings → Basic)</h3>
