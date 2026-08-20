@@ -830,7 +830,7 @@ function trackFb(event) {
 function showOrderSuccess(btn, msg) {
   trackFb("Lead");
   msg.style.color = "green";
-  msg.innerHTML = "✅ Đặt hàng thành công! <br> Shop sẽ liên hệ với bạn ngay.";
+  msg.innerHTML = "✅ Đặt hàng thành công!<br>Đã lưu Dashboard và Google Sheet.<br>Shop sẽ liên hệ với bạn ngay.";
   document.getElementById("orderForm").reset();
   document.getElementById("productId").value = "1";
   document.getElementById("packageSelect").value = "1";
@@ -873,16 +873,24 @@ document.getElementById("orderForm").addEventListener("submit", function(e) {
     note: this.note.value.trim(),
     source: "LandingPage-Pro"
   };
-  const params = new URLSearchParams(payload);
+  const params = new URLSearchParams({
+    name: payload.name,
+    phone: payload.phone,
+    address: payload.address,
+    package: packageText,
+    quantity: String(qty),
+    note: payload.note,
+    source: "LandingPage-Pro"
+  });
   const sheetsUrl = WEB_APP_URL + "?" + params.toString();
   const api = window.FBAUTO_LANDING_API;
 
-  function backupSheets() {
-    fetch(sheetsUrl, { method: "GET", mode: "no-cors", cache: "no-store" }).catch(function() {});
+  function sendSheet() {
+    return fetch(sheetsUrl, { method: "GET", mode: "no-cors", cache: "no-store" });
   }
 
   if (!api) {
-    fetch(sheetsUrl, { method: "GET", mode: "no-cors", cache: "no-store" })
+    sendSheet()
       .then(function() { showOrderSuccess(btn, msg); })
       .catch(function() { showOrderError(btn, msg); });
     return;
@@ -897,12 +905,24 @@ document.getElementById("orderForm").addEventListener("submit", function(e) {
   })
     .then(function(res) {
       if (!res.ok) throw new Error("FBAUTO " + res.status);
-      backupSheets();
-      showOrderSuccess(btn, msg);
+      return res.json().catch(function() { return {}; });
+    })
+    .then(function(data) {
+      if (data && data.sheetSynced) {
+        showOrderSuccess(btn, msg);
+        return;
+      }
+      return sendSheet().then(function() { showOrderSuccess(btn, msg); });
     })
     .catch(function() {
-      backupSheets();
-      showOrderError(btn, msg);
+      sendSheet()
+        .then(function() {
+          msg.style.color = "green";
+          msg.innerHTML = "✅ Đã ghi Google Sheet.<br>Dashboard chưa nhận được — kiểm tra FBAUTO rồi gửi lại nếu cần.";
+          btn.disabled = false;
+          btn.innerText = "Xác nhận đặt hàng";
+        })
+        .catch(function() { showOrderError(btn, msg); });
     });
 });
 </script>
