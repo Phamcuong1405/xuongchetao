@@ -633,6 +633,7 @@ footer {
 </div>
 </footer>
 </div>
+<script src="fbauto-api.js?v=20260820"></script>
 <script>
 const PRODUCTS = {
   1: {
@@ -862,25 +863,45 @@ document.getElementById("orderForm").addEventListener("submit", function(e) {
   const p = PRODUCTS[id];
   const total = p.price * qty;
   const packageText = p.name + " | SL: " + qty + " | Đơn giá: " + formatVnd(p.price) + " | Thành tiền: " + formatVnd(total);
-
-  const params = new URLSearchParams({
+  const payload = {
     name: this.name.value.trim(),
     phone: this.phone.value.trim(),
     address: this.address.value.trim(),
+    productId: String(id),
     package: packageText,
     quantity: String(qty),
     note: this.note.value.trim(),
     source: "LandingPage-Pro"
-  });
-  const finalUrl = WEB_APP_URL + "?" + params.toString();
+  };
+  const params = new URLSearchParams(payload);
+  const sheetsUrl = WEB_APP_URL + "?" + params.toString();
+  const api = window.FBAUTO_LANDING_API;
 
-  // Google Apps Script trả về chữ "Thành công" (HTML/text), không phải ảnh.
-  // Dùng fetch no-cors để gửi GET; không dùng Image() vì trình duyệt luôn báo onerror.
-  fetch(finalUrl, { method: "GET", mode: "no-cors", cache: "no-store" })
-    .then(function() {
+  function backupSheets() {
+    fetch(sheetsUrl, { method: "GET", mode: "no-cors", cache: "no-store" }).catch(function() {});
+  }
+
+  if (!api) {
+    fetch(sheetsUrl, { method: "GET", mode: "no-cors", cache: "no-store" })
+      .then(function() { showOrderSuccess(btn, msg); })
+      .catch(function() { showOrderError(btn, msg); });
+    return;
+  }
+
+  fetch(api, {
+    method: "POST",
+    mode: "cors",
+    cache: "no-store",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(payload)
+  })
+    .then(function(res) {
+      if (!res.ok) throw new Error("FBAUTO " + res.status);
+      backupSheets();
       showOrderSuccess(btn, msg);
     })
     .catch(function() {
+      backupSheets();
       showOrderError(btn, msg);
     });
 });
