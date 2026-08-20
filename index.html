@@ -819,6 +819,33 @@ async function initTestClips() {
 initTestClips();
 
 const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbyC9ZqEzpvd-q1afHQvO1hboWUeaRyyW_0Uo0a3rwZO4IQVQbXqP0y3syIYfQzpfo88jQ/exec";
+
+function trackFb(event) {
+  try {
+    if (typeof fbq === "function") fbq("track", event);
+  } catch (err) {}
+}
+
+function showOrderSuccess(btn, msg) {
+  trackFb("Lead");
+  msg.style.color = "green";
+  msg.innerHTML = "✅ Đặt hàng thành công! <br> Shop sẽ liên hệ với bạn ngay.";
+  document.getElementById("orderForm").reset();
+  document.getElementById("productId").value = "1";
+  document.getElementById("packageSelect").value = "1";
+  document.getElementById("quantity").value = "1";
+  capNhatTongTien();
+  btn.disabled = false;
+  btn.innerText = "Đặt mua thêm";
+}
+
+function showOrderError(btn, msg) {
+  msg.style.color = "red";
+  msg.innerHTML = "❌ Có lỗi khi gửi đơn. Vui lòng thử lại hoặc gọi Zalo 0886.073.622.";
+  btn.disabled = false;
+  btn.innerText = "Xác nhận đặt hàng";
+}
+
 document.getElementById("orderForm").addEventListener("submit", function(e) {
   e.preventDefault();
   const btn = document.getElementById("btnSubmit");
@@ -826,8 +853,9 @@ document.getElementById("orderForm").addEventListener("submit", function(e) {
   if (btn.disabled) return;
   btn.disabled = true;
   btn.innerText = "Đang xử lý...";
+  msg.innerHTML = "";
 
-  fbq('track', 'InitiateCheckout');
+  trackFb("InitiateCheckout");
 
   const id = Number(this.productId.value) || 1;
   const qty = Math.max(1, Number(this.quantity.value) || 1);
@@ -836,39 +864,25 @@ document.getElementById("orderForm").addEventListener("submit", function(e) {
   const packageText = p.name + " | SL: " + qty + " | Đơn giá: " + formatVnd(p.price) + " | Thành tiền: " + formatVnd(total);
 
   const params = new URLSearchParams({
-    name: this.name.value,
-    phone: this.phone.value,
-    address: this.address.value,
+    name: this.name.value.trim(),
+    phone: this.phone.value.trim(),
+    address: this.address.value.trim(),
     package: packageText,
     quantity: String(qty),
-    note: this.note.value,
+    note: this.note.value.trim(),
     source: "LandingPage-Pro"
   });
   const finalUrl = WEB_APP_URL + "?" + params.toString();
 
-  const img = new Image();
-
-  img.onload = function() {
-    fbq('track', 'Lead');
-    msg.style.color = "green";
-    msg.innerHTML = "✅ Đặt hàng thành công! <br> Shop sẽ liên hệ với bạn ngay.";
-    document.getElementById("orderForm").reset();
-    document.getElementById("productId").value = "1";
-    document.getElementById("packageSelect").value = "1";
-    document.getElementById("quantity").value = "1";
-    capNhatTongTien();
-    btn.disabled = false;
-    btn.innerText = "Đặt mua thêm";
-  };
-
-  img.onerror = function() {
-    msg.style.color = "red";
-    msg.innerHTML = "❌ Có lỗi khi gửi đơn. Vui lòng thử lại.";
-    btn.disabled = false;
-    btn.innerText = "Xác nhận đặt hàng";
-  };
-
-  img.src = finalUrl;
+  // Google Apps Script trả về chữ "Thành công" (HTML/text), không phải ảnh.
+  // Dùng fetch no-cors để gửi GET; không dùng Image() vì trình duyệt luôn báo onerror.
+  fetch(finalUrl, { method: "GET", mode: "no-cors", cache: "no-store" })
+    .then(function() {
+      showOrderSuccess(btn, msg);
+    })
+    .catch(function() {
+      showOrderError(btn, msg);
+    });
 });
 </script>
 </body>
