@@ -58,6 +58,18 @@
       Không nộp: HUMAN_AGENT, ads, catalog, trả lời công khai trên bài
     </div>
 
+    <div class="id" style="margin-top:12px">
+      <strong>Login FBAUTO bằng HTTPS (reviewer không vào được localhost)</strong>
+      <ol class="how">
+        <li>Để FBAUTO frontend :3000 và backend :4000 đang chạy.</li>
+        <li>PowerShell tại <code>E:\TOOL MMO\FBAUTO</code>: <code>.\scripts\tunnel.ps1 -Port 3000</code></li>
+        <li>Copy URL in ra (dạng <code>https://xxxx.trycloudflare.com</code>).</li>
+        <li>Mở <code>https://xxxx.trycloudflare.com/login</code> — email <code>admin@fbauto.local</code>.</li>
+        <li>Giữ cửa sổ tunnel + máy mở suốt lúc Meta review (URL đổi nếu tắt tunnel / reboot).</li>
+      </ol>
+      <p class="tip">Muốn URL không đổi 2–3 tuần: Cloudflare Named Tunnel + domain riêng. Quick tunnel (trycloudflare) chỉ ổn khi không tắt máy.</p>
+    </div>
+
     <h2>1. Tick trước khi bấm Record</h2>
     <label class="chk"><input type="checkbox" /> reviewer.html mở được, không 404</label>
     <label class="chk"><input type="checkbox" /> Webhook HTTPS cố định (không trycloudflare đổi URL) · fields messages + feed</label>
@@ -80,7 +92,7 @@
         <li>Tắt thông báo Windows / Messenger popup. Che thanh bookmark nếu có token.</li>
         <li>Chrome cửa sổ 1: <a href="./screencast.html">screencast.html</a> (F11). Space = caption kế.</li>
         <li>Chrome cửa sổ 2 (nick Tester Facebook): Messenger + tab Page + tab Developers.</li>
-        <li>Chrome cửa sổ 3: FBAUTO <code>http://127.0.0.1:3000/login</code> (chỉ desk nhân viên — shop khách phải là GitHub Pages).</li>
+        <li>Chrome cửa sổ 3: FBAUTO login <strong>HTTPS</strong> <code>https://xxxx.trycloudflare.com/login</code> (URL từ tunnel :3000). Shop khách vẫn GitHub Pages.</li>
         <li>OBS / Xbox Game Bar: quay cả màn hình. Không nhạc.</li>
         <li>Đã login sẵn nick Tester trên Facebook. FBAUTO thì login <em>trong video</em> (cảnh 2).</li>
       </ol>
@@ -107,7 +119,8 @@ Page: Xuong Bom MINI (1242996232237252)</div>
       <div class="cap" id="c2">Staff login only. Customers never Facebook-login. Page token on server.</div>
       <ol class="how">
         <li>Hiện caption 3 giây (slide 2).</li>
-        <li>Mở <code>http://127.0.0.1:3000/login</code>. Thấy chữ kiểu Page sales desk / customers do not Facebook-login.</li>
+        <li>Khi <strong>quay video / reviewer</strong>: mở URL HTTPS tunnel <code>https://xxxx.trycloudflare.com/login</code> (copy từ cửa sổ cloudflared). Thanh địa chỉ phải là https, không localhost.</li>
+        <li>Máy bạn test nhanh vẫn dùng <code>http://127.0.0.1:3000/login</code>.</li>
         <li>Gõ <code>admin@fbauto.local</code> + mật khẩu → <strong>Đăng nhập</strong>. Chuột chậm.</li>
         <li>Vào Dashboard: rê qua menu <strong>Hộp thư</strong> / <strong>Đơn hàng</strong>. Không mở Ads / AI.</li>
       </ol>
