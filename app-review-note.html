@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>NOTE — Quay video + dán form App Review</title>
+  <style>
+    :root { --ink:#0f172a; --muted:#475569; --line:#e2e8f0; --blue:#1d4ed8; --bg:#f8fafc; }
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: system-ui, Segoe UI, Roboto, Arial, sans-serif; background: var(--bg); color: var(--ink); line-height: 1.5; }
+    header { position: sticky; top: 0; z-index: 5; background: #0f172a; color: #fff; padding: 14px 16px; }
+    header h1 { margin: 0; font-size: 1.05rem; }
+    header p { margin: 4px 0 0; font-size: .8rem; opacity: .8; }
+    nav { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
+    nav a { color: #93c5fd; font-size: .8rem; }
+    main { max-width: 720px; margin: 0 auto; padding: 16px 14px 64px; }
+    h2 { font-size: 1.05rem; margin: 28px 0 10px; padding-bottom: 6px; border-bottom: 2px solid #1d4ed8; }
+    .id { background: #fff; border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; font-size: .9rem; }
+    .id code { background: #f1f5f9; padding: 1px 5px; border-radius: 4px; }
+    label.chk { display: flex; gap: 10px; align-items: flex-start; background: #fff; border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; margin: 8px 0; }
+    label.chk input { margin-top: 3px; }
+    .step { background: #fff; border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; margin: 12px 0; }
+    .step .n { display: inline-flex; width: 28px; height: 28px; align-items: center; justify-content: center; border-radius: 999px; background: #1d4ed8; color: #fff; font-weight: 700; font-size: .85rem; margin-right: 6px; }
+    .step h3 { margin: 0 0 8px; font-size: 1rem; }
+    .cap { background: #0f172a; color: #e2e8f0; border-radius: 8px; padding: 10px 12px; font-size: .85rem; white-space: pre-wrap; margin: 8px 0; }
+    .do { color: var(--muted); font-size: .92rem; }
+    .row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; }
+    button.copy { background: #1d4ed8; color: #fff; border: 0; border-radius: 8px; padding: 6px 12px; font-weight: 600; cursor: pointer; }
+    button.copy:hover { background: #1e40af; }
+    .block { background: #0f172a; color: #e2e8f0; border-radius: 10px; padding: 12px; font-size: .82rem; white-space: pre-wrap; overflow-x: auto; }
+    .paste { background: #fff; border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; margin: 14px 0; }
+    .paste h3 { margin: 0 0 8px; font-size: .95rem; }
+    .warn { background: #fff7ed; border: 1px solid #fed7aa; border-radius: 10px; padding: 10px 12px; font-size: .9rem; }
+    a { color: var(--blue); }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>NOTE App Review — đọc và làm theo</h1>
+    <p>traloitudong · Xưởng Bơm MINI · chỉ 6 quyền Wave A · video 3–7 phút</p>
+    <nav>
+      <a href="./screencast.html">Caption F11</a>
+      <a href="./reviewer.html">Reviewer</a>
+      <a href="./index.html">Shop</a>
+      <a href="./privacy.html">Privacy</a>
+    </nav>
+  </header>
+  <main>
+    <div class="id">
+      App: <strong>traloitudong</strong> <code>2461711684326049</code><br />
+      Page: <strong>Xưởng Bơm MINI</strong> <code>1242996232237252</code><br />
+      Business: <strong>Fovimarlo</strong> (Verified)<br />
+      Nộp: <code>pages_messaging</code> · <code>pages_manage_metadata</code> · <code>pages_show_list</code> · <code>pages_read_engagement</code> · <code>pages_read_user_content</code> · <code>business_management</code><br />
+      Không nộp: HUMAN_AGENT, ads, catalog, trả lời công khai trên bài
+    </div>
+
+    <h2>1. Tick trước khi bấm Record</h2>
+    <label class="chk"><input type="checkbox" /> reviewer.html mở được, không 404</label>
+    <label class="chk"><input type="checkbox" /> Webhook HTTPS cố định (không trycloudflare đổi URL) · fields messages + feed</label>
+    <label class="chk"><input type="checkbox" /> Nick quay = Facebook thật, Tester/Admin · đã đăng xuất nick Page</label>
+    <label class="chk"><input type="checkbox" /> Nút Request advanced access hết xám (đã có API call trong 30 ngày)</label>
+    <label class="chk"><input type="checkbox" /> Thử sẵn: nhắn Page → có nút đặt hàng · comment → có private reply Messenger</label>
+    <label class="chk"><input type="checkbox" /> Reload extension 1.9.2 · khi quay không mở “Nhắc 24h” / “Trả lời trên bài”</label>
+    <label class="chk"><input type="checkbox" /> Quay ≥720p · không nhạc · mở <a href="./screencast.html">screencast.html</a> F11 (Space = caption)</label>
+
+    <div class="warn" style="margin-top:12px">
+      Cấm trong video: token / .env, shop localhost, voucher blast, HUMAN_AGENT, Graph Explorer, nick ảo, trả lời công khai trên bài.
+    </div>
+
+    <h2>2. Quay 12 cảnh (đúng thứ tự)</h2>
+    <p class="do">Mỗi cảnh: hiện caption 3–5 giây → làm việc → cảnh sau. Upload YouTube <strong>Unlisted</strong>, dán <strong>cùng 1 link</strong> vào cả 6 quyền.</p>
+
+    <div class="step">
+      <h3><span class="n">1</span> Title</h3>
+      <div class="cap" id="c1">FBAUTO Page sales desk
+App: traloitudong (2461711684326049)
+Page: Xuong Bom MINI (1242996232237252)</div>
+      <p class="do">Slide 1 trên screencast.html, đứng yên 5–8 giây.</p>
+      <div class="row"><button class="copy" data-copy="c1">Copy caption</button></div>
+    </div>
+
+    <div class="step">
+      <h3><span class="n">2</span> Login staff</h3>
+      <div class="cap" id="c2">Staff login only. Customers never Facebook-login. Page token on server.</div>
+      <p class="do">FBAUTO /login → email. <strong>Không</strong> bấm Facebook Login.</p>
+      <div class="row"><button class="copy" data-copy="c2">Copy caption</button></div>
+    </div>
+
+    <div class="step">
+      <h3><span class="n">3</span> Reviewer notes</h3>
+      <div class="cap" id="c3">Public test notes
+https://phamcuong1405.github.io/xuongchetao/reviewer.html</div>
+      <p class="do">Mở <a href="./reviewer.html">reviewer.html</a> khoảng 5 giây.</p>
+      <div class="row"><button class="copy" data-copy="c3">Copy caption</button></div>
+    </div>
+
+    <div class="step">
+      <h3><span class="n">4</span> Webhook — pages_manage_metadata</h3>
+      <div class="cap" id="c4">pages_manage_metadata — webhook messages + feed</div>
+      <p class="do">developers.facebook.com → traloitudong → Messenger → Webhooks: HTTPS + Page subscribed + fields <code>messages</code>, <code>feed</code>.</p>
+      <div class="row"><button class="copy" data-copy="c4">Copy caption</button></div>
+    </div>
+
+    <div class="step">
+      <h3><span class="n">5</span> Page + Business</h3>
+      <div class="cap" id="c5">business_management + pages_show_list — Fovimarlo · Page Xuong Bom MINI</div>
+      <p class="do">Settings → Basic (App ID) + Messenger Access Tokens hiện Page Xưởng Bơm MINI.</p>
+      <div class="row"><button class="copy" data-copy="c5">Copy caption</button></div>
+    </div>
+
+    <div class="step">
+      <h3><span class="n">6</span> Khách nhắn</h3>
+      <div class="cap" id="c6">Customer messages the Page. 24-hour window starts.</div>
+      <p class="do">Nick Tester gửi Messenger: <strong>xin gia bom mini</strong></p>
+      <div class="row"><button class="copy" data-copy="c6">Copy caption</button></div>
+    </div>
+
+    <div class="step">
+      <h3><span class="n">7</span> Auto-reply — pages_messaging</h3>
+      <div class="cap" id="c7">pages_messaging — automated reply + order button, 24h only</div>
+      <p class="do">Zoom tin Page trả lời + nút/link ĐẶT HÀNG.</p>
+      <div class="row"><button class="copy" data-copy="c7">Copy caption</button></div>
+    </div>
+
+    <div class="step">
+      <h3><span class="n">8</span> Đặt hàng HTTPS</h3>
+      <div class="cap" id="c8">Customer submits COD order on HTTPS shop</div>
+      <p class="do">Bấm nút → <a href="./index.html">shop GitHub Pages</a> → tên, SĐT, địa chỉ test → Xác nhận. Không dùng localhost.</p>
+      <div class="row"><button class="copy" data-copy="c8">Copy caption</button></div>
+    </div>
+
+    <div class="step">
+      <h3><span class="n">9</span> Đơn trên FBAUTO</h3>
+      <div class="cap" id="c9">Order appears in FBAUTO staff desk</div>
+      <p class="do">Mở /orders hoặc Dashboard: đơn mới <strong>Đặt hàng thành công</strong>.</p>
+      <div class="row"><button class="copy" data-copy="c9">Copy caption</button></div>
+    </div>
+
+    <div class="step">
+      <h3><span class="n">10</span> Comment trên bài</h3>
+      <div class="cap" id="c10">pages_read_engagement + pages_read_user_content — comment on our Page</div>
+      <p class="do">Tester comment bài Page: <strong>shop con bom khong a</strong></p>
+      <div class="row"><button class="copy" data-copy="c10">Copy caption</button></div>
+    </div>
+
+    <div class="step">
+      <h3><span class="n">11</span> Private reply Messenger</h3>
+      <div class="cap" id="c11">One-time Messenger private reply — not a public comment blast</div>
+      <p class="do">Messenger Tester: <strong>1</strong> tin private reply + nút đặt hàng. Không trả lời công khai trên bài.</p>
+      <div class="row"><button class="copy" data-copy="c11">Copy caption</button></div>
+    </div>
+
+    <div class="step">
+      <h3><span class="n">12</span> End</h3>
+      <div class="cap" id="c12">No HUMAN_AGENT. No ads. No blast.</div>
+      <p class="do">Slide 12, đứng yên 8 giây. Upload Unlisted.</p>
+      <div class="row"><button class="copy" data-copy="c12">Copy caption</button></div>
+    </div>
+
+    <h2>3. Dán form Facebook (bấm Copy)</h2>
+
+    <div class="paste">
+      <h3>D1 — App description / App purpose (Settings → Basic)</h3>
+      <pre class="block" id="d1">FBAUTO (app name: traloitudong) is an internal sales desk for our Facebook
+Page "Xuong Bom MINI" (Page ID 1242996232237252), owned by verified Business
+Fovimarlo. When a person messages the Page or comments on a Page post, our
+server receives a webhook and replies with an order button/link so the
+customer can place a COD pump order. End customers never log into our
+website with Facebook Login. A Page admin stores a Page Access Token on
+our backend. We only message people who already contacted our Page, and
+only inside the standard 24-hour Messenger window.</pre>
+      <div class="row"><button class="copy" data-copy="d1">Copy D1</button></div>
+    </div>
+
+    <div class="paste">
+      <h3>D2 — Notes for reviewers (dán 1 lần cho cả submission)</h3>
+      <pre class="block" id="d2">IMPORTANT — how this app authenticates
+
+This is a server-to-server Page sales desk (FBAUTO) for Page "Xuong Bom MINI"
+(ID 1242996232237252). End customers never log into our website with Facebook
+Login. A Page admin generates a Page Access Token and stores it on our backend.
+Incoming Messenger and feed webhooks are processed server-side. Replies use
+the Messenger Send API inside the 24-hour window.
+
+Please do not require a Facebook Login button on the shop UI.
+
+Public test notes:
+https://phamcuong1405.github.io/xuongchetao/reviewer.html
+
+Shop: https://phamcuong1405.github.io/xuongchetao/
+Privacy: https://phamcuong1405.github.io/xuongchetao/privacy.html
+Terms: https://phamcuong1405.github.io/xuongchetao/terms.html
+Data deletion: https://phamcuong1405.github.io/xuongchetao/data-deletion.html
+
+How to test (Development mode):
+1. Use a Facebook account added as Admin/Developer/Tester of app 2461711684326049.
+2. Message Page Xuong Bom MINI (e.g. "xin gia"). Expect an automated reply with
+   an order button/link (pages_messaging).
+3. Open the HTTPS shop link, submit a test name/phone/address → COD order created.
+4. Comment on any Page post. Expect a one-time Messenger private reply
+   (pages_read_engagement + pages_read_user_content + pages_messaging).
+
+We only message people who contacted our Page. No promotional blasts.
+This submission does not include HUMAN_AGENT.</pre>
+      <div class="row"><button class="copy" data-copy="d2">Copy D2</button></div>
+    </div>
+
+    <div class="paste">
+      <h3>D3a — pages_messaging</h3>
+      <pre class="block" id="p1">FBAUTO is the internal sales desk for our Facebook Page "Xuong Bom MINI"
+(Page ID 1242996232237252). When a person messages the Page, our webhook
+receives the event and we send an automated + agent-assisted reply with an
+order button and hotline, strictly inside the standard 24-hour messaging
+window, so the customer can place a COD product order. We do not message
+people who have not contacted the Page.</pre>
+      <div class="row"><button class="copy" data-copy="p1">Copy pages_messaging</button></div>
+    </div>
+
+    <div class="paste">
+      <h3>D3b — business_management</h3>
+      <pre class="block" id="p2">Required dependency so a Page admin can grant this app access to Pages they
+manage (together with pages_show_list and pages_messaging) and obtain a Page
+access token for our server. The app is owned by verified Business Fovimarlo.</pre>
+      <div class="row"><button class="copy" data-copy="p2">Copy business_management</button></div>
+    </div>
+
+    <div class="paste">
+      <h3>D3c — pages_manage_metadata</h3>
+      <pre class="block" id="p3">Used only to subscribe our Page to webhook fields (messages,
+messaging_postbacks, feed) so the backend receives Messenger events and Page
+feed comment events in real time.</pre>
+      <div class="row"><button class="copy" data-copy="p3">Copy pages_manage_metadata</button></div>
+    </div>
+
+    <div class="paste">
+      <h3>D3d — pages_show_list</h3>
+      <pre class="block" id="p4">Used so the Page admin can select Page "Xuong Bom MINI" and obtain a Page
+access token for Messenger and Page APIs.</pre>
+      <div class="row"><button class="copy" data-copy="p4">Copy pages_show_list</button></div>
+    </div>
+
+    <div class="paste">
+      <h3>D3e — pages_read_engagement</h3>
+      <pre class="block" id="p5">Used to list posts on our own Page so we can find comments that still need a
+one-time Messenger private reply with an order button. We do not access other
+Pages' content (no Page Public Content Access).</pre>
+      <div class="row"><button class="copy" data-copy="p5">Copy pages_read_engagement</button></div>
+    </div>
+
+    <div class="paste">
+      <h3>D3f — pages_read_user_content</h3>
+      <pre class="block" id="p6">Used to read comments written by people on our own Page posts, then send a
+single Messenger private reply (not a public comment). Allowed usage: content
+on Pages we manage only.</pre>
+      <div class="row"><button class="copy" data-copy="p6">Copy pages_read_user_content</button></div>
+    </div>
+
+    <h2>4. Submit</h2>
+    <label class="chk"><input type="checkbox" /> Chọn đúng 6 quyền (không thêm quyền khác)</label>
+    <label class="chk"><input type="checkbox" /> Dán D2 Notes + D3 từng quyền + cùng 1 URL video</label>
+    <label class="chk"><input type="checkbox" /> Settings Basic: Privacy / Terms / Data deletion = 3 link GitHub Pages</label>
+    <label class="chk"><input type="checkbox" /> Giữ webhook + shop chạy suốt lúc chờ (tới ~20 ngày). App vẫn Unpublished</label>
+    <p class="do">Sau Approved: App → Live → Generate Page token mới → ghi .env (gốc + backend) → restart backend.</p>
+  </main>
+  <script>
+    document.querySelectorAll("button.copy").forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        var el = document.getElementById(btn.getAttribute("data-copy"));
+        var text = el.innerText.trim();
+        navigator.clipboard.writeText(text).then(function () {
+          var old = btn.textContent;
+          btn.textContent = "Đã copy";
+          setTimeout(function () { btn.textContent = old; }, 1200);
+        });
+      });
+    });
+  </script>
+</body>
+</html>
