@@ -3,43 +3,75 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>App Review test notes — traloitudong</title>
+  <title>App Review — how to test traloitudong</title>
   <style>
-    body { font-family: system-ui, Segoe UI, Roboto, Arial, sans-serif; max-width: 760px; margin: 32px auto; padding: 0 16px; line-height: 1.6; color: #0f172a; }
-    h1 { font-size: 1.4rem; }
-    code, pre { background: #f1f5f9; padding: 2px 6px; border-radius: 4px; }
-    pre { padding: 12px; overflow-x: auto; }
-    .box { background: #eff6ff; border: 1px solid #bfdbfe; padding: 12px 14px; border-radius: 8px; }
+    body { font-family: system-ui, Segoe UI, Roboto, Arial, sans-serif; max-width: 780px; margin: 32px auto; padding: 0 16px 48px; line-height: 1.6; color: #0f172a; }
+    h1 { font-size: 1.45rem; margin-bottom: 8px; }
+    h2 { font-size: 1.1rem; margin-top: 28px; }
+    code { background: #f1f5f9; padding: 2px 6px; border-radius: 4px; }
+    table { width: 100%; border-collapse: collapse; font-size: 0.92rem; }
+    th, td { border: 1px solid #e2e8f0; padding: 8px 10px; text-align: left; vertical-align: top; }
+    th { background: #f8fafc; }
+    .box { background: #eff6ff; border: 1px solid #bfdbfe; padding: 14px 16px; border-radius: 8px; }
+    .warn { background: #fff7ed; border-color: #fed7aa; }
+    a { color: #1d4ed8; }
+    ol li { margin: 6px 0; }
   </style>
 </head>
 <body>
-  <h1>Meta App Review — how to test (traloitudong)</h1>
+  <h1>Meta App Review — test notes (traloitudong)</h1>
   <p class="box">
-    <strong>This is a server-side Page sales desk.</strong> Customers do <em>not</em> log into the web app with Facebook Login.
-    The Page admin stores a <strong>Page Access Token</strong>. Messenger traffic is received via webhooks and replies are sent with the Send API inside the 24-hour window.
-    Please do not reject the submission for a missing Facebook Login button on the storefront.
+    <strong>This app is complete and used by Page staff to take COD orders.</strong>
+    It is a <em>server-to-server Page sales desk</em>. End customers
+    <strong>never log in with Facebook Login</strong>. A Page admin stores a Page Access Token
+    on the backend. Please do <strong>not</strong> reject this submission for a missing Facebook Login button
+    on the storefront.
   </p>
+
   <p>
-    App ID: <code>2461711684326049</code> (traloitudong)<br />
-    Page: Xưởng Bơm MINI <code>1242996232237252</code><br />
-    Privacy: <a href="./privacy.html">privacy.html</a> ·
+    <strong>App:</strong> traloitudong · ID <code>2461711684326049</code><br />
+    <strong>Page:</strong> Xưởng Bơm MINI · ID <code>1242996232237252</code><br />
+    <strong>Business:</strong> Fovimarlo (verified)<br />
+    <strong>Shop (HTTPS):</strong> <a href="./index.html">https://phamcuong1405.github.io/xuongchetao/</a><br />
+    <strong>Privacy:</strong> <a href="./privacy.html">privacy.html</a> ·
     <a href="./terms.html">terms.html</a> ·
     <a href="./data-deletion.html">data-deletion.html</a>
   </p>
-  <h2>What the app does</h2>
+
+  <h2>What to test (Development mode)</h2>
+  <p class="box warn">
+    Use a Facebook account that is <strong>Admin, Developer, or Tester</strong> of this app.
+    Add the reviewer account as Tester if it is not already.
+  </p>
   <ol>
-    <li>Customer messages the Page → automated greeting + order button (pages_messaging).</li>
-    <li>Customer comments on a Page post → one-time Messenger private reply with the same order button (pages_read_engagement, pages_read_user_content, pages_messaging).</li>
-    <li>Customer submits name / phone / address → COD order in FBAUTO.</li>
+    <li>Open Messenger and message Page <strong>Xưởng Bơm MINI</strong> (example: “xin gia”).</li>
+    <li>Expect an automated reply with an <strong>order button / order link</strong> inside the 24-hour window (<code>pages_messaging</code>).</li>
+    <li>Open the link (GitHub Pages shop). Submit a test name, phone, and address. You should see an order confirmation on the page.</li>
+    <li>Comment on any post of the Page. Expect a <strong>one-time Messenger private reply</strong> with the same order button
+      (<code>pages_read_engagement</code> + <code>pages_read_user_content</code> + <code>pages_messaging</code>). This is not public comment spam.</li>
   </ol>
-  <h2>Test steps for reviewers</h2>
-  <ol>
-    <li>Use a Facebook user who is an <strong>Admin, Developer, or Tester</strong> of this app (Development mode).</li>
-    <li>Open Messenger and message Page <strong>Xưởng Bơm MINI</strong> with any product question (example: “xin giá”).</li>
-    <li>Expect an automated reply with an order button / order link within the 24-hour messaging window.</li>
-    <li>Open the order link, enter a test name, phone, and address, submit.</li>
-    <li>Comment on any post of the Page. Expect a one-time private reply on Messenger (not a public comment reply spam).</li>
-  </ol>
-  <p>We do not send promotional blasts. We do not use HUMAN_AGENT in this submission. We only message people who messaged or commented on our Page.</p>
+
+  <h2>Permissions in this submission</h2>
+  <table>
+    <thead>
+      <tr><th>Permission</th><th>Shown in product</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><code>pages_messaging</code></td><td>Reply to people who message the Page; order button; 24h window only</td></tr>
+      <tr><td><code>pages_manage_metadata</code></td><td>Subscribe Page webhooks: messages, messaging_postbacks, feed</td></tr>
+      <tr><td><code>pages_show_list</code></td><td>Select Page Xuong Bom MINI and obtain a Page token</td></tr>
+      <tr><td><code>pages_read_engagement</code></td><td>Read posts on our own Page to find comments</td></tr>
+      <tr><td><code>pages_read_user_content</code></td><td>Read comments people write on our Page posts</td></tr>
+      <tr><td><code>business_management</code></td><td>Business Fovimarlo grants the app access to the Page</td></tr>
+    </tbody>
+  </table>
+
+  <h2>What we do not do</h2>
+  <ul>
+    <li>No promotional blasts to people who did not contact the Page.</li>
+    <li>No HUMAN_AGENT / messaging outside the 24-hour window in this submission.</li>
+    <li>No ads, catalog, or Page Public Content Access.</li>
+    <li>No Facebook Login for customers.</li>
+  </ul>
 </body>
 </html>

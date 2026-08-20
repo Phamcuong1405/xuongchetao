@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Screencast cards — traloitudong</title>
+  <style>
+    html, body { height: 100%; margin: 0; font-family: system-ui, Segoe UI, Roboto, Arial, sans-serif; background: #0f172a; color: #fff; }
+    #card { min-height: 100%; display: flex; flex-direction: column; justify-content: center; padding: 8vh 8vw; }
+    .kicker { letter-spacing: .08em; text-transform: uppercase; color: #93c5fd; font-size: 14px; margin-bottom: 12px; }
+    h1 { font-size: clamp(28px, 4.2vw, 48px); line-height: 1.25; margin: 0 0 18px; white-space: pre-wrap; }
+    p { font-size: clamp(16px, 2vw, 22px); color: #cbd5e1; margin: 0; white-space: pre-wrap; }
+    .bar { position: fixed; bottom: 16px; left: 16px; right: 16px; display: flex; justify-content: space-between; color: #64748b; font-size: 13px; }
+    button { background: #1d4ed8; color: #fff; border: 0; border-radius: 8px; padding: 8px 14px; cursor: pointer; font-weight: 600; }
+  </style>
+</head>
+<body>
+  <div id="card">
+    <div class="kicker" id="kicker"></div>
+    <h1 id="title"></h1>
+    <p id="body"></p>
+  </div>
+  <div class="bar">
+    <span>Space / → next · ← back · F11 fullscreen</span>
+    <span><button type="button" id="prev">Back</button> <button type="button" id="next">Next</button> <span id="n"></span></span>
+  </div>
+  <script>
+    const SLIDES = [
+      { k: 'Scene 1 · Title', t: 'FBAUTO — Page sales desk', b: 'App: traloitudong (2461711684326049)\nPage: Xuong Bom MINI (1242996232237252)\nWave A: pages_messaging · pages_manage_metadata · pages_show_list\npages_read_engagement · pages_read_user_content · business_management' },
+      { k: 'Scene 2 · Auth', t: 'Staff login only', b: 'Customers never Facebook-login.\nPage Access Token is stored on the server.' },
+      { k: 'Scene 3 · Reviewer notes', t: 'Public test notes', b: 'https://phamcuong1405.github.io/xuongchetao/reviewer.html\nOpen this URL for 5 seconds, then continue.' },
+      { k: 'Scene 4 · Webhook', t: 'pages_manage_metadata', b: 'Messenger → Webhooks\nSubscribed: messages, messaging_postbacks, feed' },
+      { k: 'Scene 5 · Page + Business', t: 'pages_show_list + business_management', b: 'Business Fovimarlo owns the app.\nAdmin selected Page Xuong Bom MINI.' },
+      { k: 'Scene 6 · Customer message', t: 'Customer messages the Page', b: 'Tester (not the Page) sends: xin gia bom mini\nThis starts the 24-hour messaging window.' },
+      { k: 'Scene 7 · Reply', t: 'pages_messaging', b: 'Automated reply + order button\ninside the standard 24-hour window.\nWe only message people who contacted the Page.' },
+      { k: 'Scene 8 · Order', t: 'Customer places a COD order', b: 'Open the HTTPS shop, submit name / phone / address.\nhttps://phamcuong1405.github.io/xuongchetao/' },
+      { k: 'Scene 9 · Desk', t: 'Order appears in FBAUTO', b: 'Staff desk shows the new COD order.\nMessenger → order (end to end).' },
+      { k: 'Scene 10 · Comment', t: 'pages_read_engagement + pages_read_user_content', b: 'Tester comments on our Page post.\nOur Page only — no other Pages.' },
+      { k: 'Scene 11 · Private reply', t: 'One-time Messenger private reply', b: 'Not a public comment blast.\npages_messaging + pages_read_user_content' },
+      { k: 'Scene 12 · End', t: 'Submission complete', b: 'No HUMAN_AGENT. No ads. No promotional blast.\nTest notes: github.io/xuongchetao/reviewer.html' },
+    ];
+    let i = 0;
+    function draw() {
+      const s = SLIDES[i];
+      document.getElementById('kicker').textContent = s.k;
+      document.getElementById('title').textContent = s.t;
+      document.getElementById('body').textContent = s.b;
+      document.getElementById('n').textContent = (i + 1) + ' / ' + SLIDES.length;
+    }
+    function next() { i = Math.min(SLIDES.length - 1, i + 1); draw(); }
+    function prev() { i = Math.max(0, i - 1); draw(); }
+    document.getElementById('next').onclick = next;
+    document.getElementById('prev').onclick = prev;
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); next(); }
+      if (e.key === 'ArrowLeft') prev();
+    });
+    draw();
+  </script>
+</body>
+</html>
