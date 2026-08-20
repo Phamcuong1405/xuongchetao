@@ -345,6 +345,8 @@ header p {
   margin-top: 0;
 }
 label { display: block; margin-top: 15px; font-weight: 700; font-size: 0.9rem; color: var(--muted); }
+.req { color: #dc2626; }
+.optional { font-weight: 500; color: #64748b; font-size: 0.82rem; }
 input, select {
   width: 100%;
   padding: 14px;
@@ -361,6 +363,31 @@ input:focus, select:focus {
   box-shadow: 0 0 0 4px rgba(14,165,233,0.18);
   transform: translateY(-1px);
 }
+input.invalid, select.invalid {
+  border-color: #dc2626;
+  box-shadow: 0 0 0 4px rgba(220,38,38,0.14);
+}
+.field-error {
+  display: none;
+  color: #dc2626;
+  font-size: 0.82rem;
+  font-weight: 600;
+  margin-top: 6px;
+}
+.field-error.show { display: block; }
+.form-alert {
+  display: none;
+  margin-top: 16px;
+  padding: 12px 14px;
+  border-radius: 12px;
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  color: #b91c1c;
+  font-weight: 700;
+  font-size: 0.92rem;
+  line-height: 1.45;
+}
+.form-alert.show { display: block; }
 .btn-submit {
   width: 100%;
   padding: 18px;
@@ -584,35 +611,41 @@ footer {
 <div class="total-line">Thành tiền: <span id="selectedTotal">299.000đ</span></div>
 </div>
 
-<form id="orderForm">
+<form id="orderForm" novalidate>
 <input type="hidden" name="productId" id="productId" value="1">
 <input type="hidden" name="unitPrice" id="unitPrice" value="299000">
 
-<label>Họ và Tên</label>
-<input type="text" name="name" placeholder="Ví dụ: Nguyễn Văn An" required>
+<label for="customerName">Họ và Tên <span class="req">*</span></label>
+<input type="text" name="name" id="customerName" placeholder="Ví dụ: Nguyễn Văn An" autocomplete="name">
+<div class="field-error" id="errName"></div>
 
-<label>Số điện thoại</label>
-<input type="tel" name="phone" placeholder="Số điện thoại nhận hàng" required>
+<label for="customerPhone">Số điện thoại <span class="req">*</span></label>
+<input type="tel" name="phone" id="customerPhone" placeholder="Số điện thoại nhận hàng" autocomplete="tel">
+<div class="field-error" id="errPhone"></div>
 
-<label>Địa chỉ nhận hàng</label>
-<input type="text" name="address" placeholder="Số nhà, tên đường, xã, huyện, tỉnh" required>
+<label for="customerAddress">Địa chỉ nhận hàng <span class="req">*</span></label>
+<input type="text" name="address" id="customerAddress" placeholder="Số nhà, tên đường, xã, huyện, tỉnh" autocomplete="street-address">
+<div class="field-error" id="errAddress"></div>
 
-<label>Chọn sản phẩm</label>
+<label for="packageSelect">Chọn sản phẩm <span class="req">*</span></label>
 <select name="package" id="packageSelect">
 <option value="1">Bơm nổi 12V - 299.000đ</option>
 <option value="2">Bơm chìm 12V - 499.000đ</option>
 </select>
+<div class="field-error" id="errProduct"></div>
 
-<label>Số lượng</label>
+<label for="quantity">Số lượng <span class="req">*</span></label>
 <div class="qty-wrap">
 <button type="button" onclick="doiSoLuong(-1)">−</button>
-<input type="number" name="quantity" id="quantity" value="1" min="1" max="99" required>
+<input type="number" name="quantity" id="quantity" value="1" min="1" max="99">
 <button type="button" onclick="doiSoLuong(1)">+</button>
 </div>
+<div class="field-error" id="errQty"></div>
 
-<label>Ghi chú yêu cầu</label>
-<input type="text" name="note" placeholder="Yêu cầu thêm (nếu có)">
+<label for="customerNote">Ghi chú yêu cầu <span class="optional">(không bắt buộc)</span></label>
+<input type="text" name="note" id="customerNote" placeholder="Yêu cầu thêm (nếu có)">
 
+<div class="form-alert" id="formAlert"></div>
 <button type="submit" id="btnSubmit" class="btn-submit">Xác nhận đặt hàng</button>
 </form>
 <div id="msg"></div>
@@ -672,7 +705,110 @@ function chonSanPham(id) {
   document.getElementById("packageSelect").value = String(id);
   document.getElementById("quantity").value = 1;
   capNhatTongTien();
-  document.getElementById("dat-hang").scrollIntoView({ behavior: "smooth" });
+  const nameInput = document.getElementById("customerName");
+  nameInput.scrollIntoView({ behavior: "smooth", block: "center" });
+  setTimeout(function() { nameInput.focus(); }, 450);
+}
+
+function setFieldError(el, errorId, message) {
+  const errorEl = document.getElementById(errorId);
+  if (message) {
+    el.classList.add("invalid");
+    errorEl.textContent = message;
+    errorEl.classList.add("show");
+    return false;
+  }
+  el.classList.remove("invalid");
+  errorEl.textContent = "";
+  errorEl.classList.remove("show");
+  return true;
+}
+
+function clearOrderErrors() {
+  ["customerName", "customerPhone", "customerAddress", "packageSelect", "quantity"].forEach(function(id) {
+    document.getElementById(id).classList.remove("invalid");
+  });
+  ["errName", "errPhone", "errAddress", "errProduct", "errQty"].forEach(function(id) {
+    const el = document.getElementById(id);
+    el.textContent = "";
+    el.classList.remove("show");
+  });
+  const alertEl = document.getElementById("formAlert");
+  alertEl.classList.remove("show");
+  alertEl.textContent = "";
+}
+
+function validateOrderForm(form) {
+  const nameEl = form.name;
+  const phoneEl = form.phone;
+  const addressEl = form.address;
+  const productEl = document.getElementById("packageSelect");
+  const qtyEl = form.quantity;
+  const missing = [];
+  let firstInvalid = null;
+
+  const nameOk = setFieldError(
+    nameEl,
+    "errName",
+    nameEl.value.trim() ? "" : "Vui lòng nhập họ và tên."
+  );
+  if (!nameOk) {
+    missing.push("Họ và tên");
+    firstInvalid = firstInvalid || nameEl;
+  }
+
+  const phoneOk = setFieldError(
+    phoneEl,
+    "errPhone",
+    phoneEl.value.trim() ? "" : "Vui lòng nhập số điện thoại."
+  );
+  if (!phoneOk) {
+    missing.push("Số điện thoại");
+    firstInvalid = firstInvalid || phoneEl;
+  }
+
+  const addressOk = setFieldError(
+    addressEl,
+    "errAddress",
+    addressEl.value.trim() ? "" : "Vui lòng nhập địa chỉ nhận hàng."
+  );
+  if (!addressOk) {
+    missing.push("Địa chỉ nhận hàng");
+    firstInvalid = firstInvalid || addressEl;
+  }
+
+  const productOk = setFieldError(
+    productEl,
+    "errProduct",
+    PRODUCTS[Number(productEl.value)] ? "" : "Vui lòng chọn sản phẩm."
+  );
+  if (!productOk) {
+    missing.push("Sản phẩm");
+    firstInvalid = firstInvalid || productEl;
+  }
+
+  const qty = Number(qtyEl.value);
+  const qtyOk = setFieldError(
+    qtyEl,
+    "errQty",
+    qty >= 1 && qty <= 99 ? "" : "Vui lòng chọn số lượng từ 1 đến 99."
+  );
+  if (!qtyOk) {
+    missing.push("Số lượng");
+    firstInvalid = firstInvalid || qtyEl;
+  }
+
+  const alertEl = document.getElementById("formAlert");
+  if (missing.length) {
+    alertEl.innerHTML = "⚠️ Còn thiếu thông tin: " + missing.join(", ") + ".<br>Ghi chú yêu cầu có thể bỏ trống.";
+    alertEl.classList.add("show");
+    firstInvalid.scrollIntoView({ behavior: "smooth", block: "center" });
+    setTimeout(function() { firstInvalid.focus(); }, 350);
+    return false;
+  }
+  alertEl.classList.remove("show");
+  alertEl.textContent = "";
+  return true;
 }
 
 function doiSoLuong(step) {
@@ -686,9 +822,43 @@ function doiSoLuong(step) {
 document.getElementById("packageSelect").addEventListener("change", function() {
   document.getElementById("productId").value = this.value;
   capNhatTongTien();
+  setFieldError(this, "errProduct", PRODUCTS[Number(this.value)] ? "" : "Vui lòng chọn sản phẩm.");
 });
 
-document.getElementById("quantity").addEventListener("input", capNhatTongTien);
+document.getElementById("quantity").addEventListener("input", function() {
+  capNhatTongTien();
+  const qty = Number(this.value);
+  setFieldError(this, "errQty", qty >= 1 && qty <= 99 ? "" : "Vui lòng chọn số lượng từ 1 đến 99.");
+});
+
+["customerName", "customerPhone", "customerAddress"].forEach(function(id) {
+  document.getElementById(id).addEventListener("input", function() {
+    if (this.classList.contains("invalid") && this.value.trim()) {
+      this.classList.remove("invalid");
+      const map = { customerName: "errName", customerPhone: "errPhone", customerAddress: "errAddress" };
+      const err = document.getElementById(map[id]);
+      err.textContent = "";
+      err.classList.remove("show");
+    }
+    const alertEl = document.getElementById("formAlert");
+    if (alertEl.classList.contains("show")) {
+      const form = document.getElementById("orderForm");
+      const missing = [];
+      if (!form.name.value.trim()) missing.push("Họ và tên");
+      if (!form.phone.value.trim()) missing.push("Số điện thoại");
+      if (!form.address.value.trim()) missing.push("Địa chỉ nhận hàng");
+      if (!PRODUCTS[Number(form.package.value)]) missing.push("Sản phẩm");
+      const qty = Number(form.quantity.value);
+      if (!(qty >= 1 && qty <= 99)) missing.push("Số lượng");
+      if (missing.length) {
+        alertEl.innerHTML = "⚠️ Còn thiếu thông tin: " + missing.join(", ") + ".<br>Ghi chú yêu cầu có thể bỏ trống.";
+      } else {
+        alertEl.classList.remove("show");
+        alertEl.textContent = "";
+      }
+    }
+  });
+});
 
 capNhatTongTien();
 
@@ -835,6 +1005,7 @@ function showOrderSuccess(btn, msg) {
   document.getElementById("productId").value = "1";
   document.getElementById("packageSelect").value = "1";
   document.getElementById("quantity").value = "1";
+  clearOrderErrors();
   capNhatTongTien();
   btn.disabled = false;
   btn.innerText = "Đặt mua thêm";
@@ -852,6 +1023,7 @@ document.getElementById("orderForm").addEventListener("submit", function(e) {
   const btn = document.getElementById("btnSubmit");
   const msg = document.getElementById("msg");
   if (btn.disabled) return;
+  if (!validateOrderForm(this)) return;
   btn.disabled = true;
   btn.innerText = "Đang xử lý...";
   msg.innerHTML = "";
