@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Đăng nhập PCAUTO</title>
+  <script src="../pcauto-api.js"></script>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #f9fafb;
+      font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
+      color: #111827;
+    }
+    .card {
+      width: 100%;
+      max-width: 24rem;
+      background: #fff;
+      border: 1px solid #e5e7eb;
+      border-radius: 0.75rem;
+      padding: 1.5rem;
+      box-shadow: 0 1px 2px rgba(0,0,0,.05);
+    }
+    .badge { display: block; margin: 0 auto 0.75rem; }
+    h1 { margin: 0; font-size: 1.25rem; text-align: center; }
+    .sub { margin: 0.25rem 0 0; font-size: 0.75rem; color: #6b7280; text-align: center; }
+    label { display: block; margin: 0.75rem 0 0.25rem; font-size: 0.75rem; font-weight: 600; }
+    input {
+      width: 100%;
+      border: 1px solid #d1d5db;
+      border-radius: 0.375rem;
+      padding: 0.5rem 0.75rem;
+      font-size: 0.875rem;
+    }
+    input:focus { outline: none; border-color: #2563eb; }
+    button {
+      width: 100%;
+      margin-top: 0.75rem;
+      border: 0;
+      border-radius: 0.375rem;
+      padding: 0.5rem 0.75rem;
+      background: #2563eb;
+      color: #fff;
+      font-size: 0.875rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    button:disabled { opacity: .5; cursor: default; }
+    .err { margin-top: 0.75rem; background: #fef2f2; color: #b91c1c; border-radius: 0.375rem; padding: 0.5rem 0.75rem; font-size: 0.75rem; }
+    .ok { margin-top: 0.75rem; background: #ecfdf5; color: #065f46; border-radius: 0.375rem; padding: 0.5rem 0.75rem; font-size: 0.75rem; }
+    details { margin-top: 1rem; font-size: 0.75rem; color: #6b7280; }
+    code { font-size: 0.7rem; word-break: break-all; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <svg class="badge" width="48" height="48" viewBox="0 0 36 36" aria-hidden="true">
+      <circle cx="18" cy="18" r="18" fill="#1877F2"></circle>
+      <path d="M15.2 24.4 9.6 18.8l2.1-2.1 3.5 3.5 9.1-9.1 2.1 2.1-11.2 11.2z" fill="#fff"></path>
+    </svg>
+    <h1>Đăng nhập PCAUTO</h1>
+    <p class="sub">Form trên GitHub Pages — API vẫn chạy trên máy (HTTPS tunnel).</p>
+    <form id="f">
+      <label for="email">Email</label>
+      <input id="email" type="email" required value="admin@pcauto.local" autocomplete="username" />
+      <label for="password">Mật khẩu</label>
+      <input id="password" type="password" required autocomplete="current-password" />
+      <button type="submit" id="go">Đăng nhập</button>
+    </form>
+    <div id="msg" hidden></div>
+    <details>
+      <summary>URL API (HTTPS cổng 4000)</summary>
+      <label for="api">API base</label>
+      <input id="api" placeholder="https://xxxx.trycloudflare.com/api/v1" />
+      <p>GitHub không chạy được Nest/MySQL. Trang này chỉ là form. Máy phải mở PCAUTO + tunnel.</p>
+    </details>
+  </div>
+  <script>
+    (function () {
+      var apiEl = document.getElementById('api');
+      var saved = localStorage.getItem('pcauto_api_base');
+      apiEl.value = saved || window.PCAUTO_API_BASE || '';
+
+      function apiBase() {
+        return (apiEl.value || window.PCAUTO_API_BASE || '').replace(/\/$/, '');
+      }
+      function appUrl() {
+        return (window.PCAUTO_APP_URL || 'http://localhost:3000').replace(/\/$/, '');
+      }
+      function show(kind, text) {
+        var el = document.getElementById('msg');
+        el.hidden = false;
+        el.className = kind === 'ok' ? 'ok' : 'err';
+        el.textContent = text;
+      }
+
+      document.getElementById('f').addEventListener('submit', function (e) {
+        e.preventDefault();
+        var base = apiBase();
+        if (!base || base.indexOf('https://') !== 0) {
+          show('err', 'Cần URL API HTTPS (chạy MO-PCAUTO.bat để bật tunnel, rồi dán URL cổng 4000 /api/v1). GitHub không gọi được http://localhost.');
+          return;
+        }
+        localStorage.setItem('pcauto_api_base', base);
+        var btn = document.getElementById('go');
+        btn.disabled = true;
+        fetch(base + '/auth/login', {
+          method: 'POST',
+          headers: { 'content-type': 'application/json' },
+          body: JSON.stringify({
+            email: document.getElementById('email').value,
+            password: document.getElementById('password').value
+          })
+        }).then(function (res) {
+          return res.json().then(function (body) {
+            if (!res.ok) throw new Error(body.message || ('HTTP ' + res.status));
+            return body;
+          });
+        }).then(function (body) {
+          var at = body.tokens && body.tokens.accessToken;
+          var rt = body.tokens && body.tokens.refreshToken;
+          var email = (body.user && body.user.email) || document.getElementById('email').value;
+          if (!at) throw new Error('API không trả token');
+          var hash = 'pcauto_at=' + encodeURIComponent(at) +
+            '&pcauto_rt=' + encodeURIComponent(rt || '') +
+            '&email=' + encodeURIComponent(email);
+          show('ok', 'Đăng nhập OK — chuyển tới bàn làm việc PCAUTO…');
+          location.href = appUrl() + '/login#' + hash;
+        }).catch(function (err) {
+          show('err', err.message || String(err));
+        }).then(function () {
+          btn.disabled = false;
+        });
+      });
+    })();
+  </script>
+</body>
+</html>
